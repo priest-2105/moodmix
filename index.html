@@ -3,11 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>moodmiX || Home</title>
+    <title>MoodMix - Spotify Inspired</title>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <h1>MoodMix</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Search</a></li>
+                <li><a href="#">Your Library</a></li>
+                <hr>
+                <li><a href="#">Liked Songs</a></li>
+                <li><a href="#">My Playlist 1</a></li>
+                <li><a href="#">My Playlist 2</a></li>
+            </ul>
+        </nav>
+    </aside>
 
-    
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <section class="playlist-section">
+            <h2>Made For You</h2>
+            <div class="playlist-grid">
+                <div class="card">Playlist 1</div>
+                <div class="card">Playlist 2</div>
+                <div class="card">Playlist 3</div>
+                <div class="card">Playlist 4</div>
+            </div>
+        </section>
+        
+        <section class="current-playing">
+            <div class="now-playing">
+                <img src="album-art.jpg" alt="Album Art">
+                <div>
+                    <h3>Now Playing: Modern Love</h3>
+                    <p>Artist: David Bowie</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer (Music Player) -->
+    <footer>
+        <div class="player-controls">
+            <button>⏮</button>
+            <button>⏯</button>
+            <button>⏭</button>
+        </div>
+        <div class="track-info">
+            <p>Currently Playing: Modern Love - David Bowie</p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -1,227 +1,196 @@
-/* ROOT  */
-
-
+/* Root CSS for MoodMix UI */
 :root {
-    /* Primary Color */
-    --primary-color: #00bcd4; /* Bright Cyan */
-    
-    /* Secondary Colors */
-    --secondary-color: #00838f; /* Dark Cyan */
-    --background-color: #f5f5f5; /* Light Gray Background */
-    --text-color: #333333; /* Dark Text Color */
-    
-    /* Accent Color */
-    --accent-color: #76ff03; /* Neon Green */
-    
-    /* Mood Buttons */
-    --mood-button-bg: #00bcd4; /* Bright Cyan for Mood Buttons */
-    --mood-button-hover: #00838f; /* Dark Cyan on Hover */
-    
-    /* Playlist Card */
-    --playlist-card-bg: #ffffff; /* White Background for Cards */
-    --playlist-card-border: #e0e0e0; /* Light Gray Border */
-    --playlist-card-shadow: rgba(0, 0, 0, 0.1); /* Shadow Color */
-    --playlist-card-hover-shadow: rgba(0, 0, 0, 0.15); /* Darker Shadow on Hover */
-    
-    /* Profile Section */
-    --profile-bg: #ffffff; /* White Background for Profile */
-    --profile-text-color: #00838f; /* Dark Cyan Text Color */
-    --profile-email-color: #666666; /* Gray for Email */
-    
-    /* Footer */
-    --footer-bg: #00bcd4; /* Bright Cyan */
-    --footer-text-color: #ffffff; /* White Text */
-}
-
-
-
-/* General Reset and Base Styles */
-
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Nunito', sans-serif;
+    --primary-color: #9b51e0;
+    --secondary-color: #56ccf2;
+    --background-color: #f4f4f9;
+    --text-color: #333333;
+    --accent-color: #f2994a;
+    --dark-background-color: #121212;
+    --dark-primary-color: #bb86fc;
+    --font-family: 'Helvetica Neue', Arial, sans-serif;
+    --header-height: 60px;
+    --footer-height: 60px;
+    --sidebar-width: 250px;
+    --sidebar-width-collapsed: 60px;
+    --border-radius: 8px;
+    --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s ease;
 }
 
 body {
-    background-color: #f5f5f5;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* Header Styles */
-header {
-    background-color: #00bcd4;
-    color: #ffffff;
-    padding: 1rem 2rem;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
-
-header .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-header nav {
+    font-family: var(--font-family);
+    background-color: var(--dark-background-color);
+    color: white;
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: flex-end;
+    height: 100vh;
 }
 
-header nav a {
-    color: #ffffff;
-    margin-left: 1rem;
+/* Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar h1 {
+    color: #1db954;
+}
+
+.sidebar .logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar nav ul li a {
     text-decoration: none;
-    font-weight: bold;
+    color: white;
+    font-size: 16px;
 }
 
-header nav a:hover {
-    text-decoration: underline;
+@media (max-width: 768px) {
+    .sidebar {
+        width: var(--sidebar-width-collapsed);
+        padding: 10px;
+    }
+
+    .sidebar nav ul li a {
+        font-size: 14px;
+    }
 }
 
-/* Main Content Styles */
-main {
-    padding-top: 4rem; /* Adjust based on header height */
-    padding: 2rem;
+/* Main Content */
+.main-content {
+    margin-left: var(--sidebar-width);
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 1;
+    box-sizing: border-box;
+}
+
+/* Top Bar */
+.topbar {
+    background-color: var(--secondary-color);
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+}
+
+.topbar nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.topbar nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+/* Playlist and Mood Grid */
+.playlist-section {
+    flex: 3;
+}
+
+.mood-grid, .playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* Card */
+.card {
+    background-color: var(--dark-primary-color);
+    color: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    transition: transform var(--transition-speed);
     text-align: center;
 }
 
-h1, h2, h3 {
-    color: #00838f;
-}
-
-h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-h2 {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-}
-
-h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Mood Selector Styles */
-.mood-selector {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.mood-button {
-    background-color: #00bcd4;
-    border: none;
-    color: #ffffff;
-    padding: 1rem 2rem;
-    border-radius: 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.mood-button:hover {
-    background-color: #00838f;
-    transform: scale(1.05);
-}
-
-/* Playlist Styles */
-.playlist {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-}
-
-.playlist-card {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    overflow: hidden;
-    transition: box-shadow 0.3s, transform 0.3s;
-}
-
-.playlist-card:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+.card:hover {
     transform: translateY(-5px);
 }
 
-.playlist-card img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
+/* Current Playing */
+.current-playing {
+    flex: 1;
+    background-color: var(--dark-background-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-left: 20px;
 }
 
-.playlist-card .content {
-    padding: 1rem;
+.current-playing img {
+    max-width: 100%;
+    border-radius: var(--border-radius);
 }
 
-.playlist-card .title {
-    font-size: 1rem;
-    color: #00838f;
-    margin-bottom: 0.5rem;
+.now-playing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.playlist-card .description {
-    font-size: 0.875rem;
-    color: #666;
-}
-
-/* Profile Styles */
-.profile {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.profile img {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-bottom: 1rem;
-}
-
-.profile-info {
-    font-size: 1rem;
-}
-
-.profile-info .name {
-    font-weight: bold;
-    color: #00838f;
-}
-
-.profile-info .email {
-    color: #666;
-}
-
-/* Footer Styles */
+/* Footer (Music Player) */
 footer {
-    background-color: #00bcd4;
-    color: #ffffff;
-    text-align: center;
-    padding: 1rem 2rem;
-    position: relative;
+    background-color: var(--secondary-color);
+    color: white;
+    position: fixed;
     bottom: 0;
-    width: 100%;
+    left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    height: var(--footer-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: var(--box-shadow);
 }
 
-footer a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: bold;
+.player-controls button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    margin: 0 10px;
+    cursor: pointer;
 }
 
-footer a:hover {
-    text-decoration: underline;
+.track-info {
+    font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: var(--sidebar-width-collapsed);
+    }
+
+    footer {
+        left: var(--sidebar-width-collapsed);
+        width: calc(100% - var(--sidebar-width-collapsed));
+    }
 }
