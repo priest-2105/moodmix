@@ -188,7 +188,8 @@ footer {
     .main-content {
         margin-left: var(--sidebar-width-collapsed);
     }
-
+    
+    
     footer {
         left: var(--sidebar-width-collapsed);
         width: calc(100% - var(--sidebar-width-collapsed));
