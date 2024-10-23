@@ -179,10 +179,10 @@ footer {
     cursor: pointer;
 }
 
+
 .track-info {
     font-size: 14px;
 }
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .main-content {
