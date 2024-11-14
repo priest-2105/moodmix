@@ -1,197 +1,103 @@
-/* Root CSS for MoodMix UI */
-:root {
-    --primary-color: #9b51e0;
-    --secondary-color: #56ccf2;
-    --background-color: #f4f4f9;
-    --text-color: #333333;
-    --accent-color: #f2994a;
-    --dark-background-color: #121212;
-    --dark-primary-color: #bb86fc;
-    --font-family: 'Helvetica Neue', Arial, sans-serif;
-    --header-height: 60px;
-    --footer-height: 60px;
-    --sidebar-width: 250px;
-    --sidebar-width-collapsed: 60px;
-    --border-radius: 8px;
-    --box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    --transition-speed: 0.3s ease;
-}
-
-body {
-    font-family: var(--font-family);
-    background-color: var(--dark-background-color);
-    color: white;
+ *{
     margin: 0;
     padding: 0;
+    box-sizing: content-box;
+ }
+
+ body{
     display: flex;
+    width: 100%;
     height: 100vh;
+    overflow: hidden;
+ }
+
+
+
+
+/* Sidebar Styling */
+
+.navigation-sidebar{
+    background-color: #212124;
+    height: 100vh;
+    width: 15%;
+    overflow: hidden;
 }
 
-/* Sidebar */
-.sidebar {
-    width: var(--sidebar-width);
-    background-color: var(--primary-color);
-    color: white;
-    padding: 20px;
-    box-sizing: border-box;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+.navigation-sidebar .logo img{
+    width: 60px;
+    height: 60px;
+ }
 
-.sidebar h1 {
-    color: #1db954;
-}
-
-.sidebar .logo {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.sidebar nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar nav ul li {
-    margin-bottom: 20px;
-}
-
-.sidebar nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: var(--sidebar-width-collapsed);
-        padding: 10px;
-    }
-
-    .sidebar nav ul li a {
-        font-size: 14px;
-    }
-}
-
-/* Main Content */
-.main-content {
-    margin-left: var(--sidebar-width);
-    padding: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-grow: 1;
-    box-sizing: border-box;
-}
-
-/* Top Bar */
-.topbar {
-    background-color: var(--secondary-color);
-    padding: 10px;
-    margin-bottom: 20px;
-    box-shadow: var(--box-shadow);
-}
-
-.topbar nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: space-around;
-}
-
-.topbar nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-}
-
-/* Playlist and Mood Grid */
-.playlist-section {
-    flex: 3;
-}
-
-.mood-grid, .playlist-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-/* Card */
-.card {
-    background-color: var(--dark-primary-color);
-    color: white;
-    border-radius: var(--border-radius);
-    padding: 20px;
-    transition: transform var(--transition-speed);
-    text-align: center;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-}
-
-/* Current Playing */
-.current-playing {
-    flex: 1;
-    background-color: var(--dark-background-color);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    margin-left: 20px;
-}
-
-.current-playing img {
-    max-width: 100%;
-    border-radius: var(--border-radius);
-}
-
-.now-playing {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Footer (Music Player) */
-footer {
-    background-color: var(--secondary-color);
-    color: white;
-    position: fixed;
-    bottom: 0;
-    left: var(--sidebar-width);
-    width: calc(100% - var(--sidebar-width));
-    height: var(--footer-height);
+ .navigation-sidebar-top{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    box-shadow: var(--box-shadow);
+    padding: 20px;
 }
 
-.player-controls button {
-    background: none;
+ .sidebar-top-dropdown-button{
+    background-color: transparent;
+    height: fit-content;
     border: none;
-    color: white;
-    font-size: 18px;
-    margin: 0 10px;
+    cursor: pointer;    
+    padding: 3px;
+ }
+
+ .sidebar-top-dropdown-button:hover{
+    background-color: #4C4E54;
+    height: fit-content;
+    border: none;  
+    border-radius: 8px;
+ }
+
+ .inner-sidebar-navigation{
+    display: block;
+    padding: 20px;
+    height: 90vh;
+    overflow: scroll;
+ }
+
+.inner-sidebar-navigation::-webkit-scrollbar-thumb{
+    background-color: #4C4E54;
+    border-radius: 8px;
+}
+
+
+ .navigation-sidebar nav {
+    margin-bottom: 40px;   
+ }
+
+ .navigation-sidebar nav h5{
+    color: #9898A6;
+    font-size: 13px;
+    cursor:default;
+    margin-bottom: 10px;
+ }
+
+.navigation-sidebar nav li{
+    list-style-type: none;
+    color: #FCFCFC;
+    font-size: 14px;
+    padding: 15px 10px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.navigation-sidebar nav li:hover{
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+    color: #00FFFF;
+    background-color: #4C4E54;
     cursor: pointer;
 }
 
+.navigation-sidebar nav li img{
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+    margin-bottom: -5px;
+}
 
-.track-info {
-    font-size: 14px;
-}
-/* Responsive Design */
-@media (max-width: 768px) {
-    .main-content {
-        margin-left: var(--sidebar-width-collapsed);
-    }
-    
-    
-    footer {
-        left: var(--sidebar-width-collapsed);
-        width: calc(100% - var(--sidebar-width-collapsed));
-    }
-}
+/* End Sidebar Styling */
