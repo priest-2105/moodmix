@@ -6,6 +6,7 @@
     <title>MoodMix </title>
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     
@@ -97,15 +98,57 @@
 
 
     <!-- Footer (Music Player) -->
-    <!-- <footer>
-        <div class="player-controls">
-            <button>⏮</button>
-            <button>⏯</button>
-            <button>⏭</button>
+    <div class="bottom-music-player">
+
+        <div class="botttom-music-player-music-details">
+           <img src="./assets/images/Rectangle 39.png" alt="music-cover">
+         <div>
+            <div class="botttom-music-player-music-details-inner">
+              <span>Modern Love</span>
+              <button> 
+                <!-- <i class="bi bi-heart-fill"></i> -->
+                 <i class="bi bi-heart"></i> 
+                </button>
+              <button> <i class="bi bi-three-dots"></i></button>
+            </div>
+            <p>David Bowie</p>
+            <p>Playing from : Love in the Time of Cholera</p>
+         </div>
         </div>
-        <div class="track-info">
-            <p>Currently Playing: Modern Love - David Bowie</p>
+     
+
+     
+        <div class="botttom-music-player-music-player-controls">
+        
+            <div class="botttom-music-player-music-player-controls-inner-top">
+            <button class="shuffle-button"><i class="bi bi-shuffle"></i></button>
+            <button class="prev-skip-button"> <i class="bi bi-skip-start-fill"></i> </button>
+            <button class="play-button"> <i class="bi bi-play-fill"></i> </button>
+            <!-- <button class="pause-button"> <i class="bi bi-pause-fill"></i> </button> -->
+            <button class="next-skip-button"> <i class="bi bi-skip-end-fill"></i> </button>
+            <button class="loop-button"><i class="bi bi-shuffle"></i></button>
+          </div> 
+
+          <div class="botttom-music-player-music-player-controls-inner-bottom">
+            <p>0:00</p>
+            <input type="range" min="0" max="100" value="50">
+            <p>4:23</p>
+            </div>
+
+
         </div>
-    </footer> -->
+
+
+        <div class="botttom-music-player-music-player-settings">
+            <button><i class="bi bi-volume-up"></i></button>
+            <button><i class="bi bi-cast"></i></button>
+            <button><i class="bi bi-list"></i></button>
+            <button> <i class="bi bi-list"></i> </button>
+            
+       </div>
+      
+    </div>
+
+
 </body>
 </html>

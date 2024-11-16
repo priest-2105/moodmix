@@ -227,3 +227,248 @@
 .main-content-header .profile-section img:hover{
    cursor: pointer;
 }
+
+
+
+
+
+
+/* Footer music player styles  */
+
+.bottom-music-player{
+   display: flex;
+   padding: 20px;
+   /* justify-content: space-between; */
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    background-color: #43438b;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    transform: translateY(-0px);
+}
+
+.bottom-music-player:hover{
+   transition-duration: 0.3s;
+   transform: translateY(-5px);
+}
+
+.botttom-music-player-music-details{
+   align-items: center;
+   display: flex;
+   cursor:default;
+}
+
+.botttom-music-player-music-details span{
+   color: #fcfcfc;
+   font-weight: 500;
+   cursor:default;
+   font-size: 0.9rem;
+}
+
+.botttom-music-player-music-details p{
+   color: #fcfcfcb2;
+   font-weight: 500;
+   margin-top: 4px;
+   font-size: 0.9rem;
+   cursor:default;
+}
+
+
+.botttom-music-player-music-details img {
+   height: 65px;
+   width: 65px;
+   margin-right: 10px;
+}
+
+.botttom-music-player-music-details-inner{
+   align-items: center;
+}
+
+.botttom-music-player-music-details button{
+   background-color: transparent;
+   border: none;
+   cursor: pointer;
+   color: #fcfcfccb;
+   margin-left: 5px;
+}
+
+.botttom-music-player-music-details button:hover{
+   color: #fcfcfc;
+}
+
+.botttom-music-player-music-player-controls{
+   margin-left: auto;
+   margin-right: auto;
+   justify-content: center;
+}
+
+.botttom-music-player-music-player-controls-inner-top{
+   display: flex;
+   justify-content: center;
+   margin-left: auto;
+   margin-right: auto;
+   align-items: center;
+}
+
+.botttom-music-player-music-player-controls .botttom-music-player-music-player-controls-inner-top button{
+   margin:0 10px;
+   color: #fcfcfca8;
+   background-color: transparent;
+   border: none;
+   cursor: pointer;
+}
+
+.botttom-music-player-music-player-controls .botttom-music-player-music-player-controls-inner-top button:hover{
+   color: #fcfcfc;
+}
+
+.botttom-music-player-music-player-controls .botttom-music-player-music-player-controls-inner-top .shuffle-button,
+.botttom-music-player-music-player-controls .botttom-music-player-music-player-controls-inner-top .loop-button{
+   font-size: 1rem;
+}
+
+.botttom-music-player-music-player-controls .botttom-music-player-music-player-controls-inner-top .prev-skip-button,
+.botttom-music-player-music-player-controls .botttom-music-player-music-player-controls-inner-top .next-skip-button{
+   font-size: 1.3rem;
+}
+
+.botttom-music-player-music-player-controls .botttom-music-player-music-player-controls-inner-top .play-button,
+.botttom-music-player-music-player-controls .botttom-music-player-music-player-controls-inner-top .pause-button{
+   color: #fcfcfc;
+   font-size: 2rem;
+}
+
+.botttom-music-player-music-player-controls-inner-bottom{
+   display: flex;
+   align-items: center;
+}
+
+.botttom-music-player-music-player-controls-inner-bottom p{
+   color: #fcfcfc;
+   font-weight: 700;
+   font-size: 0.9rem;
+   align-items: center;
+   padding: 0 5px;
+}
+
+
+
+/* stlyes for the music range on multiple browsers */
+
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"] {
+   -webkit-appearance: none; /* Removes default styling for WebKit browsers */
+   width: 350px; /* Full width of the parent container */
+   height: 5px; /* Height of the slider track */
+   background: #fcfcfc79; /* Default background */
+   border-radius: 5px; /* Rounded edges for the track */
+   outline: none; /* Removes default outline */
+   overflow: hidden; /* Ensures the thumb doesn't extend past the track */
+}
+
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]::-webkit-slider-runnable-track {
+   width: 100%;
+   height: 8px;
+   background: linear-gradient(to right, #fcfcfc 50%, #fcfcfc79 50%); /* Track gradient indicating progress */
+   border-radius: 5px;
+   border: none;
+}
+
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]::-webkit-slider-thumb {
+   -webkit-appearance: none; /* Removes default styling */
+   width: 16px; /* Thumb size */
+   height: 16px;
+   background: #fcfcfc; /* Default thumb color */
+   border-radius: 50%; /* Makes the thumb circular */
+   cursor: pointer; /* Changes cursor to pointer */
+   margin-top: -4px; /* Centers the thumb on the track */
+}
+
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]:hover::-webkit-slider-thumb,
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]:active::-webkit-slider-thumb {
+   background: #00FFFF; /* Changes color on hover or active state */
+}
+
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]:hover::-webkit-slider-runnable-track,
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]:active::-webkit-slider-runnable-track {
+   background: linear-gradient(to right, #00FFFF 50%, #fcfcfc79 50%); /* Adjust progress color during hover/active */
+}
+
+/* Firefox */
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]::-moz-range-track {
+   width: 100%;
+   height: 8px;
+   background: #fcfcfc5e;
+   border-radius: 5px;
+   border: none;
+}
+
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]::-moz-range-thumb {
+   width: 16px;
+   height: 16px;
+   background: #fcfcfc;
+   border-radius: 50%;
+   cursor: pointer;
+}
+
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]:hover::-moz-range-thumb,
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]:active::-moz-range-thumb {
+   background: #00FFFF;
+}
+
+/* IE */
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]::-ms-track {
+   width: 100%;
+   height: 8px;
+   background: transparent;
+   border-color: transparent;
+   border-width: 6px 0;
+   color: transparent;
+}
+
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]::-ms-thumb {
+   width: 16px;
+   height: 16px;
+   background: #fcfcfc;
+   border-radius: 50%;
+   cursor: pointer;
+}
+
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]::-ms-fill-lower {
+   background: #fcfcfc;
+   border-radius: 5px;
+}
+
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]::-ms-fill-upper {
+   background: #fcfcfc79;
+   border-radius: 5px;
+}
+
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]:hover::-ms-thumb,
+.botttom-music-player-music-player-controls-inner-bottom input[type="range"]:active::-ms-thumb {
+   background: #00FFFF;
+}
+
+
+
+.botttom-music-player-music-player-settings{
+   display: flex;
+   align-items: center;
+   padding-right: 50px;
+}
+
+
+
+.botttom-music-player-music-player-settings button{
+   background-color: transparent;
+   border: none;
+   cursor: pointer;
+   color: #FCFCFC;
+   font-size: 1.5rem;
+   margin-left: 10px;
+   margin-right: 10px;
+}
+
+
+
+/* End of .bottom foooteer musci player styles  */
