@@ -101,3 +101,129 @@
 }
 
 /* End Sidebar Styling */
+
+
+
+
+/* Main Content styles */
+
+
+.main-content{
+   background-color: #1F1F22;
+   width: 85%;
+   height: 100vh;
+   overflow-x: hidden;
+   overflow-y: scroll;
+}
+
+.main-content-header{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 30px 20px;   
+}
+
+.main-content-header .direction-arrows{
+   display: flex;
+   justify-content: space-between;
+   width: 80px;
+}
+
+
+.main-content-header .direction-arrows button{
+   border: 1.5px solid #fcfcfc6b;
+   border-radius: 50%;
+   background-color: transparent;
+   padding:  8px 10px;
+   transition-duration: 0.2s;
+   transition-timing-function: ease-in-out;
+}
+
+.main-content-header .direction-arrows button:hover{
+   border: 1.5px solid #FCFCFC;
+   cursor: pointer;
+   transition-duration: 0.2s;
+   transition-timing-function: ease-in-out;
+}
+
+.main-content-header .direction-arrows button:active{
+   border: 1.5px solid #00FFFF;
+   cursor: pointer;
+   transition-duration: 0.2s;
+   transition-timing-function: ease-in-out;
+}
+
+.main-content-header .direction-arrows button img{
+   height: 10px;
+   width: 10px;
+}
+
+.main-content-header-inner-end{
+   display: flex;
+   align-items: center;
+   width: 100%;
+   justify-content: end;
+}
+
+.main-content-header .search-bar{
+   color: #FCFCFC;
+   border-radius: 12px;
+   height: fit-content;
+   border: 1px solid #fcfcfc6b;
+   align-items: center;
+   padding:0 1rem;
+   margin-right: 20px;
+   width: 30%;
+   transition-duration: 0.2s;
+   transition-timing-function: ease-in-out;
+}
+
+.main-content-header .search-bar:hover{
+   border: 1px solid #fcfcfc;
+   transition-duration: 0.2s;
+   transition-timing-function: ease-in-out;
+}
+
+
+.main-content-header .search-bar input{
+   /* width: 300px; */
+   background-color: transparent;
+   padding: 0.7rem 0.9rem;
+   height: 20px;
+   outline: none;
+   border: none;
+   color: #FCFCFC;
+   transition-duration: 0.2s;
+   transition-timing-function: ease-in-out;
+}
+
+.main-content-header .search-bar input:active,
+.main-content-header .search-bar input:hover,
+.main-content-header .search-bar input::selection{
+   border: none;
+   transition-duration: 0.2s;
+   transition-timing-function: ease-in-out;
+   outline: none;
+}
+
+
+
+.main-content-header .profile-section{
+   border-radius: 50%;
+}
+
+
+.main-content-header .profile-section:hover{
+   cursor: pointer;
+}
+
+
+.main-content-header .profile-section img{
+   height: 30px;
+   width: 30px;
+   border-radius: 50%;
+}
+
+.main-content-header .profile-section img:hover{
+   cursor: pointer;
+}
