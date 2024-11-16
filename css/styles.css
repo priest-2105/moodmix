@@ -242,16 +242,21 @@
     position: fixed;
     bottom: 20px;
     width: 100%;
-    background-color: #43438b;
+    background-color: #1F1F22;
     transition-duration: 0.3s;
     transition-timing-function: ease-in-out;
     transform: translateY(-0px);
-}
+    box-shadow: 5px 0px 6px 2px #00ffff0e;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+ }
 
-.bottom-music-player:hover{
+ .bottom-music-player:hover{
    transition-duration: 0.3s;
-   transform: translateY(-5px);
-}
+   transition-timing-function: ease-in-out;
+   box-shadow: 5px 0px 6px 2px #00ffff33;
+   }
+
 
 .botttom-music-player-music-details{
    align-items: center;
@@ -357,19 +362,19 @@
 /* stlyes for the music range on multiple browsers */
 
 .botttom-music-player-music-player-controls-inner-bottom input[type="range"] {
-   -webkit-appearance: none; /* Removes default styling for WebKit browsers */
-   width: 350px; /* Full width of the parent container */
-   height: 5px; /* Height of the slider track */
-   background: #fcfcfc79; /* Default background */
-   border-radius: 5px; /* Rounded edges for the track */
-   outline: none; /* Removes default outline */
-   overflow: hidden; /* Ensures the thumb doesn't extend past the track */
+   -webkit-appearance: none;  
+   width: 350px;  
+   height: 4px; 
+   background: #fcfcfc79;
+   border-radius: 5px; 
+   outline: none;  
+   /* overflow: hidden  */
 }
 
 .botttom-music-player-music-player-controls-inner-bottom input[type="range"]::-webkit-slider-runnable-track {
    width: 100%;
    height: 8px;
-   background: linear-gradient(to right, #fcfcfc 50%, #fcfcfc79 50%); /* Track gradient indicating progress */
+   background: linear-gradient(to right, #fcfcfc 50%, #fcfcfc79 50%);  
    border-radius: 5px;
    border: none;
 }
@@ -378,15 +383,16 @@
    -webkit-appearance: none; /* Removes default styling */
    width: 16px; /* Thumb size */
    height: 16px;
-   background: #fcfcfc; /* Default thumb color */
-   border-radius: 50%; /* Makes the thumb circular */
-   cursor: pointer; /* Changes cursor to pointer */
-   margin-top: -4px; /* Centers the thumb on the track */
+   background: #FCFCFC; 
+   border-radius: 50%;  
+   cursor: pointer;  
+   margin-top: -4px; 
+   z-index: 99;
 }
 
 .botttom-music-player-music-player-controls-inner-bottom input[type="range"]:hover::-webkit-slider-thumb,
 .botttom-music-player-music-player-controls-inner-bottom input[type="range"]:active::-webkit-slider-thumb {
-   background: #00FFFF; /* Changes color on hover or active state */
+   background: #00FFFF; 
 }
 
 .botttom-music-player-music-player-controls-inner-bottom input[type="range"]:hover::-webkit-slider-runnable-track,
@@ -463,12 +469,17 @@
    background-color: transparent;
    border: none;
    cursor: pointer;
-   color: #FCFCFC;
+   color: #fcfcfc6e;
    font-size: 1.5rem;
    margin-left: 10px;
    margin-right: 10px;
 }
 
+
+
+.botttom-music-player-music-player-settings button:hover{
+   color: #FCFCFC;
+}
 
 
 /* End of .bottom foooteer musci player styles  */
