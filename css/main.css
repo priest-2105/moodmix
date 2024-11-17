@@ -178,6 +178,7 @@
 
    
    .sidebar-mobile-search-btn{
+      display: none;
       background-color: transparent;
       border: none;
    }
@@ -186,15 +187,24 @@
       background-color: transparent;
       border: none;
       color: #fcfcfc80;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
+      cursor: pointer;
       font-weight: 600;
       margin-left: 10px;
    }
 
+   .sidebar-open-btn:hover{
+      color: #fcfcfc;
+   }
+
+   .sidebar-open-btn:active{
+      color: #00FFFF;
+   }
+
 
    .sidebar-mobile-search-btn img{
-      height: 28px;
-      width: 28px;
+      height: 25px;
+      width: 25px;
    }
 
 
@@ -250,7 +260,7 @@
       display: flex;
       padding:0 1rem;
       margin-right: 5px;
-      width: 180px;
+      width: 280px;
       transition-duration: 0.2s;
       transition-timing-function: ease-in-out;
    }
@@ -262,7 +272,7 @@
    }
 
    .main-content-header  .mobile-header .mobile-header-search-bar img{
-      margin-bottom: -4px;
+      margin-right: 4px;
    }
 
    .main-content-header  .mobile-header .mobile-header-search-bar input{
@@ -270,7 +280,6 @@
       padding: 0.3rem 0rem;
       height: 22px;
       outline: none;
-      width: 100px;
       border: none;
       color: #FCFCFC;
       transition-duration: 0.2s;
@@ -343,6 +352,7 @@
 
    .sidebar-mobile-search-btn{
       background-color: transparent;
+      display: block;
       border: none;
    }
 
@@ -357,8 +367,8 @@
 
 
    .sidebar-mobile-search-btn img{
-      height: 28px;
-      width: 28px;
+      height: 23px;
+      width: 23px;
    }
 
 

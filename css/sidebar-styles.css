@@ -139,12 +139,13 @@
   }
 
   .sidebar-filler{
-   display: block;
+   display: none;
    position: fixed;
    height: 100vh;
+   top: 0;
    width: 100vw;
-   background-color: red;
-   z-index: 95;
+   background-color: transparent;
+   z-index: 90;
    }
 
 
@@ -153,6 +154,7 @@
   }
 
   .sidebar-close-btn{
+   display: block;
      background-color: transparent;
      border: none;
      color: #fcfcfc71;

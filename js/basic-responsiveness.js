@@ -6,11 +6,8 @@ const sidebarMain = document.querySelector('.navigation-sidebar');
 const mobileSearchBar_El = document.querySelector('.mobile-header-search-bar');
 const mobileOpenSearchBtn = document.querySelector('#sidebarOpenSearch');
 const mobileCloseSearchBtn = document.querySelector('.mobile-close-search-btn');
-
+const sideBarFiller = document.querySelector('.sidebar-filler')
 // End Variables Declarations
-
-
-
 
 
 
@@ -22,15 +19,13 @@ const mobileCloseSearchBtn = document.querySelector('.mobile-close-search-btn');
 
 // Event listener to open sidebar 
 sidebarOpenBtn.addEventListener('click', () => {
-    if (!document.querySelector('.sidebar-filler')) {
-        const sideBarFiller = document.createElement('div');
-        sideBarFiller.classList.add('sidebar-filler');
+        sideBarFiller.style.display = 'block';
         sideBarFiller.addEventListener('click', () => {
             sidebarMain.classList.remove('sidebar-toggle');
-            sideBarFiller.remove();
+            sideBarFiller.style.display = 'none';
         });
         document.body.appendChild(sideBarFiller);
-    }
+    
     sidebarMain.classList.add('sidebar-toggle');
 });
 
@@ -39,10 +34,7 @@ sidebarOpenBtn.addEventListener('click', () => {
 // Event listener to close sidebar
 sidebarCloseBtn.addEventListener('click', () => { 
     sidebarMain.classList.remove('sidebar-toggle');
-    const existingFiller = document.querySelector('.sidebar-filler');
-    if (existingFiller) {
-        existingFiller.remove();
-    }
+   
 })
 
 
