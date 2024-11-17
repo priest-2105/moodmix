@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoodMix </title>
-    <link rel="stylesheet" href="./css/styles.css">
     <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon">
+
+    <!-- Icon Import  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Styles import  -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/footer-player.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/navbar-styles.css">
+    <link rel="stylesheet" href="./css/sidebar-styles.css">
+
 </head>
 <body>
     
@@ -61,6 +70,10 @@
         
 
     </div>
+      <div class="sidebar-profile-section">
+        <img src="./assets/images/profile-img.png" alt="user-profile">
+      </div>
+
     </aside>
 
 
@@ -72,7 +85,30 @@
     
 
         <header class="main-content-header">
-          <button class="sidebar-close-btn" id="sidebarOpenBtn"> <i class="bi bi-list"></i> </button>
+        
+          <div class="mobile-header">
+          <div class="mobile-header-logo">
+            <img src="./assets/images/logo.png" alt="moodmix-logo">
+          </div>
+
+     
+          <div class="mobile-header-end">
+          <div class="mobile-header-search-bar">
+            <img src="./assets/icons/Search.png" alt="">
+            <input type="text" name="" placeholder="Search" id="">
+          </div>
+     
+        <button class="sidebar-mobile-search-btn" id="sidebarOpenSearch"> <img src="./assets/icons/Search.png" alt="">  </button>
+  
+        <button class="sidebar-open-btn" id="sidebarOpenBtn"> <i class="bi bi-list"></i> </button>
+      
+        <button class="mobile-close-search-btn" id="mobile-close-search-btn"> <i class="bi bi-x-lg"></i> </button>
+          
+        </div>
+
+         </div>
+          
+
 
         <div class="direction-arrows">
             <button class="back-arrow"> <img src="./assets/icons/left-direction-icon.png" alt="left-arrow"></button>

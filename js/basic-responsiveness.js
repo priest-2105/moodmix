@@ -3,8 +3,16 @@
 const sidebarOpenBtn = document.querySelector('#sidebarOpenBtn');
 const sidebarCloseBtn = document.querySelector('#sidebarCloseBtn');
 const sidebarMain = document.querySelector('.navigation-sidebar');
+const mobileSearchBar_El = document.querySelector('.mobile-header-search-bar');
+const mobileOpenSearchBtn = document.querySelector('#sidebarOpenSearch');
+const mobileCloseSearchBtn = document.querySelector('.mobile-close-search-btn');
 
 // End Variables Declarations
+
+
+
+
+
 
 
 
@@ -38,6 +46,30 @@ sidebarCloseBtn.addEventListener('click', () => {
 })
 
 
-
-
 //End of  Events 
+
+
+
+
+
+// Mobile Search toggling logic
+
+
+mobileOpenSearchBtn.addEventListener('click', () => {
+
+    mobileSearchBar_El.style.display = 'block';
+    mobileCloseSearchBtn.style.display = 'block';
+    mobileOpenSearchBtn.style.display = 'none';
+    sidebarOpenBtn.style.display = 'none';
+    
+
+})
+
+
+mobileCloseSearchBtn.addEventListener('click', () => {
+
+    mobileSearchBar_El.style.display = 'none';
+    mobileCloseSearchBtn.style.display = 'none';
+    mobileOpenSearchBtn.style.display = 'block';
+    sidebarOpenBtn.style.display = 'block';
+})
