@@ -378,18 +378,17 @@
 
 
    
-   .bottom-music-player-music-player-controls-inner-top.mobile.next-skip-button,
-   .bottom-music-player-music-player-controls-inner-top.mobile.loop-button,
-   .bottom-music-player-music-player-controls-inner-top.mobile.prev-skip-button,
-   .bottom-music-player-music-player-controls-inner-top.mobile.shuffle-button{
-      display: none;
+   .bottom-music-player-music-player-controls-inner-top{
+      position: absolute;
+      top: 40%;
+      right: 10px;
    }
 
    .bottom-music-player-music-player-controls-inner-top.mobile.play-button{
-
+      font-size: 2rem;
    }
 
-   .bottom-music-player-music-player-controls-inner-top.mobile.pause-button{}
+   .bottom-music-player-music-player-controls-inner-top.mobile .pause-button{}
 
     }
 
@@ -398,6 +397,14 @@
 
 
 
+@media only screen and (max-width: 620px) {
+   .bottom-music-player-music-player-controls-inner-top.mobile .next-skip-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .loop-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .prev-skip-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .shuffle-button{
+      display: none;
+   }
+}
 
 
 
@@ -406,7 +413,16 @@
 
 @media only screen and (max-width: 480px) {
 
-    
+   
+      
+   .bottom-music-player-music-player-controls-inner-top.mobile .next-skip-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .loop-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .prev-skip-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .shuffle-button{
+      display: none;
+   }
+
+   
 
     
 

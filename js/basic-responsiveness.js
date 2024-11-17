@@ -34,7 +34,7 @@ sidebarOpenBtn.addEventListener('click', () => {
 // Event listener to close sidebar
 sidebarCloseBtn.addEventListener('click', () => { 
     sidebarMain.classList.remove('sidebar-toggle');
-   
+    sideBarFiller.style.display = 'none';
 })
 
 

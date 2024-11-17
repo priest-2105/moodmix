@@ -6,6 +6,10 @@
 
 /* Sidebar Styling */
 
+.sidebar-filler{
+   display: none;
+   }
+
 .navigation-sidebar{
    background-color: #212124;
    height: 100vh;
@@ -144,7 +148,7 @@
    height: 100vh;
    top: 0;
    width: 100vw;
-   background-color: transparent;
+   background-color: red;
    z-index: 90;
    }
 
