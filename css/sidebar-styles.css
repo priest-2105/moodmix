@@ -148,7 +148,7 @@
    height: 100vh;
    top: 0;
    width: 100vw;
-   background-color: red;
+   background-color: transparent;
    z-index: 90;
    }
 

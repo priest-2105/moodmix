@@ -117,9 +117,25 @@
 
 .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .play-button,
 .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .pause-button{
-   color: #fcfcfc;
+   color: #fcfcfca9;
    font-size: 2rem;
+   transition-duration: 0.2s;
+   transition: ease-in-out;
 }
+
+.bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .play-button:hover,
+.bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .pause-button:hover{
+   color: #fcfcfc;
+}
+
+
+/* pause should be initially hidden  */
+.bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .pause-button{
+
+   display: none;
+
+}
+
 
 .bottom-music-player-music-player-controls-inner-bottom{
    display: flex;
@@ -398,6 +414,23 @@
 
 
 @media only screen and (max-width: 620px) {
+
+   .mobile-bottom-music-player{
+      display: block;
+      height: 100vh;
+      background-color: wheat;
+      width: 100%;
+      transform: translateY(-200%);
+      transition-duration: 0.1s;
+   }
+
+   .mobile-bottom-music-player-active{
+      transform: translateY(0%);
+      transition-duration: 0.3s;
+   }
+
+   
+
    .bottom-music-player-music-player-controls-inner-top.mobile .next-skip-button,
    .bottom-music-player-music-player-controls-inner-top.mobile .loop-button,
    .bottom-music-player-music-player-controls-inner-top.mobile .prev-skip-button,

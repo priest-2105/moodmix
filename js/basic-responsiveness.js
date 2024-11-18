@@ -6,7 +6,17 @@ const sidebarMain = document.querySelector('.navigation-sidebar');
 const mobileSearchBar_El = document.querySelector('.mobile-header-search-bar');
 const mobileOpenSearchBtn = document.querySelector('#sidebarOpenSearch');
 const mobileCloseSearchBtn = document.querySelector('.mobile-close-search-btn');
-const sideBarFiller = document.querySelector('.sidebar-filler')
+const sideBarFiller = document.querySelector('.sidebar-filler');
+const playButtons = document.querySelectorAll('.play-button');
+const pauseButtons = document.querySelectorAll('.pause-button');
+const bottomMusicPlayerInner_El = document.querySelector('.bottom-music-player-inner');
+const mobileBottomMusicPlayer_El = document.querySelector('.mobile-bottom-music-player');
+
+
+
+
+
+
 // End Variables Declarations
 
 
@@ -58,6 +68,7 @@ mobileOpenSearchBtn.addEventListener('click', () => {
 })
 
 
+// Mobile close search button 
 mobileCloseSearchBtn.addEventListener('click', () => {
 
     mobileSearchBar_El.style.display = 'none';
@@ -65,3 +76,44 @@ mobileCloseSearchBtn.addEventListener('click', () => {
     mobileOpenSearchBtn.style.display = 'block';
     sidebarOpenBtn.style.display = 'block';
 })
+
+
+//  Play pause buttons functionality
+
+playButtons.forEach((playButton, index) => {
+    playButton.addEventListener('click', () => {
+        playButton.style.display = 'none'; // Hide the clicked play button
+        pauseButtons[index].style.display = 'block'; // Show the corresponding pause button
+    });
+});
+
+pauseButtons.forEach((pauseButton, index) => {
+    pauseButton.addEventListener('click', () => {
+        pauseButton.style.display = 'none'; // Hide the clicked pause button
+        playButtons[index].style.display = 'block'; // Show the corresponding play button
+    });
+});
+
+
+
+// Click functionality for Mobile bottom music player 
+
+const mediaQuery = window.matchMedia('(max-width: 628px)');
+
+// Function to apply styles based on screen size
+function applyStylesForScreenSize(e) {
+    if (e.matches) {
+
+        bottomMusicPlayerInner_El.addEventListener('click', () => {
+            mobileBottomMusicPlayer_El.classList.add('mobile-bottom-music-player-active');
+        })
+
+    }
+}
+
+// Attach a listener to handle screen size changes
+mediaQuery.addEventListener('change', applyStylesForScreenSize);
+
+// Initial check and apply styles
+applyStylesForScreenSize(mediaQuery);
+
