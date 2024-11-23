@@ -470,13 +470,14 @@
    }
 
    
-   .bottom-music-player-music-details-inner{
+   .buttom-music-player-details-block{
       display: flex;
       align-items: center;
+      justify-content: space-between;
    }
 
-   .bottom-music-player-music-details-inner button{ 
-      font-size:1rem;
+   .buttom-music-player-details-block button{ 
+      font-size:1.1rem;
    }
 
    .mobile-bottom-music-player-music-details span {
@@ -496,13 +497,21 @@
       /* transform: translateY(0%); */
       transition-duration: 0.3s;
    }
-
+   .bottom-music-player-music-player-controls-inner-top{
+      position: relative;
+   }
+   
+   .mobile-bottom-music-player-music-player-controls-inner-top{
+      display: block;
+      position: relative;
+   }
 
    .mobile-bottom-music-player-music-player-controls-inner-top .next-skip-button,
    .mobile-bottom-music-player-music-player-controls-inner-top .loop-button,
    .mobile-bottom-music-player-music-player-controls-inner-top .prev-skip-button,
    .mobile-bottom-music-player-music-player-controls-inner-top .shuffle-button{
       display: block;
+      position: relative;
    }
 }
 
