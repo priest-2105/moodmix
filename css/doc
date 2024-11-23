@@ -1,0 +1,516 @@
+
+
+.bottom-music-player{
+   display: flex;
+   padding: 20px;
+   /* justify-content: space-between; */
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    background-color: #1F1F22;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    transform: translateY(-0px);
+    box-shadow: 5px 0px 6px 2px #00ffff0e;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+   }
+
+   
+   .bottom-music-player:hover{
+      transition-duration: 0.3s;
+      transition-timing-function: ease-in-out;
+      box-shadow: 5px 0px 6px 2px #00ffff33;
+      }
+
+      .bottom-music-player-inner{
+         display: flex;
+         width: 100%;
+      }
+      
+
+      .mobile-bottom-music-player-music-details,
+      .bottom-music-player-music-details{
+      align-items: center;
+      display: flex;
+      cursor:default;
+   }
+   .mobile-bottom-music-player-music-details,
+   .bottom-music-player-music-details span{
+      color: #fcfcfc;
+      font-weight: 500;
+      cursor:default;
+      font-size: 0.9rem;
+   }
+
+   .mobile-bottom-music-player-music-details,
+   .bottom-music-player-music-details p{
+      color: #fcfcfcb2;
+      font-weight: 500;
+      margin-top: 4px;
+      font-size: 0.9rem;
+      cursor:default;
+   }
+
+
+   .mobile-bottom-music-player-music-details,
+   .bottom-music-player-music-details img {
+      height: 65px;
+      width: 65px;
+      margin-right: 10px;
+   }
+
+   .bottom-music-player-music-details-inner,
+   .bottom-music-player-music-details-inner{
+      align-items: center;
+   }
+
+   .mobile-bottom-music-player-music-details,
+   .bottom-music-player-music-details button{
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: #fcfcfccb;
+      margin-left: 5px;
+   }
+
+   .mobile-bottom-music-player-music-details,
+   .bottom-music-player-music-details button:hover{
+      color: #fcfcfc;
+   }
+
+      .bottom-music-player-music-player-controls,
+      .bottom-music-player-music-player-controls{
+      margin-left: auto;
+      margin-right: auto;
+      justify-content: center;
+   }
+
+
+      .bottom-music-player-music-player-controls.mobile{
+      display: none;
+   }
+
+   .bottom-music-player-music-player-controls-inner-top{
+      display: flex;
+      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
+      align-items: center;
+   }
+
+      .mobile-bottom-music-player-music-player-controls .mobile-bottom-music-player-music-player-controls-inner-top button,
+      .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top button{
+      margin:0 10px;
+      color: #fcfcfca8;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+   }
+
+   .mobile-bottom-music-player-music-player-controls .mobile-bottom-music-player-music-player-controls-inner-top,
+   .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top button:hover{
+      color: #fcfcfc;
+   }
+
+   
+   .mobile-bottom-music-player-music-player-controls .mobile-bottom-music-player-music-player-controls-inner-top .shuffle-button,
+   .mobile-bottom-music-player-music-player-controls .mobile-bottom-music-player-music-player-controls-inner-top .loop-button,
+   .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .shuffle-button,
+   .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .loop-button{
+      font-size: 1rem;
+   }
+
+   
+   .mobile-bottom-music-player-music-player-controls .mobile-bottom-music-player-music-player-controls-inner-top .prev-skip-button,
+   .mobile-bottom-music-player-music-player-controls .mobile-bottom-music-player-music-player-controls-inner-top .next-skip-button,
+   .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .prev-skip-button,
+   .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .next-skip-button{
+      font-size: 1.3rem;
+   }
+
+   
+   .mobile-bottom-music-player-music-player-controls .mobile-bottom-music-player-music-player-controls-inner-top .play-button,
+   .mobile-bottom-music-player-music-player-controls .mobile-bottom-music-player-music-player-controls-inner-top .pause-button,
+   .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .play-button,
+   .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .pause-button{
+      color: #fcfcfca9;
+      font-size: 2rem;
+      transition-duration: 0.2s;
+      transition: ease-in-out;
+   }
+
+   
+   .mobile-bottom-music-player-music-player-controls .mobile-bottom-music-player-music-player-controls-inner-top .play-button:hover,
+   .mobile-bottom-music-player-music-player-controls .mobile-bottom-music-player-music-player-controls-inner-top .play-button:hover,
+   .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .play-button:hover,
+   .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .pause-button:hover{
+      color: #fcfcfc;
+   }
+
+
+   
+   /* pause should be initially hidden  */
+   .mobile-bottom-music-player-music-player-controls .mobile-bottom-music-player-music-player-controls-inner-top .pause-button,
+   .bottom-music-player-music-player-controls .bottom-music-player-music-player-controls-inner-top .pause-button{
+
+      display: none;
+
+   }
+
+
+   .mobile-bottom-music-player-music-player-controls-inner-bottom,
+      .bottom-music-player-music-player-controls-inner-bottom{
+      display: flex;
+      align-items: center;
+   }
+
+      .mobile-bottom-music-player-music-player-controls-inner-bottom p,  
+      .bottom-music-player-music-player-controls-inner-bottom p{
+      color: #fcfcfc;
+      font-weight: 700;
+      font-size: 0.9rem;
+      align-items: center;
+      padding: 0 5px;
+   }
+
+
+
+   /* stlyes for the music range on multiple browsers */
+     .mobile-bottom-music-player-music-player-controls-inner-bottom input[type="range"],
+      .bottom-music-player-music-player-controls-inner-bottom input[type="range"] {
+      -webkit-appearance: none;
+      width: 350px;
+      height: 4px;
+      background: transparent;
+      border-radius: 5px;
+      outline: none;
+      margin: 0;
+      padding: 0;
+   }
+   
+   /* Webkit (Chrome, Safari, newer Edge) */
+     .mobile-bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-webkit-slider-runnable-track,
+      .bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      background: #fcfcfc79;
+      border-radius: 5px;
+      border: none;
+   }
+   
+   .mobile-bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-webkit-slider-thumb,
+      .bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: #FCFCFC;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-top: -6px;
+      box-shadow: -5px 0 0 5px #fcfcfc; /* This creates the filled track */
+   }
+   
+   /* Firefox */
+      .mobile-bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-moz-range-track,
+      .bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-moz-range-track {
+      width: 100%;
+      height: 4px;
+      background: #fcfcfc79;
+      border-radius: 5px;
+      border: none;
+   }
+   
+      .mobile-bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-moz-range-progress {
+      .bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-moz-range-progress {
+      height: 4px;
+      background: #fcfcfc;
+      border-radius: 5px;
+   }
+   
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: #fcfcfc;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+   }
+   
+   /* Edge and IE */
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-ms-track {
+      width: 100%;
+      height: 4px;
+      background: transparent;
+      border: none;
+      color: transparent;
+   }
+   
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-ms-fill-lower {
+      background: #fcfcfc;
+      border-radius: 5px;
+   }
+   
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-ms-fill-upper {
+      background: #fcfcfc79;
+      border-radius: 5px;
+   }
+   
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-ms-thumb {
+      width: 16px;
+      height: 16px;
+      background: #fcfcfc;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-top: 0;
+   }
+   
+   /* Hover states */
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]:hover::-webkit-slider-thumb,
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]:active::-webkit-slider-thumb {
+      background: #00FFFF;
+      box-shadow: -5px 0 0 5px #00FFFF;
+   }
+   
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]:hover::-moz-range-thumb,
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]:active::-moz-range-thumb {
+      background: #00FFFF;
+   }
+   
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]:hover::-moz-range-progress,
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]:active::-moz-range-progress {
+      background: #00FFFF;
+   }
+   
+   
+
+
+   .bottom-music-player-music-player-settings{
+      display: flex;
+      align-items: center;
+      padding-right: 50px;
+   }
+
+
+
+   .bottom-music-player-music-player-settings button{
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      color: #fcfcfc6e;
+      font-size: 1.5rem;
+      margin-left: 10px;
+      margin-right: 10px;
+   }
+
+
+
+   .bottom-music-player-music-player-settings button:hover{
+      color: #FCFCFC;
+   }
+
+.bottom-music-player-music-player-controls-inner-bottom.mobile{
+   display: none;
+}
+
+.mobile-bottom-music-player{
+   display: none;
+}
+
+
+/* End of .bottom foooteer music player styles  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* RESPONSIVENESS  */
+
+
+
+/* Small Desktop SCREEN Styling  */
+
+
+@media only screen and (max-width: 1204px) {
+
+   body{
+   display: block;
+   }
+
+
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"] {
+      width: 250px;  
+   }
+
+}
+
+/* End of  Small DesktopSCREEN styling  */
+
+
+
+
+
+/* TABLET SCREEN Styling  */
+
+
+@media only screen and (max-width: 768px) {
+
+
+   .bottom-music-player{
+      padding: 0;
+   }
+ 
+
+   .bottom-music-player-music-details{
+      padding: 20px;
+   }
+   
+   .bottom-music-player-music-player-controls-inner-bottom{
+      display: none;
+   }
+
+   .bottom-music-player-music-player-controls-inner-bottom.mobile{
+      display: block;
+      position: absolute;
+      bottom: -2px;
+   }
+
+   .bottom-music-player-music-player-controls{
+      display: none;
+   }
+
+   .bottom-music-player-music-player-controls-inner-bottom.mobile{
+      width: 100%;
+   }
+
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"] {
+      width: 100%;  
+      height: 4px;
+      overflow: hidden;
+   }
+
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]:hover {
+      height: 8px;
+      overflow: hidden;
+      transition-duration: 0.3s;
+      transition-timing-function: ease-in-out;
+   }
+   
+   
+   .bottom-music-player-music-player-controls-inner-bottom input[type="range"]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 8px;
+      background-color: #00FFFF;
+      border: none;
+   }
+
+   .bottom-music-player-music-player-settings{
+      display: none;
+   }
+
+
+   .bottom-music-player-music-player-controls.mobile{
+      display: block;
+   }
+
+
+
+   
+   .bottom-music-player-music-player-controls-inner-top{
+      position: absolute;
+      top: 40%;
+      right: 10px;
+   }
+
+   .bottom-music-player-music-player-controls-inner-top.mobile.play-button{
+      font-size: 2rem;
+   }
+
+   .bottom-music-player-music-player-controls-inner-top.mobile .pause-button{}
+
+    }
+
+/* End of TABLET SCREEN styling  */
+
+
+
+
+@media only screen and (max-width: 620px) {
+
+
+   .mobile-bottom-music-player {
+      display: block;
+      height: 100vh;
+      width: 100%;
+      position: fixed;
+      background-color: wheat;
+      top: 50%;  
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition-duration: 0.1s;
+   }
+   
+
+   .mobile-bottom-music-player .mobile-bottom-music-player-inner{
+      padding: 2rem;
+   }
+
+   .mobile-bottom-music-player .mobile-bottom-music-player-music-details{
+      /* text-align: center; */
+      /* justify-content: center; */
+   }
+
+   .mobile-bottom-music-player .mobile-bottom-music-player-music-details img{
+      margin: auto;
+      width: 100%;
+      text-align: center;
+   }
+
+
+   .mobile-bottom-music-player-active{
+      /* transform: translateY(0%); */
+      transition-duration: 0.3s;
+   }
+
+
+   .bottom-music-player-music-player-controls-inner-top.mobile .next-skip-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .loop-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .prev-skip-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .shuffle-button{
+      display: none;
+   }
+}
+
+
+
+/* MOBILE SCREEN  */
+
+
+@media only screen and (max-width: 480px) {
+
+   
+      
+   .bottom-music-player-music-player-controls-inner-top.mobile .next-skip-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .loop-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .prev-skip-button,
+   .bottom-music-player-music-player-controls-inner-top.mobile .shuffle-button{
+      display: none;
+   }
+
+   
+
+    
+
+ }
+

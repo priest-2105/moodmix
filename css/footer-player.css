@@ -419,26 +419,90 @@
 
 @media only screen and (max-width: 620px) {
 
-   .mobile-bottom-music-player{
+
+   .mobile-bottom-music-player {
       display: block;
       height: 100vh;
-      background-color: wheat;
       width: 100%;
-      /* transform: translateY(-200%); */
+      position: fixed;
+      background-color: #1F1F22;
+      top: 50%;  
+      left: 50%;
+      transform: translate(-50%, -50%);
       transition-duration: 0.1s;
    }
 
+   .mobile-bottom-music-player-music-details .bottom-music-player-music-details{
+      height: 100%; 
+   }
+   
+
+   .mobile-bottom-music-player .mobile-bottom-music-player-inner{
+      /* padding: 2rem; */
+      display: block;
+      height: 100%;
+      align-items: end;
+   }
+
+   .mobile-bottom-music-player .mobile-bottom-music-player-music-details{
+      /* text-align: center; */
+      /* justify-content: center; */
+      display: block;
+      align-items: end;
+
+   }
+
+
+   .mobile-bottom-music-player .mobile-bottom-music-player-music-details img{
+      margin: auto;
+      height: 55vh;
+      width: 100%;
+      object-fit: cover;
+      text-align: center;
+   }
+   
+   .mobile-bottom-music-player-music-details.bottom-music-player-music-details-inner{
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+   }
+
+   
+   .bottom-music-player-music-details-inner{
+      display: flex;
+      align-items: center;
+   }
+
+   .bottom-music-player-music-details-inner button{ 
+      font-size:1rem;
+   }
+
+   .mobile-bottom-music-player-music-details span {
+      color: rgb(135, 204, 25);
+      font-size: 1rem;
+      font-weight: 550;
+   }
+
+   .mobile-bottom-music-player-music-details p{
+      color: rgb(135, 204, 25);
+      font-size: 0.81rem;
+      font-weight: 400;
+   }
+
+
    .mobile-bottom-music-player-active{
-      transform: translateY(0%);
+      /* transform: translateY(0%); */
       transition-duration: 0.3s;
    }
 
 
-   .bottom-music-player-music-player-controls-inner-top.mobile .next-skip-button,
-   .bottom-music-player-music-player-controls-inner-top.mobile .loop-button,
-   .bottom-music-player-music-player-controls-inner-top.mobile .prev-skip-button,
-   .bottom-music-player-music-player-controls-inner-top.mobile .shuffle-button{
-      display: none;
+   .mobile-bottom-music-player-music-player-controls-inner-top .next-skip-button,
+   .mobile-bottom-music-player-music-player-controls-inner-top .loop-button,
+   .mobile-bottom-music-player-music-player-controls-inner-top .prev-skip-button,
+   .mobile-bottom-music-player-music-player-controls-inner-top .shuffle-button{
+      display: block;
    }
 }
 
@@ -458,9 +522,24 @@
       display: none;
    }
 
-   
+   .mobile-bottom-music-player-innerbottom-music-player-inner{
+      display: block;
+   }
 
+   .mobile-bottom-music-player{
+      display: block;
+   }
+
+   .bottom-music-player-inner{
+      display: block;
+   }
     
+
 
  }
 
+
+
+
+ 
+/* Footer music player styles  */
