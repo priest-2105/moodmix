@@ -104,9 +104,9 @@ const mediaQuery = window.matchMedia('(max-width: 628px)');
 function applyStylesForScreenSize(e) {
     if (e.matches) {
 
-        bottomMusicPlayerInner_El.addEventListener('click', () => {
-            mobileBottomMusicPlayer_El.classList.add('mobile-bottom-music-player-active');
-        })
+    bottomMusicPlayerInner_El.addEventListener('click', () => {
+        mobileBottomMusicPlayer_El.classList.add('mobile-bottom-music-player-active');
+    })
 
     }
 }

@@ -285,8 +285,12 @@
    display: none;
 }
 
+.mobile-bottom-music-player{
+   display: none;
+}
 
-/* End of .bottom foooteer musci player styles  */
+
+/* End of .bottom foooteer music player styles  */
 
 
 
@@ -420,7 +424,7 @@
       height: 100vh;
       background-color: wheat;
       width: 100%;
-      transform: translateY(-200%);
+      /* transform: translateY(-200%); */
       transition-duration: 0.1s;
    }
 
