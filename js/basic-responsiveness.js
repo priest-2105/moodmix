@@ -90,8 +90,8 @@ playButtons.forEach((playButton, index) => {
 
 pauseButtons.forEach((pauseButton, index) => {
     pauseButton.addEventListener('click', () => {
-        pauseButton.style.display = 'none'; // Hide the clicked pause button
-        playButtons[index].style.display = 'block'; // Show the corresponding play button
+        pauseButton.style.display = 'none';  
+        playButtons[index].style.display = 'block'; 
     });
 });
 
@@ -109,7 +109,6 @@ function applyStylesForScreenSize(e) {
     })
   }
 }
-
 
 
 closeMobilePlayer_El.addEventListener('click', () => {
