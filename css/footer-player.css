@@ -473,6 +473,7 @@
    .buttom-music-player-details-block{
       display: flex;
       align-items: center;
+      padding-top: 15px;
       justify-content: space-between;
    }
 
@@ -500,9 +501,10 @@
    .bottom-music-player-music-player-controls-inner-top{
       position: relative;
    }
-   
+
    .mobile-bottom-music-player-music-player-controls-inner-top{
       display: block;
+      width: 100%;
       position: relative;
    }
 
@@ -513,6 +515,19 @@
       display: block;
       position: relative;
    }
+
+   .mobile-bottom-music-player-music-player-controls-inner-bottom.bottom-music-player-music-player-controls-inner-bottom{
+      display: block;
+      width: 100%;
+      position: relative;
+   }
+
+   .mobile-bottom-music-player-music-player-controls-inner-bottom input[type = 'range']{
+      display: block;
+      width: 100%;
+      position: relative;
+   }
+
 }
 
 
