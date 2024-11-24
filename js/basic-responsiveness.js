@@ -11,6 +11,7 @@ const playButtons = document.querySelectorAll('.play-button');
 const pauseButtons = document.querySelectorAll('.pause-button');
 const bottomMusicPlayerInner_El = document.querySelector('.bottom-music-player-inner');
 const mobileBottomMusicPlayer_El = document.querySelector('.mobile-bottom-music-player');
+const closeMobilePlayer_El = document.querySelector('#closeMobilePlayer');
 
 
 
@@ -103,13 +104,17 @@ const mediaQuery = window.matchMedia('(max-width: 628px)');
 // Function to apply styles based on screen size
 function applyStylesForScreenSize(e) {
     if (e.matches) {
-
     bottomMusicPlayerInner_El.addEventListener('click', () => {
         mobileBottomMusicPlayer_El.classList.add('mobile-bottom-music-player-active');
     })
-
-    }
+  }
 }
+
+
+
+closeMobilePlayer_El.addEventListener('click', () => {
+    mobileBottomMusicPlayer_El.classList.remove('mobile-bottom-music-player-active');
+})
 
 // Attach a listener to handle screen size changes
 mediaQuery.addEventListener('change', applyStylesForScreenSize);
