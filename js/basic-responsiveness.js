@@ -83,8 +83,8 @@ mobileCloseSearchBtn.addEventListener('click', () => {
 
 playButtons.forEach((playButton, index) => {
     playButton.addEventListener('click', () => {
-        playButton.style.display = 'none'; // Hide the clicked play button
-        pauseButtons[index].style.display = 'block'; // Show the corresponding pause button
+        playButton.style.display = 'none';  
+        pauseButtons[index].style.display = 'block'; 
     });
 });
 
