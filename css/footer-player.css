@@ -442,10 +442,11 @@
    .mobile-bottom-music-player.mobile-bottom-music-player-active #closeMobilePlayer{
       background-color: transparent;
       color: #fcfcfc;
-      font-size: 1rem;
+      font-size: 1.3rem;
       border: none;
-      margin-left: 2rem;
-      margin-top: 2rem;
+      position: absolute;
+      top: 50px;
+      left: 30px;
    }
 
    .mobile-bottom-music-player.mobile-bottom-music-player-active .mobile-bottom-music-player-music-details.bottom-music-player-music-details{
@@ -584,6 +585,11 @@
 
 @media only screen and (max-width: 480px) {
 
+   .mobile-bottom-music-player.mobile-bottom-music-player-active .mobile-bottom-music-player-music-details.bottom-music-player-music-details{
+      padding: 1rem;
+      position: relative;
+   }
+   
 
 
    .player-title-album{
