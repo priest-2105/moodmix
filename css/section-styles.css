@@ -87,8 +87,44 @@
  }
 
  .inner-main-section-card{
-    height: 300px;
+    height: 350px;
     /* width: 250px; */
     background-color: red;
     margin: 10px;
+}
+
+.inner-main-secton-card-banner{
+    height: 250px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    object-fit: contain;
+}
+
+.inner-main-secton-card-description{
+    height: 100%;
+    width: 100%;
+    padding: 20px 10px;
+    position: relative;
+}
+
+.inner-main-secton-card-description button {
+    border-radius: 50%;
+    position: absolute;
+    top: -5%;
+    font-size: 1.2rem;
+    right: 10%;
+    background-color: #FCFCFC;
+    color: #000000;
+    font-size: 1rem;
+    border: none;
+    padding: 10px;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.inner-main-secton-card-description button i{
+    font-size: 1.2rem; 
+    font-weight: 600;
 }
