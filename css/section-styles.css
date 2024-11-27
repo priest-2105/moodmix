@@ -79,8 +79,7 @@
     width: 100%;
     height: fit-content;
     display: flex;
-    align-items: center;
-    background-color: green;
+    align-items: center; 
     overflow-y: hidden;
     overflow-x: scroll;
 
@@ -88,8 +87,7 @@
 
  .inner-main-section-card{
     height: 350px;
-    /* width: 250px; */
-    background-color: red;
+    /* width: 250px; */ 
     position: relative;
     margin: 10px;
 }
@@ -111,8 +109,7 @@
 }
 
 .inner-main-secton-card-description-inner{
-    height: 100px;
-    background-color: red;
+    height: 110px;
     width: 100%;
     position: relative;
     padding: 20px 10px;
