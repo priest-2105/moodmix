@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="./css/navbar-styles.css">
     <link rel="stylesheet" href="./css/sidebar-styles.css">
     <link rel="stylesheet" href="./css/section-styles.css">
-    <link rel="stylesheet" href="./js/slider.js">
 </head>
 <body>
     
@@ -118,8 +117,8 @@
 
 
         <div class="direction-arrows">
-            <button class="back-arrow"> <img src="./assets/icons/left-direction-icon.png" alt="left-arrow"></button>
-            <button class="forward-arrow"> <img src="./assets/icons/right-directionIcon.png" alt="right-arrow"></button>
+            <button class="back-arrow glide__arrow--left"> <img src="./assets/icons/left-direction-icon.png" alt="left-arrow"></button>
+            <button class="forward-arrow glide__arrow--right"> <img src="./assets/icons/right-directionIcon.png" alt="right-arrow"></button>
         </div>
 
         <div class="main-content-header-inner-end">
@@ -144,8 +143,8 @@
               <h2>Discover</h2>
               
               <div class="direction-arrows">
-                <button class="back-arrow"> <i class="bi bi-chevron-left"></i> </button>
-                <button class="forward-arrow"> <i class="bi bi-chevron-right"></i></button>
+                <button class="back-arrow" data-glide-dir="<"> <i class="bi bi-chevron-left"></i> </button>
+                <button class="forward-arrow" data-glide-dir=">"> <i class="bi bi-chevron-right"></i> </button>
             </div>
 
               </div>
@@ -156,6 +155,10 @@
             <div class="glide__track" data-glide-el="track">
               <div class="glide__slides">
 
+                <div class="inner-main-section-card glide__slide"></div>
+                <div class="inner-main-section-card glide__slide"></div>
+                <div class="inner-main-section-card glide__slide"></div>
+                <div class="inner-main-section-card glide__slide"></div>
                 <div class="inner-main-section-card glide__slide"></div>
                 <div class="inner-main-section-card glide__slide"></div>
                 <div class="inner-main-section-card glide__slide"></div>
@@ -333,7 +336,9 @@
 </div>
 
 
-
+    
+    <script src="./js/slider.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/glide.min.js"></script>
     <script src="./js/basic-responsiveness.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/glide.min.js"></script>
 </body>

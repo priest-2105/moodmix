@@ -88,7 +88,7 @@
 
  .inner-main-section-card{
     height: 300px;
-    width: 300px;
+    /* width: 250px; */
     background-color: red;
     margin: 10px;
 }
