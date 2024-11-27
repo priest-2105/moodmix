@@ -1,0 +1,79 @@
+.inner-main-content{
+    width: 95%;
+    height: 100vh;
+    /* background-color: red; */
+    padding:1rem 2rem;
+    /* overflow-x: hidden; */
+    overflow: scroll;
+    display:block;
+}
+
+
+.inner-main-content::-webkit-scrollbar-thumb{
+    background-color: #ffffff;
+    border-radius: 8px;
+ }
+ 
+ .inner-main-content::-webkit-scrollbar {
+    width: 7px;
+}
+ 
+.inner-main-content::-webkit-scrollbar :hover {
+    width: 10px;
+}
+ 
+ .inner-main-content::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+}
+.inner-main-content::-webkit-scrollbar-thumb {
+    background: rgb(201, 214, 223);
+    border-radius: 5px;
+}
+
+.inner-main-section-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inner-main-section-header h2{
+    color: #FCFCFC;
+    font-size: 1.4rem;
+}
+
+
+.inner-main-section-header .direction-arrows{
+    display: flex;
+    justify-content: space-between;
+    width: 80px;
+ } 
+ 
+ .inner-main-section-header .direction-arrows button{
+    border: 1.5px solid #fcfcfc6b;
+    border-radius: 50%;
+    background-color: transparent;
+    padding:  8px 10px;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+ }
+ 
+ .inner-main-section-header .direction-arrows button:hover{
+    border: 1.5px solid #FCFCFC;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+ }
+ 
+ .inner-main-section-header .direction-arrows button:active{
+    border: 1.5px solid #00FFFF;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+ }
+ 
+ .inner-main-section-header .direction-arrows button img{
+    height: 10px;
+    width: 10px;
+ }
+ 
