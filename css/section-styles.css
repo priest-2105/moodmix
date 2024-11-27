@@ -90,41 +90,50 @@
     height: 350px;
     /* width: 250px; */
     background-color: red;
+    position: relative;
     margin: 10px;
 }
 
 .inner-main-secton-card-banner{
-    height: 250px;
+    height: 100%;
     width: 100%;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
     object-fit: contain;
+
 }
 
 .inner-main-secton-card-description{
-    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.inner-main-secton-card-description-inner{
+    height: 100px;
+    background-color: red;
     width: 100%;
-    padding: 20px 10px;
     position: relative;
+    padding: 20px 10px;
+
 }
 
 .inner-main-secton-card-description button {
     border-radius: 50%;
     position: absolute;
-    top: -5%;
+    top: -20px;
     font-size: 1.2rem;
     right: 10%;
     background-color: #FCFCFC;
     color: #000000;
-    font-size: 1rem;
     border: none;
-    padding: 10px;
+    padding: 9px 10px;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
 }
 
 .inner-main-secton-card-description button i{
-    font-size: 1.2rem; 
+    font-size: 1.4rem; 
     font-weight: 600;
 }
