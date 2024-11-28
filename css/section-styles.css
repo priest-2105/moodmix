@@ -111,14 +111,12 @@
     object-fit: contain;
 }
 
-.inner-main-secton-card-description-filler{
-    /* filter: blur(9px); */
+.inner-main-secton-card-description-filler{ 
     height: 110px;
     width: 100%;
     position: absolute;
     bottom: 0;
-    z-index: 99;
-    /* background: inherit; */
+    z-index: 99; 
 }
 
  
@@ -127,6 +125,7 @@
     bottom: 0;
     z-index: 990;
     backdrop-filter: blur(60px);
+    width: 100%;
     left: 0;
 }
 
@@ -196,96 +195,25 @@
      } 
      
      .inner-main-section-header .direction-arrows button{
-        border-radius: 50%;
-        background-color: transparent;
-        color: #fcfcfc6b;
         font-size: 1.1rem;
-        border: none;
-        background-color: transparent;
         padding:  8px 10px;
-        transition-duration: 0.2s;
-        transition-timing-function: ease-in-out;
      }
-     
-     .inner-main-section-header .direction-arrows button:hover{
-        cursor: pointer;
-        color: #FCFCFC;
-        transition-duration: 0.2s;
-        transition-timing-function: ease-in-out;
-     }
-     
-     .inner-main-section-header .direction-arrows button:active{
-        cursor: pointer;
-        transition-duration: 0.2s;
-        transition-timing-function: ease-in-out;
-     }
-     
-     .inner-main-section-tile{
-    
-        width: 100%;
-        height: fit-content;
-        display: flex;
-        align-items: center; 
-        overflow-y: hidden;
-        overflow-x: scroll;
-    
-     }
-    
+              
      .inner-main-section-card{
         height: 350px;
-        border-radius: 50%;
-        /* width: 250px; */ 
-        cursor: pointer;
-        position: relative;
-        margin: 10px;
-        transition-duration: 0.2s;
-        transition-timing-function: ease-in-out;
+        margin: 5px;
     }
-    
-    .inner-main-section-card:hover{
-        transition-duration: 0.2s;
-        transition-timing-function: ease-in-out;
-        transform: scale(1.01);
-    }
-    
-    .inner-main-secton-card-banner{
-        height: 100%;
-        width: 100%;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 100%;
-        object-fit: contain;
-    }
-    
-    .inner-main-secton-card-description-filler{
-        /* filter: blur(9px); */
-        height: 110px;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        z-index: 99;
-        /* background: inherit; */
-    }
-    
-     
-    .inner-main-secton-card-description{
-        position: absolute;
-        bottom: 0;
-        z-index: 990;
-        backdrop-filter: blur(60px);
-        left: 0;
-    }
-    
+         
     .inner-main-secton-card-description-inner{
         height: 110px;
         width: 100%;
         position: relative;
-        padding: 20px 10px;
-    
+        padding: 20px 10px;    
     }
     
     .inner-main-secton-card-description span{
         font-weight: 700;
+        font-size: 0.9rem;
     }
     
     .inner-main-secton-card-description h3{
@@ -294,6 +222,7 @@
     
     .inner-main-secton-card-description p{
         font-weight: 550;
+        font-size: 0.8rem;
     }
     
     
