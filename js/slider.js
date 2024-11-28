@@ -74,7 +74,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // section card color controller 
-  document.addEventListener("DOMContentLoaded", () => {
+
+
+document.addEventListener("DOMContentLoaded", () => {
     const cards = document.querySelectorAll(".inner-main-section-card");
 
     cards.forEach((card) => {
@@ -85,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Create an image element to load the background image
       const img = new Image();
+      img.crossOrigin = "Anonymous"; // Ensure cross-origin loading for image processing
       img.src = imageUrl;
 
       img.onload = () => {
@@ -100,8 +103,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const imageData = ctx.getImageData(0, 0, img.width, img.height);
         const pixels = imageData.data;
 
-        // Calculate the average brightness
-        let totalBrightness = 0;
+        // Calculate the average luminance
+        let totalLuminance = 0;
         let pixelCount = 0;
 
         for (let i = 0; i < pixels.length; i += 4) {
@@ -109,22 +112,26 @@ document.addEventListener('DOMContentLoaded', function () {
           const g = pixels[i + 1];
           const b = pixels[i + 2];
 
-          // Calculate brightness using the luminance formula
-          const brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-          totalBrightness += brightness;
+          // Calculate luminance using the formula
+          const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+          totalLuminance += luminance;
           pixelCount++;
         }
 
-        const averageBrightness = totalBrightness / pixelCount;
+        const averageLuminance = totalLuminance / pixelCount;
 
-        // Set text color based on brightness
-        if (averageBrightness > 128) {
-          // Light background -> Set text to black
+        // Set text color based on luminance
+        if (averageLuminance > 180) {
+          // Bright background -> Set text to black
           description.style.color = "black";
         } else {
           // Dark background -> Set text to white
           description.style.color = "white";
         }
+      };
+
+      img.onerror = () => {
+        console.error(`Failed to load image: ${imageUrl}`);
       };
     });
   });
