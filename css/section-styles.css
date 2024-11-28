@@ -181,11 +181,6 @@
         padding:0.5rem 1rem;
     }
     
-    
-    .inner-main-content::-webkit-scrollbar-thumb{
-        background-color: #ffffff;
-        border-radius: 8px;
-     }
      
      .inner-main-content::-webkit-scrollbar {
         width: 7px;
