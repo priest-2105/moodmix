@@ -138,6 +138,19 @@
 
 }
 
+.inner-main-secton-card-description span{
+    font-weight: 700;
+}
+
+.inner-main-secton-card-description h3{
+    margin: 5px 0;
+}
+
+.inner-main-secton-card-description p{
+    font-weight: 550;
+}
+
+
 .inner-main-secton-card-description button {
     cursor: pointer;
     border-radius: 50%;
@@ -153,7 +166,9 @@
     transition-timing-function: ease-in-out;
 }
 
+
 .inner-main-secton-card-description button i{
     font-size: 1.4rem; 
     font-weight: 600;
 }
+

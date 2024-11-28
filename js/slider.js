@@ -1,73 +1,84 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Check if Glide is defined
+    // Ensure Glide.js is loaded
     if (typeof Glide !== 'undefined') {
-        const glide = new Glide('.glide', {
-            type: 'carousel',
-            startAt: 0,
-            perView: 4,
-            focusAt: '0',
-            gap: 20,
-            peek: { before: 0, after: 0 },
-            breakpoints: {
-                1024: { perView: 2.8 },
-                768: { perView: 2 },
-                480: { perView: 1 },
+        // Initialize all glide instances
+        const glides = document.querySelectorAll('.glide');
+
+        glides.forEach((glideElement, index) => {
+            const glide = new Glide(glideElement, {
+                type: 'carousel',
+                startAt: 0,
+                perView: 4,
+                focusAt: '0',
+                gap: 20,
+                peek: { before: 0, after: 0 },
+                breakpoints: {
+                    1024: { perView: 2.8 },
+                    768: { perView: 2 },
+                    480: { perView: 1 },
+                }
+            });
+
+            // Function to update slide-specific content
+            function updateSlideContent() {
+                const currentSlide = glideElement.querySelector('.glide__slide--active');
+                if (currentSlide) {
+                    const backgroundImage = currentSlide.getAttribute('data-bg') || 'url(default.jpg)';
+                    const buttonColor = currentSlide.getAttribute('data-button-color') || '#204d74';
+                    const headerText = currentSlide.getAttribute('data-header') || 'Default Header';
+                    const descriptionText = currentSlide.getAttribute('data-description') || 'Default Description';
+
+                    // Update background image with a gradient overlay
+                    const bodyEl = document.querySelector('.body');
+                    if (bodyEl) {
+                        bodyEl.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)), ${backgroundImage}`;
+                    }
+
+                    // Update button color
+                    const exploreButton = glideElement.querySelector('.explore-button');
+                    if (exploreButton) {
+                        exploreButton.style.backgroundColor = buttonColor;
+                    }
+
+                    // Update header text
+                    const headerTextEl = glideElement.querySelector('.header-text');
+                    if (headerTextEl) {
+                        headerTextEl.innerText = headerText;
+                    }
+
+                    // Update description text
+                    const descriptionTextEl = glideElement.querySelector('.description-text');
+                    if (descriptionTextEl) {
+                        descriptionTextEl.innerText = descriptionText;
+                    }
+                }
             }
+
+            // Attach custom navigation events
+            const leftArrow = glideElement.querySelector('[data-glide-dir="<"]');
+            const rightArrow = glideElement.querySelector('[data-glide-dir=">"]');
+
+            if (leftArrow) {
+                leftArrow.addEventListener('click', () => glide.go('<'));
+            }
+
+            if (rightArrow) {
+                rightArrow.addEventListener('click', () => glide.go('>'));
+            }
+
+            // Update content after each slide transition
+            glide.on('move.after', updateSlideContent);
+
+            // Mount the carousel
+            glide.mount();
+
+            // Initialize content for the first slide
+            updateSlideContent();
         });
-
-        function updateSlideContent() {
-            const currentSlide = document.querySelector('.glide__slide--active');
-            if (currentSlide) {
-                const backgroundImage = currentSlide.getAttribute('data-bg');
-                const buttonColor = currentSlide.getAttribute('data-button-color');
-                const headerText = currentSlide.getAttribute('data-header');
-                const descriptionText = currentSlide.getAttribute('data-description');
-                
-                // Only update if elements exist
-                const bodyEl = document.querySelector('.body');
-                if (bodyEl) bodyEl.style.backgroundImage = 
-                    `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.904)), ${backgroundImage}`;
-                
-                const exploreButton = document.getElementById('exploreButton');
-                if (exploreButton) exploreButton.style.backgroundColor = buttonColor;
-                
-                const headerTextEl = document.getElementById('headerText');
-                if (headerTextEl) headerTextEl.innerText = headerText;
-                
-                const descriptionTextEl = document.getElementById('descriptionText');
-                if (descriptionTextEl) descriptionTextEl.innerText = descriptionText;
-            }
-        }
-
-        // Attach events using data attributes
-        const leftArrow = document.querySelector('[data-glide-dir="<"]');
-        const rightArrow = document.querySelector('[data-glide-dir=">"]');
-
-        if (leftArrow) {
-            leftArrow.addEventListener('click', () => {
-                glide.go('<');
-            });
-        }
-
-        if (rightArrow) {
-            rightArrow.addEventListener('click', () => {
-                glide.go('>');
-            });
-        }
-
-        // Glide events
-        glide.on('move.after', updateSlideContent);
-        
-        // Mount the glide
-        glide.mount();
-
-        // Update content for the initial slide
-        updateSlideContent();
     } else {
         console.error('Glide.js library not loaded');
     }
 });
-
 
 
 
