@@ -180,7 +180,6 @@
     .inner-main-content{
         width: 95%;
         height: 100vh;
-        /* background-color: red; */
         padding:1rem 2rem;
         /* overflow-x: hidden; */
         overflow: scroll;
