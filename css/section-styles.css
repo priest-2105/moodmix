@@ -92,6 +92,14 @@
     cursor: pointer;
     position: relative;
     margin: 10px;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+.inner-main-section-card:hover{
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    transform: scale(1.01);
 }
 
 .inner-main-secton-card-banner{
@@ -103,12 +111,22 @@
     object-fit: contain;
 }
 
+.inner-main-secton-card-description-filler{
+    /* filter: blur(9px); */
+    height: 110px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: 99;
+    /* background: inherit; */
+}
+
  
 .inner-main-secton-card-description{
     position: absolute;
     bottom: 0;
     z-index: 990;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(60px);
     left: 0;
 }
 
