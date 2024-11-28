@@ -67,3 +67,64 @@ document.addEventListener('DOMContentLoaded', function () {
         console.error('Glide.js library not loaded');
     }
 });
+
+
+
+
+
+
+// section card color controller 
+  document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".inner-main-section-card");
+
+    cards.forEach((card) => {
+      const banner = card.querySelector(".inner-main-secton-card-banner");
+      const description = card.querySelector(".inner-main-secton-card-description-inner");
+
+      const imageUrl = banner.getAttribute("data-image");
+
+      // Create an image element to load the background image
+      const img = new Image();
+      img.src = imageUrl;
+
+      img.onload = () => {
+        // Create a canvas to extract pixel data
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        ctx.drawImage(img, 0, 0);
+
+        const imageData = ctx.getImageData(0, 0, img.width, img.height);
+        const pixels = imageData.data;
+
+        // Calculate the average brightness
+        let totalBrightness = 0;
+        let pixelCount = 0;
+
+        for (let i = 0; i < pixels.length; i += 4) {
+          const r = pixels[i];
+          const g = pixels[i + 1];
+          const b = pixels[i + 2];
+
+          // Calculate brightness using the luminance formula
+          const brightness = 0.299 * r + 0.587 * g + 0.114 * b;
+          totalBrightness += brightness;
+          pixelCount++;
+        }
+
+        const averageBrightness = totalBrightness / pixelCount;
+
+        // Set text color based on brightness
+        if (averageBrightness > 128) {
+          // Light background -> Set text to black
+          description.style.color = "black";
+        } else {
+          // Dark background -> Set text to white
+          description.style.color = "white";
+        }
+      };
+    });
+  });
