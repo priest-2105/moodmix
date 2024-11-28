@@ -8,7 +8,10 @@
     overflow: scroll;
     display:block;
 }
-.inner-main-content-bottom-filler{height: 250px; width: 100%;background-color: red;}
+.inner-main-content-bottom-filler{
+    height: 250px; 
+    width: 100%;
+}
 
 
 .inner-main-content::-webkit-scrollbar-thumb{
@@ -184,8 +187,7 @@
     
     .inner-main-content-bottom-filler{
         height: 200px; 
-        width: 100%;
-        background-color: red;
+        width: 100%; 
     }
      
   
