@@ -1,12 +1,14 @@
 .inner-main-content{
     width: 95%;
     height: 100vh;
+    padding-bottom: 200px;
     /* background-color: red; */
     padding:1rem 2rem;
     /* overflow-x: hidden; */
     overflow: scroll;
     display:block;
 }
+.inner-main-content-bottom-filler{height: 250px; width: 100%;background-color: red;}
 
 
 .inner-main-content::-webkit-scrollbar-thumb{
@@ -180,6 +182,11 @@
         padding:0.5rem 1rem;
     }
     
+    .inner-main-content-bottom-filler{
+        height: 200px; 
+        width: 100%;
+        background-color: red;
+    }
      
   
     .inner-main-section-header h2{
