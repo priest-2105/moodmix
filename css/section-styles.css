@@ -182,29 +182,7 @@
     }
     
      
-     .inner-main-content::-webkit-scrollbar {
-        width: 7px;
-    }
-     
-    .inner-main-content::-webkit-scrollbar :hover {
-        width: 10px;
-    }
-     
-     .inner-main-content::-webkit-scrollbar-track {
-        background: transparent;
-        border-radius: 8px;
-    }
-    .inner-main-content::-webkit-scrollbar-thumb {
-        background: rgb(201, 214, 223);
-        border-radius: 5px;
-    }
-    
-    .inner-main-section-header{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    
+  
     .inner-main-section-header h2{
         color: #FCFCFC;
         font-size: 1.4rem;
