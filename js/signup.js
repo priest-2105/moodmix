@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.querySelector('.auth-modal');
     const login_container = document.querySelector('.login-container');
     const signup_container = document.querySelector('.signup-container');
+    const alreadyhaveanaccount_Btn = document.querySelector('#alreadyhaveanaccountbtn');
 
     // Add event listener for clicks on the modal
     modal.addEventListener('click', (e) => {
@@ -24,11 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    const alreadyhaveanaccount_Btn = document.querySelector('.alreadyhaveanaccountbtn');
 
     alreadyhaveanaccount_Btn.addEventListener('click', () => {
 
-            login_container.style.display = 'none';
+            login_container.style.display = 'block';
+            signup_container.style.display = 'none';
 
     });
 

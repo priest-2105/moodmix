@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.querySelector('.auth-modal');
     const signup_container = document.querySelector('.signup-container');
     const login_container = document.querySelector('.login-container');
-    const donthaveanacount_Btn = document.getElementById('donthaveanacountbtn');
+    const backtologin_Btn = document.getElementById('backtologinbtn');
 
     // Add event listener for clicks on the modal
     modal.addEventListener('click', (e) => {
@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    donthaveanacount_Btn.addEventListener('click', () => {
+    backtologin_Btn.addEventListener('click', () => {
 
         login_container.style.display = 'none';
         signup_container.style.display = 'block';
-        console.log('donthaveanacountbtn clicked');
+        console.log('backtologinbtn clicked');
         
     });
 
