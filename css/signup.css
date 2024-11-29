@@ -1,10 +1,9 @@
-.signup-modal{
+.signup-modal {
     position: fixed;
     top: 0%;
     left: 0%;
-    /* transform: translate(-50% , 50%); */
     backdrop-filter: blur(9px);
-    background-color: rgba(0, 0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,22 +11,28 @@
     height: 100%;
     z-index: 999;
     transform: scale(1);
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
+    transition: transform 0.5s ease-in-out;
 }
 
-.signup-container{
+.signup-modal.active {
+    transform: scale(1.1);
+}
+
+.signup-container {
     height: 40vh;
     z-index: 9999;
     width: 30vw;
     background-color: #1F1F22;
     border-radius: 15px;
     padding: 2rem;
+    transform: scale(1);
+    transition: transform 0.2s ease-in-out;
 }
 
-.signup-container:active{
-    transform: scale(1);
+.signup-container.active {
+    transform: scale(1.1);
 }
+
 
 .signup-container h2{
     color: #FCFCFC;
