@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.querySelector('.login-modal');
-    const container = document.querySelector('.login-container');
+    const modal = document.querySelector('.auth-modal');
+    const signup_container = document.querySelector('.signup-container');
+    const login_container = document.querySelector('.login-container');
+    const donthaveanacount_Btn = document.querySelector('.donthaveanacountbtn');
 
     // Add event listener for clicks on the modal
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
-            // Only scale when clicking the modal, not the container or form elements
+            // Only scale when clicking the modal, not the login_container or form elements
             modal.classList.add('active');
             setTimeout(() => {
                 modal.classList.remove('active');
@@ -13,26 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Add click event on the container to stop it from bubbling to the modal
-    container.addEventListener('click', (e) => {
+    // Add click event on the login_container to stop it from bubbling to the modal
+    login_container.addEventListener('click', (e) => {
         e.stopPropagation();
-        container.classList.add('active');
+        login_container.classList.add('active');
         setTimeout(() => {
-            container.classList.remove('active');
+            login_container.classList.remove('active');
         }, 200);
     });
-});
 
 
+    donthaveanacount_Btn.addEventListener('click', () => {
 
-
-const donthaveanacount_Btn = document.querySelector('.donthaveanacountbtn');
-
-
-
-
-donthaveanacount_Btn.addEventListener('click', () => {
-
-    
+        signup_container.style.display = 'none';
+        
+    });
 
 });
+
+

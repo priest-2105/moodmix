@@ -1,4 +1,4 @@
-.signup-modal {
+.auth-modal {
     position: fixed;
     top: 0%;
     left: 0%;
@@ -14,7 +14,7 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.signup-modal.active {
+.auth-modal.active {
     transform: scale(1.1);
 }
 
@@ -111,6 +111,7 @@
 
 .signup-container a{
     color: #00ffffe0;
+    cursor: pointer;
     text-decoration: none;
 }
 
