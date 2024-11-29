@@ -10,23 +10,23 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    z-index: 9999;
-    transition-duration: 0.2s;
+    z-index: 999;
+    transform: scale(1);
+    transition-duration: 0.5s;
     transition-timing-function: ease-in-out;
-}
-
-.signup-modal:active .signup-container{
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out; 
-    transform: scale(1.1);
 }
 
 .signup-container{
     height: 40vh;
+    z-index: 9999;
     width: 30vw;
     background-color: #1F1F22;
     border-radius: 15px;
     padding: 2rem;
+}
+
+.signup-container:active{
+    transform: scale(1);
 }
 
 .signup-container h2{
