@@ -11,7 +11,7 @@
     height: 100%;
     z-index: 999;
     transform: scale(1);
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.2s ease-in-out;
 }
 
 .signup-modal.active {
@@ -19,7 +19,12 @@
 }
 
 .signup-container {
-    height: 40vh;
+    height: 40vh;    
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    justify-self: center;
     z-index: 9999;
     width: 30vw;
     background-color: #1F1F22;
@@ -27,10 +32,6 @@
     padding: 2rem;
     transform: scale(1);
     transition: transform 0.2s ease-in-out;
-}
-
-.signup-container.active {
-    transform: scale(1.1);
 }
 
 
@@ -53,4 +54,17 @@
     height: 40px;
     width: 100%;
     padding: 0.2rem;
+}
+
+
+.signup-container button{
+    width: 80%;
+    margin-top: 10px;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    justify-self: center;
+    /* padding: 1rem; */
+    text-align: center;
+
 }
