@@ -121,3 +121,6 @@ mediaQuery.addEventListener('change', applyStylesForScreenSize);
 // Initial check and apply styles
 applyStylesForScreenSize(mediaQuery);
 
+
+
+
