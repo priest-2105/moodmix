@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.querySelector('.auth-modal');
-    const signup_container = document.querySelector('.signup-container');
     const login_container = document.querySelector('.login-container');
-    const backtologin_Btn = document.getElementById('backtologinbtn');
+    const forgot_password_container = document.querySelector('.forgot-password-container');
+    const alreadyhaveanaccount_Btn = document.querySelector('#backtologinbtnbtn');
 
     // Add event listener for clicks on the modal
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
-            // Only scale when clicking the modal, not the login_container or form elements
+            // Only scale when clicking the modal, not the forgot_password_container or form elements
             modal.classList.add('active');
             setTimeout(() => {
                 modal.classList.remove('active');
@@ -15,22 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Add click event on the login_container to stop it from bubbling to the modal
-    login_container.addEventListener('click', (e) => {
+    // Add click event on the forgot_password_container to stop it from bubbling to the modal
+    forgot_password_container.addEventListener('click', (e) => {
         e.stopPropagation();
-        login_container.classList.add('active');
+        forgot_password_container.classList.add('active');
         setTimeout(() => {
-            login_container.classList.remove('active');
+            forgot_password_container.classList.remove('active');
         }, 200);
     });
 
 
-    backtologin_Btn.addEventListener('click', () => {
 
-        login_container.style.display = 'none';
-        signup_container.style.display = 'block';
-        console.log('backtologinbtn clicked');
-        
+    alreadyhaveanaccount_Btn.addEventListener('click', () => {
+
+            login_container.style.display = 'block';
+            forgot_password_container.style.display = 'none';
+
     });
 
 });

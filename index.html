@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="./css/section-styles.css">
     <link rel="stylesheet" href="./css/login.css">
     <link rel="stylesheet" href="./css/signup.css">
+    <link rel="stylesheet" href="./css/forgotpassword.css">
 </head>
 <body>
     
@@ -86,24 +87,24 @@
     <div class="auth-modal">
 
       
-      <div class="login-container">
+      <div class="forgot-password-container">
         <h2>Forgot Password</h2>
         <form>
          <div class="form-input-container">
           <input type="text" name="email" placeholder="Email">
         </div>
       
-            <button type="submit">Reset Password</button>
+            <button id="reset-password-button" type="submit">Reset Password</button>
         </form>
 
 
-        <p>Don't have an account ? <a id="backtologinbtnbtn">Login in</a></p>
+        <p>AAlready have an account ? <a id="backtologinbtnbtn">Login in</a></p>
       </div>
 
     
       <div class="login-container">
         <h2>Login</h2>
-        <form>
+        <form id="loginForm">
          <div class="form-input-container">
           <input type="text" name="email" placeholder="Email">
         </div>
@@ -112,11 +113,11 @@
           <input type="password" name="password" placeholder="Password">
         </div>
       
-            <button type="submit">Login</button>
+            <button id="login-button" type="submit">Login</button>
         </form>
 
         <div class="form-input-container">
-        <a href="#" class="forgot-password">Forgot Password ? </a>
+        <a class="forgot-password-btn">Forgot Password ? </a>
           </div>
 
         <p>Don't have an account ? <a id="donthaveanacountbtn">Sign up</a></p>
@@ -139,7 +140,7 @@
           <input type="password" name="password" placeholder="Password">
         </div>
          
-          <button type="submit">Sign up</button>
+          <button id="signup-button" type="submit">Sign up</button>
           <div class="form-input-container">
           </div>
         </form>
