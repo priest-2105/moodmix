@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const loginContainer = document.querySelector('.login-container');
   const dontHaveAccountBtn = document.getElementById('donthaveanacountbtn');
   const forgotPasswordBtn = document.querySelector('.forgot-password-btn');
-  const loginButton = document.querySelector('#login-button');  
+  const loginButton = document.querySelector('#login-button');
   const loginForm = document.querySelector('#loginForm');
+  const spotifyLoginButton = document.getElementById('spotify-login-button');
 
   // Check for required elements
-  if (!modal || !loginContainer || !signupContainer || !forgotPasswordContainer) {
+  if (!modal || !loginContainer || !signupContainer || !forgotPasswordContainer || !spotifyLoginButton) {
     console.error('Required elements are missing in the HTML.');
     return;
   }
@@ -35,8 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
   dontHaveAccountBtn.addEventListener('click', () => {
     loginContainer.style.display = 'none';
     signupContainer.style.display = 'block';
-    console.log('donthaveanacountbt');
-    
   });
 
   // Switch to forgot password view
@@ -46,28 +45,62 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Handle login form submission
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    console.log('Form submitted');
-    modal.style.display = 'none';
-    // Perform additional login validation or API call here
+    const email = loginForm.querySelector('input[name="email"]').value;
+    const password = loginForm.querySelector('input[name="password"]').value;
+
+    console.log('Login submitted', { email, password });
+
+    // Placeholder for API call to authenticate user
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Login successful!');
+        updateUIAfterLogin(data);
+      } else {
+        alert('Login failed, please try again.');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('An error occurred, please try again later.');
+    }
   });
 
-  // Handle Spotify login redirection
+  // Handle Spotify login
+  spotifyLoginButton.addEventListener('click', () => {
+    const authURL = auth.getAuthURL();
+    window.location.href = authURL;
+  });
+
+  // Handle Spotify login callback
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
   if (code) {
     auth.fetchToken(code).then((data) => {
       if (data) {
-        alert('Login successful!');
+        console.log('Spotify login successful!');
         console.log('Access Token:', data.access_token);
+        updateUIAfterLogin(data);
       }
     });
   }
 
-  // Spotify Login Button
-  loginButton.addEventListener('click', () => {
-    const authURL = auth.getAuthURL();
-    window.location.href = authURL;
-  });
+  // Function to update UI after successful login
+  function updateUIAfterLogin(userData) {
+    modal.style.display = 'none';
+    // Add any other UI updates here, such as showing user profile info
+    console.log('User data:', userData);
+  }
+
+  // Check if user is already authenticated
+  if (auth.isAuthenticated()) {
+    updateUIAfterLogin({ message: 'User already authenticated' });
+  }
 });

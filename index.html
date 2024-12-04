@@ -102,47 +102,43 @@
       </div>
 
     
-        <div class="login-container">
-          <h2>Login</h2>
-          <form id="loginForm">
+      <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
             <div class="form-input-container">
-              <input type="text" name="email" placeholder="Email" required>
+                <input type="text" name="email" placeholder="Email" required>
             </div>
             <div class="form-input-container">
-              <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Password" required>
             </div>
+            <button id="spotify-login-button" type="button">Login with Spotify</button>
             <button id="login-button" type="submit">Login</button>
-          </form>
-          <div class="form-input-container">
+        </form>
+        <div class="form-input-container">
             <a class="forgot-password-btn">Forgot Password?</a>
-          </div>
-          <p>
-            Don't have an account? <a id="donthaveanacountbtn">Sign up</a>
-          </p>
         </div>
-   
-    
-      <div class="signup-container">
+        <p>Don't have an account? <a id="donthaveanacountbtn">Sign up</a></p>
+    </div>
+
+    <div class="signup-container" style="display: none;">
         <h2>Create an Account</h2>
-        <form>
-         <div class="form-input-container">
-          <input type="text" name="email" placeholder="Email">
-        </div>
-         
-         <div class="form-input-container">
-          <input type="text" name="username" placeholder="Username">
-        </div>
-         
-          <div class="form-input-container">
-          <input type="password" name="password" placeholder="Password">
-        </div>
-         
-          <button id="signup-button" type="submit">Sign up</button>
-          <div class="form-input-container">
-          </div>
+        <form id="signupForm">
+            <div class="form-input-container">
+                <input type="text" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-input-container">
+                <input type="text" name="username" placeholder="Username" required>
+            </div>
+            <div class="form-input-container">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <button id="signup-button" type="submit">Sign up</button>
         </form>
         <p>Already have an account? <a id="alreadyhaveanaccountbtn">Sign In</a></p>
-      </div>
+    </div>
+
+     
+      
     </div>
 
 
@@ -700,7 +696,7 @@
     <script type="module" src="./js/auth.js"></script>
     <script src="./js/forgotpassword.js"></script>
     <script type="module" src="./js/login.js"></script>
-    <script src="./js/signup.js"></script>
+    <script type="module" src="./js/signup.js"></script>
     <script src="./js/slider.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/glide.min.js"></script>
     <script src="./js/basic-responsiveness.js"></script>
