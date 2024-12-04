@@ -1,5 +1,5 @@
 let clientId;
-const redirectUri = 'http://127.0.0.1:5500/index.html';  
+const redirectUrl = 'http://127.0.0.1:5500/index.html';  
 
 async function fetchClientId() {
   try {
@@ -17,7 +17,7 @@ async function loginWithSpotify() {
     await fetchClientId();
   }
   const scopes = 'user-read-private user-read-email playlist-read-private';
-  const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
+  const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_url=${encodeURIComponent(redirectUrl)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
   window.location.href = authUrl;
 }
 

@@ -4,8 +4,9 @@
     padding-bottom: 200px;
     /* background-color: red; */
     padding:1rem 2rem;
-    /* overflow-x: hidden; */
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
     display:block;
 }
 .inner-main-content-bottom-filler{
