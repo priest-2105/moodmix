@@ -1,7 +1,7 @@
 const auth = (() => {
   const CLIENT_ID = "2b7acb2ab7554292938c8643bae198f6";
   const CLIENT_SECRET = "e1017af42cd94f0ba4e963811d079313";
-  const REDIRECT_URI = "moodmix.com";
+  const REDIRECT_URI = "https://moodmixweb.netlify.app/";
   const AUTH_URL = "https://accounts.spotify.com/authorize";
   const TOKEN_URL = "https://accounts.spotify.com/api/token";
 
