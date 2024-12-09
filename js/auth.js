@@ -1,9 +1,8 @@
 const auth = (() => {
   const CLIENT_ID = "2b7acb2ab7554292938c8643bae198f6";
-  const CLIENT_SECRET = "e1017af42cd94f0ba4e963811d079313";
   const REDIRECT_URI = "http://localhost:5500/";
-  const AUTH_URL = "https://accounts.spotify.com/authorize";
-  const TOKEN_URL = "https://accounts.spotify.com/api/token";
+  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+  const RESPONSE_TYPE = "token";
 
   const SCOPES = [
     "user-read-private",
@@ -12,61 +11,46 @@ const auth = (() => {
     "playlist-modify-private",
   ];
 
-  const getAuthURL = () => {
-    const scopes = SCOPES.join(" ");
-    return `${AUTH_URL}?client_id=${CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(
-      REDIRECT_URI
-    )}&scope=${encodeURIComponent(scopes)}`;
-  };
-
-  const saveToken = (token) => {
-    localStorage.setItem("spotifyAuthToken", token);
+  const getLoginURL = () => {
+    return `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(SCOPES.join(" "))}&response_type=${RESPONSE_TYPE}`;
   };
 
   const getToken = () => {
-    return localStorage.getItem("spotifyAuthToken");
+    const hash = window.location.hash
+      .substring(1)
+      .split("&")
+      .reduce((initial, item) => {
+        if (item) {
+          const parts = item.split("=");
+          initial[parts[0]] = decodeURIComponent(parts[1]);
+        }
+        return initial;
+      }, {});
+    return hash.access_token;
   };
 
-  const fetchToken = async (code) => {
-    try {
-      const response = await fetch(TOKEN_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          grant_type: "authorization_code",
-          code,
-          redirect_uri: REDIRECT_URI,
-          client_id: CLIENT_ID,
-          client_secret: CLIENT_SECRET,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch token");
-      }
-
-      const data = await response.json();
-      saveToken(data.access_token);
-      return data;
-    } catch (error) {
-      console.error(error.message);
-    }
+  const setToken = (token) => {
+    localStorage.setItem("spotify_token", token);
   };
 
-  const logout = () => {
-    localStorage.removeItem("spotifyAuthToken");
+  const getStoredToken = () => {
+    return localStorage.getItem("spotify_token");
+  };
+
+  const removeToken = () => {
+    localStorage.removeItem("spotify_token");
   };
 
   const isAuthenticated = () => {
-    return !!getToken();
+    return !!getStoredToken();
   };
 
   return {
-    getAuthURL,
-    fetchToken,
-    logout,
+    getLoginURL,
+    getToken,
+    setToken,
+    getStoredToken,
+    removeToken,
     isAuthenticated,
   };
 })();
