@@ -1,7 +1,5 @@
 import auth from './auth.js';
 
-
-
 const playlistLoader = (() => {
   const loadPlaylists = async () => {
     const token = auth.getStoredToken();
