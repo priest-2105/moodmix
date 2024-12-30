@@ -29,16 +29,24 @@ const auth = (() => {
     return hash.access_token;
   };
 
-  const setToken = (token) => {
+  const setToken = (token, expiry) => {
     localStorage.setItem("spotify_token", token);
+    localStorage.setItem("spotify_token_expiry", expiry);
   };
 
   const getStoredToken = () => {
-    return localStorage.getItem("spotify_token");
+    const token = localStorage.getItem("spotify_token");
+    const expiry = localStorage.getItem("spotify_token_expiry");
+    if (new Date().getTime() > expiry) {
+      removeToken();
+      return null;
+    }
+    return token;
   };
 
   const removeToken = () => {
     localStorage.removeItem("spotify_token");
+    localStorage.removeItem("spotify_token_expiry");
   };
 
   const isAuthenticated = () => {
