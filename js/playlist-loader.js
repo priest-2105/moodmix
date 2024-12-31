@@ -35,46 +35,45 @@ const playlistLoader = (() => {
   };
 
   const displayPlaylists = (playlists) => {
-    const playlistContainer = document.querySelector('.glide__slides');
-    if (!playlistContainer) {
-      console.error('Playlist container not found');
-      return;
-    }
+    const container = document.querySelector('.inner-main-content');
+    const template = document.getElementById('playlist-section-template').innerHTML;
 
-    // Clear existing content
-    playlistContainer.innerHTML = '';
+    const sections = {
+      'Recent Playlists': playlists.slice(0, 5),
+      'All Playlists': playlists,
+      'Favorite Playlists': playlists.slice().sort((a, b) => b.tracks.total - a.tracks.total).slice(0, 5),
+      'Back in Time': playlists.slice().sort((a, b) => new Date(a.added_at) - new Date(b.added_at)).slice(0, 5),
+    };
 
-    playlists.forEach(playlist => {
-      if (playlist && typeof playlist === 'object') {
-        const playlistElement = document.createElement('div');
-        playlistElement.className = 'inner-main-section-card glide__slide';
-        playlistElement.innerHTML = `
-          <div class="inner-main-secton-card-banner" style="background-image: url('${getPlaylistImage(playlist)}');"></div>
-          <div class="inner-main-secton-card-description">
-            <div class="inner-main-secton-card-description-filler"></div>
-            <div class="inner-main-secton-card-description-inner">
-              <button> <i class="bi bi-play-fill"></i> </button>
-              <span>${playlist.type || 'Playlist'}</span>
-              <h3>${playlist.name || 'Untitled Playlist'}</h3>
-              <p>${playlist.description || 'No description'}</p>
+    for (const [sectionTitle, sectionPlaylists] of Object.entries(sections)) {
+      let slidesHtml = '';
+      sectionPlaylists.forEach(playlist => {
+        const slide = {
+          image: (playlist.images && playlist.images[0]) ? playlist.images[0].url : './assets/images/default-playlist.png',
+          subtitle: playlist.owner.display_name,
+          title: playlist.name,
+          description: `${playlist.tracks.total} tracks`
+        };
+        slidesHtml += `
+          <div class="inner-main-section-card glide__slide">
+            <div class="inner-main-secton-card-banner" style="background-image: url('${slide.image}');"></div>
+            <div class="inner-main-secton-card-description">
+              <div class="inner-main-secton-card-description-filler"></div>
+              <div class="inner-main-secton-card-description-inner">
+                <button> <i class="bi bi-play-fill"></i> </button>
+                <span>${slide.subtitle}</span>
+                <h3>${slide.title}</h3>
+                <p>${slide.description}</p>
+              </div>
             </div>
-          </div>
-        `;
-        playlistContainer.appendChild(playlistElement);
-      } else {
-        console.error('Invalid playlist object:', playlist);
-      }
-    });
+          </div>`;
+      });
 
-    // Reinitialize Glide.js
-    initializeGlide();
-  };
-
-  const getPlaylistImage = (playlist) => {
-    if (playlist && playlist.images && Array.isArray(playlist.images) && playlist.images.length > 0 && playlist.images[0].url) {
-      return playlist.images[0].url;
+      const sectionHtml = template.replace('{{title}}', sectionTitle).replace('{{slides}}', slidesHtml);
+      container.insertAdjacentHTML('beforeend', sectionHtml);
     }
-    return './assets/images/placeholder.png';
+
+    initializeGlide();
   };
 
   const initializeGlide = () => {
@@ -87,7 +86,7 @@ const playlistLoader = (() => {
       window.glideInstance = new Glide('.glide', {
         type: 'carousel',
         startAt: 0,
-        perView: 3,
+        perView: 4,
         gap: 20,
         breakpoints: {
           768: {
@@ -143,3 +142,5 @@ const playlistLoader = (() => {
 
 export default playlistLoader;
 
+// Call loadPlaylists to initialize everything
+playlistLoader.loadPlaylists();

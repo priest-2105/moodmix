@@ -1,7 +1,7 @@
 .inner-main-content{
     width: 95%;
     height: 100vh;
-    padding-bottom: 200px;
+    /* padding-bottom: 600px; */
     /* background-color: red; */
     padding:1rem 2rem;
     overflow-x: hidden;
@@ -10,7 +10,7 @@
     display:block;
 }
 .inner-main-content-bottom-filler{
-    height: 250px; 
+    /* height: 250px;  */
     width: 100%;
 }
 
