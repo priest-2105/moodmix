@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const glide = new Glide(glideElement, {
                 type: 'carousel',
                 startAt: 0,
-                perView: 4,
+                perView: 5,
                 focusAt: '0',
                 gap: 20,
                 peek: { before: 0, after: 0 },
