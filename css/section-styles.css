@@ -14,6 +14,14 @@
     width: 100%;
 }
 
+.inner-main-content-section {
+    scroll-margin-top: 100px; /* Adjust based on header height */
+    padding-top: 20px; /* Ensure the section content is not hidden behind the header */
+}
+
+.inner-main-content::-webkit-scrollbar{
+    width: 200px;
+}
 
 .inner-main-content::-webkit-scrollbar-thumb{
     background-color: #ffffff;
@@ -41,6 +49,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px 0; /* Add padding to ensure visibility */
 }
 
 .inner-main-section-header h2{
@@ -54,14 +63,12 @@
     justify-content: space-between;
     width: 80px;
  } 
- 
  .inner-main-section-header .direction-arrows button{
     border-radius: 50%;
     background-color: transparent;
     color: #fcfcfc6b;
     font-size: 1.1rem;
     border: none;
-    background-color: transparent;
     padding:  8px 10px;
     transition-duration: 0.2s;
     transition-timing-function: ease-in-out;
@@ -81,14 +88,11 @@
  }
  
  .inner-main-section-tile{
-
     width: 100%;
     height: fit-content;
     display: flex;
     align-items: center; 
-    overflow-y: hidden;
-    overflow-x: scroll;
-
+    overflow-x: hidden;
  }
 
  .inner-main-section-card{
@@ -177,8 +181,16 @@
     font-weight: 600;
 }
 
+.glide__slides {
+    display: flex;
+    justify-content: flex-start;
+}
 
-
+.glide__slide {
+    flex: 0 0 auto;
+    width: calc(25% - 20px); /* Adjust width as needed */
+    margin-right: 20px;
+}
 
 @media only screen and (max-width:920px) {
 
@@ -256,7 +268,8 @@
         font-size: 1.4rem; 
         font-weight: 600;
     }
-    
-    
-    
+
+    .glide__slide {
+        width: calc(50% - 10px); /* Adjust width for smaller screens */
+    }
 }

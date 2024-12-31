@@ -36,6 +36,7 @@ const playlistLoader = (() => {
 
   const displayPlaylists = (playlists) => {
     const container = document.querySelector('.inner-main-content');
+    const sidebarNav = document.querySelector('.playlist-sections-nav');
     const template = document.getElementById('playlist-section-template').innerHTML;
 
     const sections = {
@@ -69,11 +70,24 @@ const playlistLoader = (() => {
           </div>`;
       });
 
-      const sectionHtml = template.replace('{{title}}', sectionTitle).replace('{{slides}}', slidesHtml);
+      const sectionId = sectionTitle.replace(/\s+/g, '-').toLowerCase();
+      const sectionHtml = template.replace('{{title}}', sectionTitle).replace('{{slides}}', slidesHtml).replace('{{id}}', sectionId);
       container.insertAdjacentHTML('beforeend', sectionHtml);
+
+      const sidebarLink = document.createElement('li');
+      sidebarLink.textContent = sectionTitle;
+      sidebarLink.addEventListener('click', () => {
+        const sectionElement = document.getElementById(sectionId);
+        if (sectionElement) {
+          sectionElement.scrollIntoView({ behavior: 'smooth' });
+          localStorage.setItem('current_scroll_section', sectionId);
+        }
+      });
+      sidebarNav.appendChild(sidebarLink);
     }
 
     initializeGlide();
+    scrollToStoredSection();
   };
 
   const initializeGlide = () => {
@@ -82,24 +96,37 @@ const playlistLoader = (() => {
       if (window.glideInstance) {
         window.glideInstance.destroy();
       }
-      // Initialize new Glide instance
-      window.glideInstance = new Glide('.glide', {
-        type: 'carousel',
-        startAt: 0,
-        perView: 4,
-        gap: 20,
-        breakpoints: {
-          768: {
-            perView: 2
-          },
-          576: {
-            perView: 1
+      // Initialize new Glide instance for each section
+      document.querySelectorAll('.glide').forEach((glideElement, index) => {
+        new Glide(glideElement, {
+          type: 'carousel',
+          startAt: 0,
+          perView: 4,
+          gap: 20,
+          breakpoints: {
+            768: {
+              perView: 2
+            },
+            576: {
+              perView: 1
+            }
           }
-        }
+        }).mount();
       });
-      window.glideInstance.mount();
     } else {
       console.error('Glide.js is not loaded');
+    }
+  };
+
+  const scrollToStoredSection = () => {
+    const storedSectionId = localStorage.getItem('current_scroll_section');
+    if (storedSectionId) {
+      const sectionElement = document.getElementById(storedSectionId);
+      if (sectionElement) {
+        setTimeout(() => {
+          sectionElement.scrollIntoView({ behavior: 'smooth' });
+        }, 500);
+      }
     }
   };
 
