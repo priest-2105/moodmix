@@ -195,6 +195,82 @@
     margin-right: 20px;
 }
 
+.playlist-details {
+    padding: 20px;
+    color: #FCFCFC;
+}
+
+.playlist-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.playlist-header img {
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+}
+
+.playlist-info h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.playlist-info p {
+    margin: 5px 0;
+}
+
+.playlist-tracks {
+    margin-top: 20px;
+}
+
+.track {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.track img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.track-info h3 {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.track-info p {
+    margin: 2px 0;
+}
+
+.playlist-details-container {
+    display: none;
+    padding: 20px;
+    color: #FCFCFC;
+}
+
+.back-to-main {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #FCFCFC;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.back-to-main:hover {
+    background-color: #e0e0e0;
+}
+
 @media only screen and (max-width:920px) {
 
     .inner-main-content{

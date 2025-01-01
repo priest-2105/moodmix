@@ -7,8 +7,15 @@
   },
   "dependencies": {
     "@auth/express": "^0.8.4",
-    "dotenv": "^10.0.0",
     "express": "^4.21.1",
     "spotify-mood-playlist": "file:"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "babel-loader": "^9.2.1",
+    "dotenv": "^16.4.7",
+    "dotenv-webpack": "^8.1.0",
+    "webpack-cli": "^6.0.1"
   }
 }
