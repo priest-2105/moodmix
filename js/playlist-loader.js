@@ -10,7 +10,7 @@ const playlistLoader = (() => {
     }
 
     try {
-      const response = await fetch('https://api.spotify.com/v1/me/playlists', {
+      const response = await fetch('http://localhost:9000/api/your-endpoint', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -111,7 +111,7 @@ const playlistLoader = (() => {
     }
 
     try {
-      const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
+      const response = await fetch(`http://localhost:9000/api/your-endpoint/${playlistId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

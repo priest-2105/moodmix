@@ -3,8 +3,6 @@
 .inner-main-content{
     width: 95%;
     height: 100vh;
-    /* padding-bottom: 600px; */
-    /* background-color: red; */
     padding:1rem 2rem;
     overflow-x: hidden;
     overflow-y: scroll;
