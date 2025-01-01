@@ -127,7 +127,7 @@ const playlistLoader = (() => {
           sectionElement.scrollIntoView({ behavior: 'smooth' });
         }, 500);
       }
-    }
+    } 
   };
 
   const displayEmptyState = () => {

@@ -1,6 +1,6 @@
 const auth = (() => {
-  const CLIENT_ID = "2b7acb2ab7554292938c8643bae198f6";
-  const REDIRECT_URI = "http://localhost:5500/";
+  const CLIENT_ID = process.env.SPOTIFY_APP_CLIENT_ID;
+  const REDIRECT_URI = process.env.SPOTIFY_APP_REDIRECT_URI;
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
 

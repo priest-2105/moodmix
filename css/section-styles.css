@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
 .inner-main-content{
     width: 95%;
     height: 100vh;
@@ -17,12 +19,9 @@
 .inner-main-content-section {
     scroll-margin-top: 100px; /* Adjust based on header height */
     padding-top: 20px; /* Ensure the section content is not hidden behind the header */
+    margin-bottom: 50px;
 }
-
-.inner-main-content::-webkit-scrollbar{
-    width: 200px;
-}
-
+ 
 .inner-main-content::-webkit-scrollbar-thumb{
     background-color: #ffffff;
     border-radius: 8px;
@@ -55,6 +54,10 @@
 .inner-main-section-header h2{
     color: #FCFCFC;
     font-size: 1.4rem;
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    /* font-weight: <weight>; */
+    font-style: normal;
 }
 
 
