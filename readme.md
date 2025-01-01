@@ -21,7 +21,7 @@ MoodMix is a web application that integrates with Spotify to provide users with 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/moodmix.git
+   git clone https://github.com/priest/moodmix.git
    cd moodmix
    ```
 
