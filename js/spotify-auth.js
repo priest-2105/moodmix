@@ -1,5 +1,5 @@
 let clientId;
-const redirectUrl = 'http://127.0.0.1:5500/index.html';  
+const redirectUrl = 'http://127.0.0.1:9000/index.html';  
 
 async function fetchClientId() {
   try {

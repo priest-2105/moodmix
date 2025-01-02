@@ -27,7 +27,7 @@ MoodMix is a web application that integrates with Spotify to provide users with 
 
 2. Install dependencies:
    ```bash
-   npm install
+   npm installer
    ```
 
 3. Create a `.env` file in the root directory and add your Spotify API credentials:
