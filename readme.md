@@ -1,6 +1,6 @@
 # MoodMix
 
-MoodMix is a that integrates with Spotify to provide users with personalized playlists based on their moods. The application allows users to log in with their Spotify account, view their playlists, and explore new music.
+MoodMix is a web application that integrates with Spotify to provide users with personalized playlists based on their moods. The application allows users to log in with their Spotify account, view their playlists, and explore new music.
 
 ## Features
 
