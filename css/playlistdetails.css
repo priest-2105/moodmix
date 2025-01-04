@@ -84,11 +84,11 @@
     color:rgb(255, 255, 255);
     background-color: transparent;
     border: none;
-
+    cursor: pointer;
 }
 
 .playlist-details-playpausebtn button{
-
+    cursor: pointer;
     padding: 8px 10px;
     border-radius: 50%;
     background-color: #3fbac2;
@@ -105,5 +105,28 @@
 
 .playlist-details-container-bottom-inner-title{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 30px 1fr 1fr 1fr;
+    column-gap: 15px;
+    row-gap: 15px;
+    color: aliceblue;
+    font-family: "Roboto";
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1.2px solid rgba(240, 248, 255, 0.26);
+}
+
+
+.playlist-details-container-bottom-inner-text{
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr 1fr;
+    color: rgba(240, 248, 255, 0.623);
+    font-family: "Roboto";
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+}
+
+.playlist-details-container-bottom-inner-text b{
+    color: rgb(240, 248, 255);
 }
