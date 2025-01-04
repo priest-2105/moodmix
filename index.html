@@ -17,10 +17,8 @@
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/navbar-styles.css">
     <link rel="stylesheet" href="./css/sidebar-styles.css">
-    <link rel="stylesheet" href="./css/section-styles.css">
-    <link rel="stylesheet" href="./css/login.css">
-    <link rel="stylesheet" href="./css/signup.css">
-    <link rel="stylesheet" href="./css/forgotpassword.css">
+    <link rel="stylesheet" href="./css/section-styles.css"> 
+    <link rel="stylesheet" href="./css/auth.css"> 
 </head>
 <body>
     
@@ -79,61 +77,20 @@
 
     </aside>
 
-    <div class="auth-modal">
-
-      
-      <div class="forgot-password-container">
-        <h2>Forgot Password</h2>
-        <form>
-         <div class="form-input-container">
-          <input type="text" name="email" placeholder="Email">
-        </div>
-      
-            <button id="reset-password-button" type="submit">Reset Password</button>
-        </form>
-
-
-        <p>Already have an account ? <a id="backtologinbtnbtn">Login in</a></p>
-      </div>
-
-    
+    <div class="auth-modal">    
       <div class="login-container">
         <h2>Login</h2>
         <form id="loginForm">
             <button id="spotify-login-button" type="button">Login with Spotify <i class="bi bi-spotify"></i></button> 
-        </form>
-        
+        </form>     
+    </div>
     </div>
 
-    <div class="signup-container" style="display: none;">
-        <h2>Create an Account</h2>
-        <form id="signupForm">
-            <div class="form-input-container">
-                <input type="text" name="email" placeholder="Email" required>
-            </div>
-            <div class="form-input-container">
-                <input type="text" name="username" placeholder="Username" required>
-            </div>
-            <div class="form-input-container">
-                <input type="password" name="password" placeholder="Password" required>
-            </div>
-            <button id="signup-button" type="submit">Sign up</button>
-        </form>
-        <p>Already have an account? <a id="alreadyhaveanaccountbtn">Sign In</a></p>
-    </div>
 
      
-      
-    </div>
-
-
-    
-    
     <!-- Main Content Area -->
     <main class="main-content">
     
-
-
         <header class="main-content-header">
         
           <div class="mobile-header">
@@ -141,7 +98,7 @@
             <img src="./assets/images/logo.png" alt="moodmix-logo">
           </div>
 
-     
+   
           <div class="mobile-header-end">
           <div class="mobile-header-search-bar">
             <img src="./assets/icons/Search.png" alt="">
@@ -175,10 +132,8 @@
             <img src="./assets/images/profile-img.png" alt="user-profile">
         </div>
         </div>
-
-        <div class="sidebar-bottom-filler"></div>
-
-        </header>
+        
+    </header>
 
         
         <div class="inner-main-content">
@@ -203,224 +158,7 @@
               </div>
             </div>
           </script>
-
-          <!-- Slide one  -->
-          <!-- <div class="inner-main-content-section">
-         
-            <div class="inner-main-section-header">
-              <h2>Happy Mood</h2>
-              
-              <div class="direction-arrows">
-                <button class="back-arrow" data-glide-dir="<"> <i class="bi bi-chevron-left"></i> </button>
-                <button class="forward-arrow" data-glide-dir=">"> < i class="bi bi-chevron-right"></i> </button>
-            </div>
-
-              </div>
-
-            <div class="inner-main-section-tile">
-
-              <div class="glide">
-                <div class="glide__track" data-glide-el="track">
-                  <div class="glide__slides">
-
-                    <div class="inner-main-section-card glide__slide">
-                      <div class="inner-main-secton-card-banner" style="background-image: url('./assets/images/Container.png');"></div>
-                      <div class="inner-main-secton-card-description">
-                        <div class="inner-main-secton-card-description-filler"></div>
-                        <div class="inner-main-secton-card-description-inner">
-                        <button> <i class="bi bi-play-fill"></i> </button>
-                        <span>New For You</span>
-                        <h3>My New Arrivals</h3>
-                        <p>Deine Freunde, Moderat, Sebastián Yatra and more</p>
-                      </div>
-                    </div>
-                    </div>
-
-                    <div class="inner-main-section-card glide__slide">
-                      <div class="inner-main-secton-card-banner" style="background-image: url('./assets/images/Image-for-you-x.png');"></div>
-                      <div class="inner-main-secton-card-description">
-                        <div class="inner-main-secton-card-description-filler"></div>
-                        <div class="inner-main-secton-card-description-inner">
-                        <button> <i class="bi bi-play-fill"></i> </button>
-                        <span>New For You</span>
-                        <h3>My New Arrivals</h3>
-                        <p>Deine Freunde, Moderat, Sebastián Yatra and more</p>
-                      </div>
-                    </div>
-                    </div>
-
-                    <div class="inner-main-section-card glide__slide">
-                      <div
-                        class="inner-main-secton-card-banner"
-                        style="background-image: url('./assets/images/Image-for-you.png');"
-                        data-image="./assets/images/Image-for-you.png"
-                      ></div>
-                      <div class="inner-main-secton-card-description">
-                        <div class="inner-main-secton-card-description-filler"></div>
-                        <div class="inner-main-secton-card-description-inner">
-                          <button> <i class="bi bi-play-fill"></i> </button>
-                          <span>New For You</span>
-                          <h3>My New Arrivals</h3>
-                          <p>Deine Freunde, Moderat, Sebastián Yatra and more</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-
-
-                    <div class="inner-main-section-card glide__slide">
-                      <div
-                        class="inner-main-secton-card-banner"
-                        style="background-image: url('./assets/images/Container.png');"
-                        data-image="./assets/images/Container.png"
-                      ></div>
-                      <div class="inner-main-secton-card-description">
-                        <div class="inner-main-secton-card-description-filler"></div>
-                        <div class="inner-main-secton-card-description-inner">
-                          <button> <i class="bi bi-play-fill"></i> </button>
-                          <span>New For You</span>
-                          <h3>My New Arrivals</h3>
-                          <p>Deine Freunde, Moderat, Sebastián Yatra and more</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-
-
-                    <div class="inner-main-section-card glide__slide">
-                      <div
-                        class="inner-main-secton-card-banner"
-                        style="background-image: url('./assets/images/Image-for-you.png');"
-                        data-image="./assets/images/Image-for-you.png"
-                      ></div>
-                      <div class="inner-main-secton-card-description">
-                        <div class="inner-main-secton-card-description-filler"></div>
-                        <div class="inner-main-secton-card-description-inner">
-                          <button> <i class="bi bi-play-fill"></i> </button>
-                          <span>New For You</span>
-                          <h3>My New Arrivals</h3>
-                          <p>Deine Freunde, Moderat, Sebastián Yatra and more</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    </div>
-                </div>
-              </div>
-            </div>
-            
-
-          </div> -->
-
-          <!-- Slide Two  -->
-
-          <!-- <div class="inner-main-content-section">
-         
-            <div class="inner-main-section-header">
-              <h2>Discover</h2>
-              
-              <div class="direction-arrows">
-                <button class="back-arrow" data-glide-dir="<"> <i class="bi bi-chevron-left"></i> </button>
-                <button class="forward-arrow" data-glide-dir=">"> <i class="bi bi-chevron-right"></i> </button>
-            </div>
-
-              </div>
-
-            <div class="inner-main-section-tile">
-
-              <div class="glide">
-                <div class="glide__track" data-glide-el="track">
-                  <div class="glide__slides">
-
-                    <div class="inner-main-section-card glide__slide">
-                      <div class="inner-main-secton-card-banner" style="background-image: url('./assets/images/Container.png');"></div>
-                      <div class="inner-main-secton-card-description">
-                        <div class="inner-main-secton-card-description-filler"></div>
-                        <div class="inner-main-secton-card-description-inner">
-                        <button> <i class="bi bi-play-fill"></i> </button>
-                        <span>New For You</span>
-                        <h3>My New Arrivals</h3>
-                        <p>Deine Freunde, Moderat, Sebastián Yatra and more</p>
-                      </div>
-                    </div>
-                    </div>
-
-                    <div class="inner-main-section-card glide__slide">
-                      <div class="inner-main-secton-card-banner" style="background-image: url('./assets/images/Image-for-you-x.png');"></div>
-                      <div class="inner-main-secton-card-description">
-                        <div class="inner-main-secton-card-description-filler"></div>
-                        <div class="inner-main-secton-card-description-inner">
-                        <button> <i class="bi bi-play-fill"></i> </button>
-                        <span>New For You</span>
-                        <h3>My New Arrivals</h3>
-                        <p>Deine Freunde, Moderat, Sebastián Yatra and more</p>
-                      </div>
-                    </div>
-                    </div>
-
-                    <div class="inner-main-section-card glide__slide">
-                      <div
-                        class="inner-main-secton-card-banner"
-                        style="background-image: url('./assets/images/Image-for-you.png');"
-                        data-image="./assets/images/Image-for-you.png"
-                      ></div>
-                      <div class="inner-main-secton-card-description">
-                        <div class="inner-main-secton-card-description-filler"></div>
-                        <div class="inner-main-secton-card-description-inner">
-                          <button> <i class="bi bi-play-fill"></i> </button>
-                          <span>New For You</span>
-                          <h3>My New Arrivals</h3>
-                          <p>Deine Freunde, Moderat, Sebastián Yatra and more</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-
-
-                    <div class="inner-main-section-card glide__slide">
-                      <div
-                        class="inner-main-secton-card-banner"
-                        style="background-image: url('./assets/images/Container.png');"
-                        data-image="./assets/images/Container.png"
-                      ></div>
-                      <div class="inner-main-secton-card-description">
-                        <div class="inner-main-secton-card-description-filler"></div>
-                        <div class="inner-main-secton-card-description-inner">
-                          <button> <i class="bi bi-play-fill"></i> </button>
-                          <span>New For You</span>
-                          <h3>My New Arrivals</h3>
-                          <p>Deine Freunde, Moderat, Sebastián Yatra and more</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-
-
-                    <div class="inner-main-section-card glide__slide">
-                      <div
-                        class="inner-main-secton-card-banner"
-                        style="background-image: url('./assets/images/Image-for-you.png');"
-                        data-image="./assets/images/Image-for-you.png"
-                      ></div>
-                      <div class="inner-main-secton-card-description">
-                        <div class="inner-main-secton-card-description-filler"></div>
-                        <div class="inner-main-secton-card-description-inner">
-                          <button> <i class="bi bi-play-fill"></i> </button>
-                          <span>New For You</span>
-                          <h3>My New Arrivals</h3>
-                          <p>Deine Freunde, Moderat, Sebastián Yatra and more</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    </div>
-                </div>
-              </div>
-            </div>
-            
-
-          </div> -->
-
+ 
  
 
           <div class="inner-main-content-bottom-filler"></div>
@@ -538,7 +276,7 @@
           <button class="prev-skip-button"> <i class="bi bi-skip-start-fill"></i> </button>
           <button class="play-button"> <i class="bi bi-play-fill"></i> </button>
           <button class="pause-button"> <i class="bi bi-pause-fill"></i> </button>
-          <button class="next-skip-button"> < i class="bi bi-skip-end-fill"></i> </button>
+          <button class="next-skip-button"> <i class="bi bi-skip-end-fill"></i> </button>
           <button class="loop-button"><i class="bi bi-shuffle"></i></button>
         </div> 
 
@@ -571,9 +309,9 @@
         <div class="mobile bottom-music-player-music-player-controls-inner-top">
         <button class="shuffle-button"><i class="bi bi-shuffle"></i></button>
         <button class="prev-skip-button"> <i class="bi bi-skip-start-fill"></i> </button>
-        <button class="play-button"> < i class="bi bi-play-fill"></i> </button>
+        <button class="play-button"> <i class="bi bi-play-fill"></i> </button>
         <button class="pause-button"> <i class="bi bi-pause-fill"></i> </button>
-        <button class="next-skip-button"> < i class="bi bi-skip-end-fill"></i> </button>
+        <button class="next-skip-button"> <i class="bi bi-skip-end-fill"></i> </button>
         <button class="loop-button"><i class="bi bi-shuffle"></i></button>
       </div> 
 

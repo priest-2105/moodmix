@@ -1,18 +1,4 @@
-let clientId;
-let redirectUri;
-
-async function fetchSpotifyCredentials() {
-  try {
-    const response = await fetch('/api/spotify-credentials');
-    const data = await response.json();
-    clientId = data.clientId;
-    redirectUri = data.redirectUri;
-    console.log('Fetched clientId:', clientId);  
-    console.log('Fetched redirectUri:', redirectUri);  
-  } catch (error) {
-    console.error('Error fetching Spotify credentials:', error);
-  }
-}
+import { clientId, redirectUri } from './client-config.js';
 
 const auth = (() => {
   const scopes = 'user-read-private user-read-email playlist-read-private';
@@ -29,15 +15,12 @@ const auth = (() => {
     localStorage.removeItem('spotify_access_token');
   };
 
-  const getLoginURL = async () => {
-    if (!clientId || !redirectUri) {
-      await fetchSpotifyCredentials();
-    }
+  const getLoginURL = () => {
     return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}`;
   };
 
-  const login = async () => {
-    const loginURL = await getLoginURL();
+  const login = () => {
+    const loginURL = getLoginURL();
     window.location.href = loginURL;
   };
 
@@ -53,13 +36,12 @@ const auth = (() => {
     }
   };
 
-  const initialize = async () => {
-    await fetchSpotifyCredentials();
+  const initialize = () => {
     handleRedirect();
 
     const loginButton = document.getElementById('spotify-login-button');
     if (loginButton) {
-      loginButton.addEventListener('click', login); // Directly call login without async
+      loginButton.addEventListener('click', login);
     }
   };
 
@@ -114,16 +96,15 @@ async function fetchAndStoreUserPlaylists(accessToken) {
 
 // Initialize the app
 async function initApp() {
-  await fetchSpotifyCredentials(); // Ensure clientId and redirectUri are fetched before using them
   const accessToken = localStorage.getItem('spotify_access_token');
   if (accessToken) {
     const userProfile = JSON.parse(localStorage.getItem('user_profile'));
     if (userProfile) {
       updateUIWithUserInfo(userProfile);
     } else {
-      fetchUserProfile(accessToken);
+      await fetchUserProfile(accessToken);
     }
-    fetchAndStoreUserPlaylists(accessToken);
+    await fetchAndStoreUserPlaylists(accessToken);
   }
 
   // Add login button event listener
