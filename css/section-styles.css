@@ -249,20 +249,6 @@
     margin: 2px 0;
 }
 
-.playlist-details-container {
-    display: none; /* Initially hidden */
-    padding: 20px;
-    color: #FCFCFC;
-    position: fixed; /* Fixed position to overlay on top of other content */
-    z-index: 399;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent background */
-    overflow-y: auto; /* Enable scrolling if content overflows */
-}
-
 .back-to-main {
     margin-top: 20px;
     padding: 10px 20px;
