@@ -1,25 +1,32 @@
 const express = require('express');
 const path = require('path');
-const config = require('./config');
+const { clientId, redirectUri, port } = require('./config');
 
 const app = express();
-const port = config.port;
 
 // Log environment variables for debugging
-console.log('SPOTIFY_APP_CLIENT_ID:', config.clientId);
-console.log('SPOTIFY_APP_REDIRECT_URI:', config.redirectUri);
+console.log('SPOTIFY_APP_CLIENT_ID:', clientId);
+console.log('SPOTIFY_APP_REDIRECT_URI:', redirectUri);
+
+// Middleware to add CORS headers
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+});
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Endpoint to securely provide the client ID
 app.get('/api/spotify-credentials', (req, res) => {
-  res.json({ clientId: config.clientId });
+  res.json({ clientId });
 });
 
 // Endpoint to securely provide the redirect URI
 app.get('/api/spotify-redirect-uri', (req, res) => {
-  res.json({ redirectUri: config.redirectUri });
+  res.json({ redirectUri });
 });
 
 // Serve JavaScript files
