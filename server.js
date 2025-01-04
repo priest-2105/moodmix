@@ -19,14 +19,9 @@ app.use((req, res, next) => {
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Endpoint to securely provide the client ID
+// Endpoint to securely provide the client ID and redirect URI
 app.get('/api/spotify-credentials', (req, res) => {
-  res.json({ clientId });
-});
-
-// Endpoint to securely provide the redirect URI
-app.get('/api/spotify-redirect-uri', (req, res) => {
-  res.json({ redirectUri });
+  res.json({ clientId, redirectUri });
 });
 
 // Serve JavaScript files

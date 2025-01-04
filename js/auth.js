@@ -3,16 +3,12 @@ let redirectUri;
 
 async function fetchSpotifyCredentials() {
   try {
-    const [clientIdResponse, redirectUriResponse] = await Promise.all([
-      fetch('/api/spotify-credentials'),
-      fetch('/api/spotify-redirect-uri')
-    ]);
-    const clientIdData = await clientIdResponse.json();
-    const redirectUriData = await redirectUriResponse.json();
-    clientId = clientIdData.clientId;
-    redirectUri = clientIdData.redirectUri;
-    console.log('Fetched clientId:', clientId); // Log for debugging
-    console.log('Fetched redirectUri:', redirectUri); // Log for debugging
+    const response = await fetch('/api/spotify-credentials');
+    const data = await response.json();
+    clientId = data.clientId;
+    redirectUri = data.redirectUri;
+    console.log('Fetched clientId:', clientId);  
+    console.log('Fetched redirectUri:', redirectUri);  
   } catch (error) {
     console.error('Error fetching Spotify credentials:', error);
   }
