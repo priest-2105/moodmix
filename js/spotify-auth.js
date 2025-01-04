@@ -1,20 +1,29 @@
-let clientId;
-const redirectUri = 'http://localhost:5500/index.html';  // Ensure this matches the Live Server port
+import config from '../config.js';
 
-async function fetchClientId() {
+let clientId = config.clientId;
+let redirectUri = config.redirectUri;
+
+async function fetchSpotifyCredentials() {
   try {
-    const response = await fetch('/api/spotify-credentials');
-    const data = await response.json();
-    clientId = data.clientId;
+    const [clientIdResponse, redirectUriResponse] = await Promise.all([
+      fetch('http://localhost:5501/api/spotify-credentials'), 
+      fetch('http://localhost:5501/api/spotify-redirect-uri') 
+    ]);
+    const clientIdData = await clientIdResponse.json();
+    const redirectUriData = await redirectUriResponse.json();
+    clientId = clientIdData.clientId;
+    redirectUri = redirectUriData.redirectUri;
+    console.log('Fetched clientId:', clientId); 
+    console.log('Fetched redirectUri:', redirectUri); 
   } catch (error) {
-    console.error('Error fetching client ID:', error);
+    console.error('Error fetching Spotify credentials:', error);
   }
 }
 
 // Function to initiate Spotify OAuth flow
 export async function loginWithSpotify() { 
-  if (!clientId) {
-    await fetchClientId();
+  if (!clientId || !redirectUri) {
+    await fetchSpotifyCredentials();
   }
   const scopes = 'user-read-private user-read-email playlist-read-private';
   const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
@@ -39,7 +48,7 @@ function handleCallback() {
 
 // Initialize the app
 async function initApp() {
-  await fetchClientId(); // Ensure clientId is fetched before using it
+  await fetchSpotifyCredentials(); // Ensure clientId and redirectUri are fetched before using them
   const accessToken = localStorage.getItem('spotify_access_token');
   if (accessToken) {
     const userProfile = JSON.parse(localStorage.getItem('user_profile'));
