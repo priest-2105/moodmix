@@ -192,12 +192,7 @@
     width: calc(25% - 20px); /* Adjust width as needed */
     margin-right: 20px;
 }
-
-.playlist-details {
-    padding: 20px;
-    color: #FCFCFC;
-}
-
+ 
 .playlist-header {
     display: flex;
     align-items: center;
@@ -247,7 +242,7 @@
 
 .track-info p {
     margin: 2px 0;
-}
+} 
 
 .back-to-main {
     margin-top: 20px;
