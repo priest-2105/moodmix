@@ -1,248 +1,213 @@
 import auth from './auth.js';
 
 const playlistLoader = (() => {
-  const loadPlaylists = async () => {
-    const token = auth.getStoredToken();
-    if (!token) {
-      console.error('No token found');
-      displayErrorState('No authentication token found. Please log in.');
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:9000/api/your-endpoint', {
-        headers: {
-          'Authorization': `Bearer ${token}`
+    const loadPlaylists = async () => {
+        const token = auth.getStoredToken();
+        if (!token) {
+            console.error('No token found');
+            displayErrorState('No authentication token found. Please log in.');
+            return;
         }
-      });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+        try {
+            const response = await fetch('https://api.spotify.com/v1/me/playlists', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
-      const data = await response.json();
-      if (data.items && Array.isArray(data.items) && data.items.length > 0) {
-        displayPlaylists(data.items);
-        localStorage.setItem('user_playlists', JSON.stringify(data.items));
-      } else {
-        console.log('No playlists found');
-        displayEmptyState();
-      }
-    } catch (error) {
-      console.error('Error loading playlists:', error);
-      displayErrorState('Failed to load playlists. Please try again later.');
-    }
-  };
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-  const displayPlaylists = (playlists) => {
-    const container = document.querySelector('.inner-main-content');
-    const sidebarNav = document.querySelector('.playlist-sections-nav');
-    const template = document.getElementById('playlist-section-template').innerHTML;
-
-    const sections = {
-      'Recent Playlists': playlists.slice(0, 5),
-      'All Playlists': playlists,
-      'Favorite Playlists': playlists.slice().sort((a, b) => b.tracks.total - a.tracks.total).slice(0, 5),
-      'Back in Time': playlists.slice().sort((a, b) => new Date(a.added_at) - new Date(b.added_at)).slice(0, 5),
+            const data = await response.json();
+            if (data.items && Array.isArray(data.items) && data.items.length > 0) {
+                displayPlaylists(data.items);
+                localStorage.setItem('user_playlists', JSON.stringify(data.items));
+            } else {
+                console.log('No playlists found');
+                displayEmptyState();
+            }
+        } catch (error) {
+            console.error('Error loading playlists:', error);
+            displayErrorState('Failed to load playlists. Please try again later.');
+        }
     };
 
-    for (const [sectionTitle, sectionPlaylists] of Object.entries(sections)) {
-      let slidesHtml = '';
-      sectionPlaylists.forEach(playlist => {
-        const slide = {
-          image: (playlist.images && playlist.images[0]) ? playlist.images[0].url : './assets/images/default-playlist.png',
-          subtitle: playlist.owner.display_name,
-          title: playlist.name.length > 20 ? playlist.name.substring(0, 17) + '...' : playlist.name,
-          description: `${playlist.tracks.total} tracks`
-        };
-        slidesHtml += `
-          <div class="inner-main-section-card glide__slide" data-playlist-id="${playlist.id}">
-            <div class="inner-main-secton-card-banner" style="background-image: url('${slide.image}');"></div>
-            <div class="inner-main-secton-card-description">
-              <div class="inner-main-secton-card-description-filler"></div>
-              <div class="inner-main-secton-card-description-inner">
-                <button> <i class="bi bi-play-fill"></i> </button>
-                <span>${slide.subtitle}</span>
-                <h3>${slide.title}</h3>
-                <p>${slide.description}</p>
-              </div>
-            </div>
-          </div>`;
-      });
-
-      const sectionId = sectionTitle.replace(/\s+/g, '-').toLowerCase();
-      const sectionHtml = template.replace('{{title}}', sectionTitle).replace('{{slides}}', slidesHtml).replace('{{id}}', sectionId);
-      container.insertAdjacentHTML('beforeend', sectionHtml);
-
-      const sidebarLink = document.createElement('li');
-      sidebarLink.textContent = sectionTitle;
-      sidebarLink.addEventListener('click', () => {
-        const sectionElement = document.getElementById(sectionId);
-        if (sectionElement) {
-          sectionElement.scrollIntoView({ behavior: 'smooth' });
-          localStorage.setItem('current_scroll_section', sectionId);
+    const displayPlaylists = (playlists) => {
+        const container = document.querySelector('.inner-main-content');
+        if (!container) {
+            console.error('Container not found');
+            return;
         }
-      });
-      sidebarNav.appendChild(sidebarLink);
-    }
+        container.innerHTML = ''; 
 
-    initializeGlide();
-    scrollToStoredSection();
-    addPlaylistClickHandlers();
-  };
+        playlists.forEach((playlist, index) => {
+            const playlistCard = createPlaylistCard(playlist, index);
+            container.appendChild(playlistCard);
+        });
 
-  const addPlaylistClickHandlers = () => {
-    document.querySelectorAll('.inner-main-section-card').forEach(card => {
-      card.addEventListener('click', async (event) => {
-        const playlistId = card.getAttribute('data-playlist-id');
-        if (playlistId) {
-          await displayPlaylistDetails(playlistId);
+        addPlaylistClickHandlers();
+    };
+
+    const createPlaylistCard = (playlist, index) => {
+        const card = document.createElement('div');
+        card.className = 'playlist-card';
+        card.className = 'oneslide';
+        card.setAttribute('data-playlist-id', playlist.id);
+        card.innerHTML = `
+            <img src="${playlist.images[0]?.url || './assets/images/default-playlist.png'}" alt="${playlist.name}">
+            <h3>${playlist.name}</h3>
+            <p>${playlist.tracks.total} tracks</p>
+        `;
+        return card;
+    };
+
+    const addPlaylistClickHandlers = () => {
+        document.querySelectorAll('.playlist-card').forEach(card => {
+            card.addEventListener('click', async (event) => {
+                console.log('Playlist card clicked');
+                const playlistId = card.getAttribute('data-playlist-id');
+                if (playlistId) {
+                    await displayPlaylistDetails(playlistId);
+                }
+            });
+        });
+    };
+
+    const displayPlaylistDetails = async (playlistId) => {
+        console.log('Displaying playlist details for ID:', playlistId);
+        const token = auth.getStoredToken();
+        if (!token) {
+            console.error('No token found');
+            return;
         }
-      });
-    });
-  };
 
-  const displayPlaylistDetails = async (playlistId) => {
-    const token = auth.getStoredToken();
-    if (!token) {
-      console.error('No token found');
-      displayErrorState('No authentication token found. Please log in.');
-      return;
-    }
+        try {
+            const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
-    try {
-      const response = await fetch(`http://localhost:9000/api/your-endpoint/${playlistId}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const playlist = await response.json();
-      const mainContent = document.querySelector('.inner-main-content');
-      const playlistDetails = document.querySelector('.playlist-details-container');
-      mainContent.style.display = 'none';
-      playlistDetails.style.display = 'block';
-      playlistDetails.innerHTML = `
-        <div class="playlist-details">
-          <div class="playlist-header">
-            <img src="${playlist.images && playlist.images[0] ? playlist.images[0].url : './assets/images/default-playlist.png'}" alt="${playlist.name}">
-            <div class="playlist-info">
-              <h2>${playlist.name}</h2>
-              <p>${playlist.tracks.total} songs</p>
-              <p>Created on ${new Date(playlist.created_at).toLocaleDateString()}</p>
-            </div>
-          </div>
-          <div class="playlist-tracks">
-            ${playlist.tracks.items.map((item, index) => `
-              <div class="track">
-                <span>${index + 1}</span>
-                <img src="${item.track.album.images && item.track.album.images[0] ? item.track.album.images[0].url : './assets/images/default-track.png'}" alt="${item.track.name}">
-                <div class="track-info">
-                  <h3>${item.track.name}</h3>
-                  <p>${item.track.artists.map(artist => artist.name).join(', ')}</p>
-                  <p>${new Date(item.added_at).toLocaleDateString()}</p>
-                  <p>${item.track.album.name}</p>
-                  <p>${Math.floor(item.track.duration_ms / 60000)}:${((item.track.duration_ms % 60000) / 1000).toFixed(0).padStart(2, '0')}</p>
-                </div>
-              </div>
-            `).join('')}
-          </div>
-          <button class="back-to-main">Back to Main</button>
-        </div>
-      `;
-
-      document.querySelector('.back-to-main').addEventListener('click', () => {
-        playlistDetails.style.display = 'none';
-        mainContent.style.display = 'block';
-      });
-    } catch (error) {
-      console.error('Error loading playlist details:', error);
-      displayErrorState('Failed to load playlist details. Please try again later.');
-    }
-  };
-
-  const initializeGlide = () => {
-    if (typeof Glide !== 'undefined') {
-      // Destroy existing Glide instance if it exists
-      if (window.glideInstance) {
-        window.glideInstance.destroy();
-      }
-      // Initialize new Glide instance for each section
-      document.querySelectorAll('.glide').forEach((glideElement, index) => {
-        new Glide(glideElement, {
-          type: 'carousel',
-          startAt: 0,
-          perView: 4,
-          gap: 20,
-          breakpoints: {
-            768: {
-              perView: 2
-            },
-            576: {
-              perView: 1
+            const playlist = await response.json();
+            const detailsContainer = document.querySelector('.playlist-details-container');
+            
+            if (!detailsContainer) {
+                console.error('Playlist details container not found');
+                return;
             }
-          }
-        }).mount();
-      });
-    } else {
-      console.error('Glide.js is not loaded');
-    }
-  };
 
-  const scrollToStoredSection = () => {
-    const storedSectionId = localStorage.getItem('current_scroll_section');
-    if (storedSectionId) {
-      const sectionElement = document.getElementById(storedSectionId);
-      if (sectionElement) {
-        setTimeout(() => {
-          sectionElement.scrollIntoView({ behavior: 'smooth' });
-        }, 500);
-      }
-    }
-  };
+            detailsContainer.innerHTML = `
+                <button class="back-to-main"><i class="bi bi-arrow-left"></i> Back to Playlists</button>
+                <div class="playlist-details-container-top">
+                    <div class="playlist-details-container-top-inner">
+                        <div class="playlist-details-container-top-img" style="background-image: url('${playlist.images[0]?.url || './assets/images/default-playlist.png'}');"></div>
+                        <div class="playlist-details-container-top-inner-right">
+                            <p>Playlist</p>
+                            <h2 class="roboto-black">${playlist.name}</h2>
+                            <div class="playlist-details-container-top-inner-right-info">
+                                <p>${playlist.owner.display_name}, </p>
+                                <p>${playlist.tracks.total} songs, </p>
+                                <p>${formatDuration(playlist.tracks.items.reduce((acc, item) => acc + item.track.duration_ms, 0))}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="playlist-details-container-top-controls">
+                        <div class="playlist-details-playpausebtn">
+                            <button class="play-btn"><i class="bi bi-play-fill"></i></button>
+                        </div>
+                        <button class="shuffle-button"><i class="bi bi-shuffle"></i></button>
+                    </div>
+                </div>
+                <div class="playlist-details-container-bottom">
+                    <div class="playlist-details-container-bottom-inner">
+                        <div class="playlist-details-container-bottom-inner-title">
+                            <h3>No</h3>
+                            <h3>Title</h3>
+                            <h3>Album</h3>
+                            <h3><i class="bi bi-clock"></i></h3>
+                        </div>
+                        ${playlist.tracks.items.map((item, index) => `
+                            <div class="playlist-details-container-bottom-inner-text">
+                                <p>${index + 1}</p>
+                                <p><b>${item.track.name}</b><br/>${item.track.artists.map(artist => artist.name).join(', ')}</p>
+                                <p>${item.track.album.name}</p>
+                                <p>${formatDuration(item.track.duration_ms)}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
 
-  const displayEmptyState = () => {
-    const playlistContainer = document.querySelector('.glide__slides');
-    if (playlistContainer) {
-      playlistContainer.innerHTML = `
-        <div class="inner-main-section-card glide__slide">
-          <div class="inner-main-secton-card-description">
-            <div class="inner-main-secton-card-description-inner">
-              <h3>No Playlists Found</h3>
-              <p>Start creating playlists on Spotify to see them here!</p>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-  };
+            const mainContent = document.querySelector('.inner-main-content');
+            if (mainContent) {
+                mainContent.style.display = 'none';
+            }
+            detailsContainer.style.display = 'block';
 
-  const displayErrorState = (message) => {
-    const playlistContainer = document.querySelector('.glide__slides');
-    if (playlistContainer) {
-      playlistContainer.innerHTML = `
-        <div class="inner-main-section-card glide__slide">
-          <div class="inner-main-secton-card-description">
-            <div class="inner-main-secton-card-description-inner">
-              <h3>Error Loading Playlists</h3>
-              <p>${message}</p>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-  };
+            document.querySelector('.back-to-main').addEventListener('click', () => {
+                detailsContainer.style.display = 'none';
+                if (mainContent) {
+                    mainContent.style.display = 'block';
+                }
+            });
 
-  return {
-    loadPlaylists
-  };
+            localStorage.setItem('last_viewed_playlist', playlistId);
+        } catch (error) {
+            console.error('Error loading playlist details:', error);
+            displayErrorState('Failed to load playlist details. Please try again later.');
+        }
+    };
+
+    const formatDuration = (ms) => {
+        const minutes = Math.floor(ms / 60000);
+        const seconds = ((ms % 60000) / 1000).toFixed(0);
+        return `${minutes}:${seconds.padStart(2, '0')}`;
+    };
+
+    const displayEmptyState = () => {
+        const container = document.querySelector('.inner-main-content');
+        if (container) {
+            container.innerHTML = '<p>No playlists found. Start creating playlists on Spotify to see them here!</p>';
+        }
+    };
+
+    const displayErrorState = (message) => {
+        const container = document.querySelector('.inner-main-content');
+        if (container) {
+            container.innerHTML = `<p class="error-message">${message}</p>`;
+        }
+    };
+
+    return {
+        loadPlaylists,
+        displayPlaylistDetails
+    };
 })();
 
-export default playlistLoader;
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded and parsed');
+    playlistLoader.loadPlaylists();
 
-// Call loadPlaylists to initialize everything
-playlistLoader.loadPlaylists();
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', () => {
+        const lastViewedPlaylist = localStorage.getItem('last_viewed_playlist');
+        if (lastViewedPlaylist) {
+            playlistLoader.displayPlaylistDetails(lastViewedPlaylist);
+        } else {
+            const detailsContainer = document.querySelector('.playlist-details-container');
+            const mainContent = document.querySelector('.inner-main-content');
+            if (detailsContainer) {
+                detailsContainer.style.display = 'none';
+            }
+            if (mainContent) {
+                mainContent.style.display = 'block';
+            }
+        }
+    });
+});
+
+export default playlistLoader;

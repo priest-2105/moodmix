@@ -258,6 +258,20 @@
     background-color: #e0e0e0;
 }
 
+.playlist-details-container {
+    display: none; /* Initially hidden */
+    padding: 20px;
+    color: #FCFCFC;
+    position: fixed; /* Fixed position to overlay on top of other content */
+    z-index: 399;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Semi-transparent background */
+    overflow-y: auto; /* Enable scrolling if content overflows */
+}
+
 @media only screen and (max-width:920px) {
 
     .inner-main-content{
