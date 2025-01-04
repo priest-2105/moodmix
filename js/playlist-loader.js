@@ -48,16 +48,15 @@ const playlistLoader = (() => {
 
     for (const [sectionTitle, sectionPlaylists] of Object.entries(sections)) {
       let slidesHtml = '';
-      sectionPlaylists.forEach((playlist, index) => {
+      sectionPlaylists.forEach(playlist => {
         const slide = {
           image: (playlist.images && playlist.images[0]) ? playlist.images[0].url : './assets/images/default-playlist.png',
           subtitle: playlist.owner.display_name,
           title: playlist.name.length > 20 ? playlist.name.substring(0, 17) + '...' : playlist.name,
           description: `${playlist.tracks.total} tracks`
         };
-        const cardId = `${playlist.name.replace(/\s+/g, '')}slide${index}`;
         slidesHtml += `
-          <div class="inner-main-section-card glide__slide" id="${cardId}" data-playlist-id="${playlist.id}">
+          <div class="inner-main-section-card glide__slide" data-playlist-id="${playlist.id}">
             <div class="inner-main-secton-card-banner" style="background-image: url('${slide.image}');"></div>
             <div class="inner-main-secton-card-description">
               <div class="inner-main-secton-card-description-filler"></div>
@@ -96,8 +95,6 @@ const playlistLoader = (() => {
     document.querySelectorAll('.inner-main-section-card').forEach(card => {
       card.addEventListener('click', async (event) => {
         const playlistId = card.getAttribute('data-playlist-id');
-        const playlistName = card.querySelector('h3').textContent;
-        console.log(`Playlist card clicked: ${playlistName}`); // Log playlist name
         if (playlistId) {
           await displayPlaylistDetails(playlistId);
         }
