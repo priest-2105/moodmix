@@ -1,5 +1,6 @@
 import auth from './auth.js';
 import playlistLoader from './playlist-loader.js';
+import { loginWithSpotify } from './spotify-auth.js'; // Import the loginWithSpotify function
 
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.querySelector('.auth-modal');
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await playlistLoader.loadPlaylists();
       } catch (error) {
         console.error('Error fetching user data:', error);
-        auth.removeToken();
+        auth.clearToken();
         showLoginModal();
       }
     } else {
@@ -39,9 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loginContainer.style.display = 'block';
   };
 
-  spotifyLoginButton.addEventListener('click', () => {
-    window.location.href = auth.getLoginURL();
-  });
+  spotifyLoginButton.addEventListener('click', loginWithSpotify); // Call loginWithSpotify
 
   // Check if returning from Spotify auth
   const token = auth.getToken();
@@ -49,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     auth.setToken(token);
     window.location.hash = '';
     updateUIWithUserInfo();
-  } else if (auth.isAuthenticated()) {
+  } else if (auth.getStoredToken()) {
     updateUIWithUserInfo();
   } else {
     showLoginModal();

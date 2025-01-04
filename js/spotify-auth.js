@@ -1,5 +1,5 @@
 let clientId;
-const redirectUrl = 'http://127.0.0.1:9000/index.html';  
+const redirectUri = 'http://localhost:5500/index.html';  // Ensure this matches the Live Server port
 
 async function fetchClientId() {
   try {
@@ -12,12 +12,12 @@ async function fetchClientId() {
 }
 
 // Function to initiate Spotify OAuth flow
-async function loginWithSpotify() {
+export async function loginWithSpotify() { 
   if (!clientId) {
     await fetchClientId();
   }
   const scopes = 'user-read-private user-read-email playlist-read-private';
-  const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_url=${encodeURIComponent(redirectUrl)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
+  const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}&response_type=token`;
   window.location.href = authUrl;
 }
 
@@ -39,7 +39,7 @@ function handleCallback() {
 
 // Initialize the app
 async function initApp() {
-  await fetchClientId();
+  await fetchClientId(); // Ensure clientId is fetched before using it
   const accessToken = localStorage.getItem('spotify_access_token');
   if (accessToken) {
     const userProfile = JSON.parse(localStorage.getItem('user_profile'));

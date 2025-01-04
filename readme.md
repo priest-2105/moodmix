@@ -33,7 +33,7 @@ MoodMix is a web application that integrates with Spotify to provide users with 
 3. Create a `.env` file in the root directory and add your Spotify API credentials:
    ```env
    SPOTIFY_APP_CLIENT_ID=your_spotify_client_id
-   SPOTIFY_APP_REDIRECT_URI=http://localhost:9000/callback
+   SPOTIFY_APP_REDIRECT_URI=http://localhost:5500/callback
    ```
 
 4. Start the development server:
@@ -41,7 +41,7 @@ MoodMix is a web application that integrates with Spotify to provide users with 
    npm start
    ```
 
-5. Open your browser and navigate to `http://localhost:9000`.
+5. Open your browser and navigate to `http://localhost:5500`.
 
 ## Project Structure
 
@@ -78,7 +78,7 @@ moodmix/
 
 ## Goals
 
-- **Port Configuration**: Ensure the application consistently uses port 9000 for development.
+- **Port Configuration**: Ensure the application consistently uses port 5500 for development.
 - **Style Implementation**: Fix issues with CSS not being applied correctly.
 - **Error Handling**: Improve error handling for API requests and user authentication.
 - **User Experience**: Enhance the user interface and experience, especially for mobile users.

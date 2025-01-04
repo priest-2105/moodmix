@@ -1,65 +1,77 @@
+let clientId;
+let redirectUri;
+
+async function fetchSpotifyCredentials() {
+  try {
+    const [clientIdResponse, redirectUriResponse] = await Promise.all([
+      fetch('/api/spotify-credentials'),
+      fetch('/api/spotify-redirect-uri')
+    ]);
+    const clientIdData = await clientIdResponse.json();
+    const redirectUriData = await redirectUriResponse.json();
+    clientId = clientIdData.clientId;
+    redirectUri = redirectUriData.redirectUri;
+  } catch (error) {
+    console.error('Error fetching Spotify credentials:', error);
+  }
+}
+
 const auth = (() => {
-  const CLIENT_ID = process.env.SPOTIFY_APP_CLIENT_ID;
-  const REDIRECT_URI = process.env.SPOTIFY_APP_REDIRECT_URI;
-  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const RESPONSE_TYPE = "token";
-
-  const SCOPES = [
-    "user-read-private",
-    "user-read-email",
-    "playlist-read-private",
-    "playlist-modify-private",
-  ];
-
-  const getLoginURL = () => {
-    return `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(SCOPES.join(" "))}&response_type=${RESPONSE_TYPE}`;
-  };
-
-  const getToken = () => {
-    const hash = window.location.hash
-      .substring(1)
-      .split("&")
-      .reduce((initial, item) => {
-        if (item) {
-          const parts = item.split("=");
-          initial[parts[0]] = decodeURIComponent(parts[1]);
-        }
-        return initial;
-      }, {});
-    return hash.access_token;
-  };
-
-  const setToken = (token, expiry) => {
-    localStorage.setItem("spotify_token", token);
-    localStorage.setItem("spotify_token_expiry", expiry);
-  };
+  const scopes = 'user-read-private user-read-email playlist-read-private';
 
   const getStoredToken = () => {
-    const token = localStorage.getItem("spotify_token");
-    const expiry = localStorage.getItem("spotify_token_expiry");
-    if (new Date().getTime() > expiry) {
-      removeToken();
-      return null;
+    return localStorage.getItem('spotify_access_token');
+  };
+
+  const setToken = (token) => {
+    localStorage.setItem('spotify_access_token', token);
+  };
+
+  const clearToken = () => {
+    localStorage.removeItem('spotify_access_token');
+  };
+
+  const getLoginURL = async () => {
+    if (!clientId || !redirectUri) {
+      await fetchSpotifyCredentials();
     }
-    return token;
+    return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}`;
   };
 
-  const removeToken = () => {
-    localStorage.removeItem("spotify_token");
-    localStorage.removeItem("spotify_token_expiry");
+  const login = async () => {
+    const loginURL = await getLoginURL();
+    window.location.href = loginURL;
   };
 
-  const isAuthenticated = () => {
-    return !!getStoredToken();
+  const handleRedirect = () => {
+    const hash = window.location.hash.substring(1);
+    const params = new URLSearchParams(hash);
+    const token = params.get('access_token');
+
+    if (token) {
+      setToken(token);
+      window.location.hash = '';
+      window.location.href = '/';
+    }
+  };
+
+  const initialize = async () => {
+    await fetchSpotifyCredentials();
+    handleRedirect();
+
+    const loginButton = document.getElementById('spotify-login-button');
+    if (loginButton) {
+      loginButton.addEventListener('click', login); // Directly call login without async
+    }
   };
 
   return {
-    getLoginURL,
-    getToken,
-    setToken,
     getStoredToken,
-    removeToken,
-    isAuthenticated,
+    setToken,
+    clearToken,
+    getLoginURL,
+    login,
+    initialize
   };
 })();
 

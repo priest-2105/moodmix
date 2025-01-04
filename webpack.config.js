@@ -1,6 +1,7 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -13,6 +14,10 @@ module.exports = {
     new Dotenv(),
     new HtmlWebpackPlugin({
       template: './index.html',
+    }),
+    new webpack.DefinePlugin({
+      'process.env.SPOTIFY_APP_CLIENT_ID': JSON.stringify(process.env.SPOTIFY_APP_CLIENT_ID),
+      'process.env.SPOTIFY_APP_REDIRECT_URI': JSON.stringify(process.env.SPOTIFY_APP_REDIRECT_URI),
     }),
   ],
   module: {
