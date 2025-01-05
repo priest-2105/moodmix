@@ -33,7 +33,7 @@ MoodMix is a web application that integrates with Spotify to provide users with 
 3. Create a `.env` file in the root directory and add your Spotify API credentials:
    ```env
    SPOTIFY_APP_CLIENT_ID=your_spotify_client_id
-   SPOTIFY_APP_REDIRECT_URI=http://localhost:5500/callback
+   SPOTIFY_APP_REDIRECT_URI=http://localhost:5500/
    ```
 
 4. Start the development server:
