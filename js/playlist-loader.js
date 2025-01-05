@@ -10,7 +10,7 @@ const playlistLoader = (() => {
     }
 
     try {
-      const response = await fetch('http://localhost:5501/api/spotify-playlists', { // Update the endpoint URL
+      const response = await fetch('https://api.spotify.com/v1/me/playlists', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -111,7 +111,7 @@ const playlistLoader = (() => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5501/api/your-endpoint/${playlistId}`, {
+      const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -126,38 +126,75 @@ const playlistLoader = (() => {
       const playlistDetails = document.querySelector('.playlist-details-container');
       mainContent.style.display = 'none';
       playlistDetails.style.display = 'block';
+
+      const totalDuration = playlist.tracks.items.reduce((acc, item) => acc + item.track.duration_ms, 0);
+      const totalDurationMinutes = Math.floor(totalDuration / 60000);
+      const totalDurationSeconds = ((totalDuration % 60000) / 1000).toFixed(0).padStart(2, '0');
+
       playlistDetails.innerHTML = `
-        <div class="playlist-details">
-          <div class="playlist-header">
-            <img src="${playlist.images && playlist.images[0] ? playlist.images[0].url : './assets/images/default-playlist.png'}" alt="${playlist.name}">
-            <div class="playlist-info">
-              <h2>${playlist.name}</h2>
-              <p>${playlist.tracks.total} songs</p>
-              <p>Created on ${new Date(playlist.created_at).toLocaleDateString()}</p>
+        <div class="playlist-details-container-top">
+          <div class="playlist-details-container-top-inner">
+            <div class="playlist-details-container-top-img" style="background-image: url('${playlist.images && playlist.images[0] ? playlist.images[0].url : './assets/images/default-playlist.png'}');"></div>
+            <div class="playlist-details-container-top-inner-right">
+              <p>PlayList</p>
+              <h2 class="roboto-black">${playlist.name}</h2>
+              <div class="playlist-details-container-top-inner-right-info"> 
+                <p> ${playlist.tracks.total} Songs,</p>
+                <p> ${totalDurationMinutes} min ${totalDurationSeconds} sec</p>
+              </div> 
             </div>
           </div>
-          <div class="playlist-tracks">
+          <div class="playlist-details-container-top-controls">
+            <div class="playlist-details-playpausebtn">
+              <button class="play-btn"><i class="bi bi-play-fill"></i></button>
+            </div>
+            <button class="shuffle-button"><i class="bi bi-shuffle"></i></button>
+          </div>
+        </div>
+        <div class="playlist-details-container-bottom">
+          <div class="playlist-details-container-bottom-inner">
+            <div class="playlist-details-container-bottom-inner-title">
+              <h3>No</h3>
+              <h3>Title</h3>
+              <h3>Plays</h3>
+              <h3><i class="bi bi-clock"></i></h3> 
+            </div>
             ${playlist.tracks.items.map((item, index) => `
-              <div class="track">
-                <span>${index + 1}</span>
-                <img src="${item.track.album.images && item.track.album.images[0] ? item.track.album.images[0].url : './assets/images/default-track.png'}" alt="${item.track.name}">
-                <div class="track-info">
-                  <h3>${item.track.name}</h3>
-                  <p>${item.track.artists.map(artist => artist.name).join(', ')}</p>
-                  <p>${new Date(item.added_at).toLocaleDateString()}</p>
-                  <p>${item.track.album.name}</p>
-                  <p>${Math.floor(item.track.duration_ms / 60000)}:${((item.track.duration_ms % 60000) / 1000).toFixed(0).padStart(2, '0')}</p>
-                </div>
+              <div class="playlist-details-container-bottom-inner-text">
+                <p>${index + 1}</p>
+                <p><b>${item.track.name}</b><br/> ${item.track.artists.map(artist => artist.name).join(', ')}</p>
+                <p>${item.track.popularity}</p>
+                <p>${Math.floor(item.track.duration_ms / 60000)}:${((item.track.duration_ms % 60000) / 1000).toFixed(0).padStart(2, '0')}</p>
               </div>
             `).join('')}
           </div>
-          <button class="back-to-main">Back to Main</button>
         </div>
+        <button class="back-to-main">Back to Main</button>
+        <div class="inner-main-content-bottom-filler"></div>
       `;
+
+      // Store the current playlist ID in local storage
+      localStorage.setItem('current_playlist_id', playlistId);
 
       document.querySelector('.back-to-main').addEventListener('click', () => {
         playlistDetails.style.display = 'none';
         mainContent.style.display = 'block';
+      });
+
+      // Add event listeners for navigation arrows
+      document.querySelector('.back-arrow').addEventListener('click', () => {
+        playlistDetails.style.display = 'none';
+        mainContent.style.display = 'block';
+      });
+
+      document.querySelector('.forward-arrow').addEventListener('click', () => {
+        const playlists = JSON.parse(localStorage.getItem('user_playlists'));
+        const currentPlaylistId = localStorage.getItem('current_playlist_id');
+        const currentIndex = playlists.findIndex(playlist => playlist.id === currentPlaylistId);
+        if (currentIndex !== -1 && currentIndex < playlists.length - 1) {
+          const nextPlaylistId = playlists[currentIndex + 1].id;
+          displayPlaylistDetails(nextPlaylistId);
+        }
       });
     } catch (error) {
       console.error('Error loading playlist details:', error);

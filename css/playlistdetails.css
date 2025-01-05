@@ -9,12 +9,14 @@
 
 .playlist-details-container{
 
-    width: 100%;
+    width: 98%;
     height: 100vh;
     background-color: #0b1785;
     background-image: linear-gradient(180deg, #0b1785 0%, #0a1574cb 23%, #040935 32%, #1F1F22 50%);
     padding: 0 10px;
     border-radius: 5px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 
 }
 
@@ -28,7 +30,8 @@
     height: 240px;
     width: 240px;
     background-position: center;
-    background-size: contain;
+    object-fit: cover;
+    background-size: cover;
     background-repeat: no-repeat;
     border-radius: 5px;
 }
