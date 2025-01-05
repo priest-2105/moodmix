@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loginContainer.style.display = 'block';
   };
 
-  spotifyLoginButton.addEventListener('click', auth.login); // Call auth.login
+  spotifyLoginButton.addEventListener('click', auth.initialize);
 
   // Check if returning from Spotify auth
   const token = new URLSearchParams(window.location.hash.substring(1)).get('access_token');

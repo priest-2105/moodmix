@@ -1,8 +1,6 @@
-import { clientId, redirectUri } from './client-config.js';
+import { loginWithSpotify } from './spotify-auth.js';
 
 const auth = (() => {
-  const scopes = 'user-read-private user-read-email playlist-read-private';
-
   const getStoredToken = () => {
     return localStorage.getItem('spotify_access_token');
   };
@@ -15,33 +13,10 @@ const auth = (() => {
     localStorage.removeItem('spotify_access_token');
   };
 
-  const getLoginURL = () => {
-    return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scopes)}`;
-  };
-
-  const login = () => {
-    const loginURL = getLoginURL();
-    window.location.href = loginURL;
-  };
-
-  const handleRedirect = () => {
-    const hash = window.location.hash.substring(1);
-    const params = new URLSearchParams(hash);
-    const token = params.get('access_token');
-
-    if (token) {
-      setToken(token);
-      window.location.hash = '';
-      window.location.href = '/';
-    }
-  };
-
   const initialize = () => {
-    handleRedirect();
-
     const loginButton = document.getElementById('spotify-login-button');
     if (loginButton) {
-      loginButton.addEventListener('click', login);
+      loginButton.addEventListener('click', loginWithSpotify);
     }
   };
 
@@ -49,8 +24,6 @@ const auth = (() => {
     getStoredToken,
     setToken,
     clearToken,
-    getLoginURL,
-    login,
     initialize
   };
 })();
@@ -108,7 +81,7 @@ async function initApp() {
   }
 
   // Add login button event listener
-  const loginButton = document.getElementById('login-button');
+  const loginButton = document.getElementById('spotify-login-button');
   if (loginButton) {
     loginButton.addEventListener('click', auth.login);
   }

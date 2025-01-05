@@ -3,14 +3,10 @@ let redirectUri;
 
 async function fetchSpotifyCredentials() {
   try {
-    const [clientIdResponse, redirectUriResponse] = await Promise.all([
-      fetch('/api/spotify-credentials'), 
-      fetch('/api/spotify-redirect-uri') 
-    ]);
-    const clientIdData = await clientIdResponse.json();
-    const redirectUriData = await redirectUriResponse.json();
-    clientId = clientIdData.clientId;
-    redirectUri = clientIdData.redirectUri;
+    const response = await fetch('http://localhost:5501/api/spotify-credentials'); // Update the URL to include the correct server port
+    const data = await response.json();
+    clientId = data.clientId;
+    redirectUri = data.redirectUri;
     console.log('Fetched clientId:', clientId); 
     console.log('Fetched redirectUri:', redirectUri); 
   } catch (error) {
@@ -41,6 +37,7 @@ function handleCallback() {
     fetchUserProfile(accessToken);
     // Clear the hash from the URL
     window.location.hash = '';
+    window.location.href = 'http://localhost:5500'; // Redirect to the main application page
   }
 }
 
@@ -98,7 +95,7 @@ async function initApp() {
   }
 
   // Add login button event listener
-  const loginButton = document.getElementById('login-button');
+  const loginButton = document.getElementById('spotify-login-button');
   if (loginButton) {
     loginButton.addEventListener('click', loginWithSpotify);
   }
