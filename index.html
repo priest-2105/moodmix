@@ -103,7 +103,7 @@
           <div class="mobile-header-end">
           <div class="mobile-header-search-bar">
             <img src="/assets/icons/Search.png" alt="">
-            <input type="text" name="" placeholder="Search" id="">
+            <input type="text" name="" placeholder="Search" id="mobileSearchInput">
           </div>
      
         <button class="sidebar-mobile-search-btn" id="sidebarOpenSearch"> <img src="/assets/icons/Search.png" alt="">  </button>
@@ -126,7 +126,7 @@
         <div class="main-content-header-inner-end">
         <div class="search-bar">
             <img src="/assets/icons/Search.png" alt="">
-            <input type="text" name="" placeholder="Search" id="">
+            <input type="text" name="" placeholder="Search" id="searchInput">
         </div>
 
         <div class="profile-section">
@@ -160,10 +160,7 @@
             </div>
           </script>
  
- 
-
-          <div class="inner-main-content-bottom-filler"></div>
-
+  
         </div>
         <div class="playlist-details-container"></div>
 
@@ -193,7 +190,7 @@
         </div>
      
 
-     
+
         <div class="bottom-music-player-music-player-controls">
         
             <div class="bottom-music-player-music-player-controls-inner-top">
@@ -232,8 +229,8 @@
           <button class="shuffle-button"><i class="bi bi-shuffle"></i></button>
           <button class="prev-skip-button"> <i class="bi bi-skip-start-fill"></i> </button>
           <button class="play-button"> <i class="bi bi-play-fill"></i> </button>
-          <button class="pause-button"> <i class="bi bi-pause-fill"></i> </button>
-          <button class="next-skip-button"> <i class="bi bi-skip-end-fill"></i> </button>
+          <button class="pause-button"> < i class="bi bi-pause-fill"></i> </button>
+          <button class="next-skip-button"> < i class="bi bi-skip-end-fill"></i> </button>
           <button class="loop-button"><i class="bi bi-shuffle"></i></button>
         </div> 
 
@@ -276,7 +273,7 @@
           <button class="shuffle-button"><i class="bi bi-shuffle"></i></button>
           <button class="prev-skip-button"> <i class="bi bi-skip-start-fill"></i> </button>
           <button class="play-button"> <i class="bi bi-play-fill"></i> </button>
-          <button class="pause-button"> < i class="bi bi-pause-fill"></i> </button>
+          <button class="pause-button"> <i class="bi bi-pause-fill"></i> </button>
           <button class="next-skip-button"> < i class="bi bi-skip-end-fill"></i> </button>
           <button class="loop-button"><i class="bi bi-shuffle"></i></button>
         </div> 
@@ -295,6 +292,23 @@
     <script type="module" src="./js/playlist-loader.js"></script>
     <script type="module" src="./js/slider.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@glidejs/glide@latest/dist/glide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/colorthief@2.3.2/dist/color-thief.umd.js"></script>
     <script type="module" src="./js/basic-responsiveness.js"></script>
+    <script>
+      document.getElementById('searchInput').addEventListener('input', function(event) {
+        // Handle search input
+        console.log('Search input:', event.target.value);
+      });
+
+      document.getElementById('mobileSearchInput').addEventListener('input', function(event) {
+        // Handle mobile search input
+        console.log('Mobile search input:', event.target.value);
+      });
+
+      document.querySelector('.back-arrow').addEventListener('click', function() {
+        // Handle back button click
+        console.log('Back button clicked');
+      });
+    </script>
 </body>
 </html>

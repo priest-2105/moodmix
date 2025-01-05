@@ -1,6 +1,8 @@
 import auth from './auth.js';
 
 const playlistLoader = (() => {
+  let allPlaylists = [];
+
   const loadPlaylists = async () => {
     const token = auth.getStoredToken();
     if (!token) {
@@ -22,7 +24,8 @@ const playlistLoader = (() => {
 
       const data = await response.json();
       if (data.items && Array.isArray(data.items) && data.items.length > 0) {
-        displayPlaylists(data.items);
+        allPlaylists = data.items;
+        displayPlaylists(allPlaylists);
         localStorage.setItem('user_playlists', JSON.stringify(data.items));
       } else {
         console.log('No playlists found');
@@ -38,6 +41,10 @@ const playlistLoader = (() => {
     const container = document.querySelector('.inner-main-content');
     const sidebarNav = document.querySelector('.playlist-sections-nav');
     const template = document.getElementById('playlist-section-template').innerHTML;
+
+    // Clear existing content
+    container.innerHTML = '';
+    sidebarNav.innerHTML = '';
 
     const sections = {
       'Recent Playlists': playlists.slice(0, 5),
@@ -131,6 +138,16 @@ const playlistLoader = (() => {
       const totalDurationMinutes = Math.floor(totalDuration / 60000);
       const totalDurationSeconds = ((totalDuration % 60000) / 1000).toFixed(0).padStart(2, '0');
 
+      const playlistImage = new Image();
+      playlistImage.src = playlist.images && playlist.images[0] ? playlist.images[0].url : './assets/images/default-playlist.png';
+      playlistImage.crossOrigin = 'Anonymous';
+      playlistImage.onload = () => {
+        const colorThief = new ColorThief();
+        const dominantColor = colorThief.getColor(playlistImage);
+        const gradientColor = `linear-gradient(to bottom, rgba(${dominantColor.join(',')}, 0.8) 14%, rgba(0, 0, 0, 0.8) 100%)`;
+        playlistDetails.style.backgroundImage = gradientColor;
+      };
+
       playlistDetails.innerHTML = `
         <div class="playlist-details-container-top">
           <div class="playlist-details-container-top-inner">
@@ -138,7 +155,8 @@ const playlistLoader = (() => {
             <div class="playlist-details-container-top-inner-right">
               <p>PlayList</p>
               <h2 class="roboto-black">${playlist.name}</h2>
-              <div class="playlist-details-container-top-inner-right-info"> 
+              <div class="playlist-details-container-top-inner-right-info">
+                <p>${new Date(playlist.created_at).getFullYear()}, </p>
                 <p> ${playlist.tracks.total} Songs,</p>
                 <p> ${totalDurationMinutes} min ${totalDurationSeconds} sec</p>
               </div> 
@@ -274,8 +292,46 @@ const playlistLoader = (() => {
     }
   };
 
+  const searchPlaylists = (query) => {
+    const filteredPlaylists = allPlaylists.filter(playlist => 
+      playlist.name.toLowerCase().includes(query.toLowerCase())
+    );
+    displaySearchResults(filteredPlaylists);
+  };
+
+  const displaySearchResults = (playlists) => {
+    const container = document.querySelector('.inner-main-content');
+    container.innerHTML = '';
+
+    playlists.forEach(playlist => {
+      const slide = {
+        image: (playlist.images && playlist.images[0]) ? playlist.images[0].url : './assets/images/default-playlist.png',
+        subtitle: playlist.owner.display_name,
+        title: playlist.name.length > 20 ? playlist.name.substring(0, 17) + '...' : playlist.name,
+        description: `${playlist.tracks.total} tracks`
+      };
+      const slideHtml = `
+        <div class="inner-main-section-card" data-playlist-id="${playlist.id}">
+          <div class="inner-main-secton-card-banner" style="background-image: url('${slide.image}');"></div>
+          <div class="inner-main-secton-card-description">
+            <div class="inner-main-secton-card-description-filler"></div>
+            <div class="inner-main-secton-card-description-inner">
+              <button> <i class="bi bi-play-fill"></i> </button>
+              <span>${slide.subtitle}</span>
+              <h3>${slide.title}</h3>
+              <p>${slide.description}</p>
+            </div>
+          </div>
+        </div>`;
+      container.insertAdjacentHTML('beforeend', slideHtml);
+    });
+
+    addPlaylistClickHandlers();
+  };
+
   return {
-    loadPlaylists
+    loadPlaylists,
+    searchPlaylists
   };
 })();
 
