@@ -1,6 +1,6 @@
 import auth from './auth.js';
 import playlistLoader from './playlist-loader.js';
-import { loginWithSpotify } from './spotify-auth.js'; // Import the loginWithSpotify function
+import { loginWithSpotify } from './spotify-auth.js'; 
 
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.querySelector('.auth-modal');
