@@ -201,17 +201,18 @@ const playlistLoader = (() => {
 
       // Add event listeners for navigation arrows
       document.querySelector('.back-arrow').addEventListener('click', () => {
-        playlistDetails.style.display = 'none';
-        mainContent.style.display = 'block';
+        const storedSection = localStorage.getItem('current_scroll_section');
+        if (storedSection) {
+          playlistDetails.style.display = 'none';
+          mainContent.style.display = 'block';
+          document.getElementById(storedSection).scrollIntoView({ behavior: 'smooth' });
+        }
       });
 
       document.querySelector('.forward-arrow').addEventListener('click', () => {
-        const playlists = JSON.parse(localStorage.getItem('user_playlists'));
-        const currentPlaylistId = localStorage.getItem('current_playlist_id');
-        const currentIndex = playlists.findIndex(playlist => playlist.id === currentPlaylistId);
-        if (currentIndex !== -1 && currentIndex < playlists.length - 1) {
-          const nextPlaylistId = playlists[currentIndex + 1].id;
-          displayPlaylistDetails(nextPlaylistId);
+        const storedSearchQuery = localStorage.getItem('current_search_query');
+        if (storedSearchQuery) {
+          filterPlaylists(storedSearchQuery);
         }
       });
     } catch (error) {
@@ -292,43 +293,6 @@ const playlistLoader = (() => {
     }
   };
 
-  const searchPlaylists = (query) => {
-    const filteredPlaylists = allPlaylists.filter(playlist => 
-      playlist.name.toLowerCase().includes(query.toLowerCase())
-    );
-    displaySearchResults(filteredPlaylists);
-  };
-
-  const displaySearchResults = (playlists) => {
-    const container = document.querySelector('.inner-main-content');
-    container.innerHTML = '';
-
-    playlists.forEach(playlist => {
-      const slide = {
-        image: (playlist.images && playlist.images[0]) ? playlist.images[0].url : './assets/images/default-playlist.png',
-        subtitle: playlist.owner.display_name,
-        title: playlist.name.length > 20 ? playlist.name.substring(0, 17) + '...' : playlist.name,
-        description: `${playlist.tracks.total} tracks`
-      };
-      const slideHtml = `
-        <div class="inner-main-section-card" data-playlist-id="${playlist.id}">
-          <div class="inner-main-secton-card-banner" style="background-image: url('${slide.image}');"></div>
-          <div class="inner-main-secton-card-description">
-            <div class="inner-main-secton-card-description-filler"></div>
-            <div class="inner-main-secton-card-description-inner">
-              <button> <i class="bi bi-play-fill"></i> </button>
-              <span>${slide.subtitle}</span>
-              <h3>${slide.title}</h3>
-              <p>${slide.description}</p>
-            </div>
-          </div>
-        </div>`;
-      container.insertAdjacentHTML('beforeend', slideHtml);
-    });
-
-    addPlaylistClickHandlers();
-  };
-
   const filterPlaylists = (query) => {
     const playlists = JSON.parse(localStorage.getItem('user_playlists')) || [];
     const resultsContainer = document.querySelector('.search-results-container');
@@ -364,6 +328,8 @@ const playlistLoader = (() => {
     mainContent.style.display = 'none';
     playlistDetails.style.display = 'none';
 
+    localStorage.setItem('current_search_query', query);
+    localStorage.setItem('search_active', 'true');
     addSearchResultClickHandlers();
   };
 
@@ -380,7 +346,6 @@ const playlistLoader = (() => {
 
   return {
     loadPlaylists,
-    searchPlaylists,
     filterPlaylists
   };
 })();
