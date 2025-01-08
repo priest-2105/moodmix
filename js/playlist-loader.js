@@ -329,9 +329,59 @@ const playlistLoader = (() => {
     addPlaylistClickHandlers();
   };
 
+  const filterPlaylists = (query) => {
+    const playlists = JSON.parse(localStorage.getItem('user_playlists')) || [];
+    const resultsContainer = document.querySelector('.search-results-container');
+    const mainContent = document.querySelector('.inner-main-content');
+    const playlistDetails = document.querySelector('.playlist-details-container');
+
+    if (query.trim() === '') {
+        resultsContainer.style.display = 'none';
+        mainContent.style.display = 'block';
+        playlistDetails.style.display = 'none';
+        return;
+    }
+
+    const filteredPlaylists = playlists.filter(playlist => 
+        playlist.name.toLowerCase().includes(query.toLowerCase())
+    );
+
+    if (filteredPlaylists.length > 0) {
+        resultsContainer.innerHTML = filteredPlaylists.map(playlist => `
+            <div class="search-results-card" data-playlist-id="${playlist.id}">
+                <img src="${playlist.images && playlist.images[0] ? playlist.images[0].url : './assets/images/default-playlist.png'}" alt="${playlist.name}">
+                <div class="card-content">
+                    <h3>${playlist.name}</h3>
+                    <p>${playlist.tracks.total} tracks</p>
+                </div>
+            </div>
+        `).join('');
+    } else {
+        resultsContainer.innerHTML = '<div class="no-results-message">No playlist matches the search result</div>';
+    }
+
+    resultsContainer.style.display = 'flex';
+    mainContent.style.display = 'none';
+    playlistDetails.style.display = 'none';
+
+    addSearchResultClickHandlers();
+  };
+
+  const addSearchResultClickHandlers = () => {
+    document.querySelectorAll('.search-results-card').forEach(card => {
+        card.addEventListener('click', async (event) => {
+            const playlistId = card.getAttribute('data-playlist-id');
+            if (playlistId) {
+                await displayPlaylistDetails(playlistId);
+            }
+        });
+    });
+  };
+
   return {
     loadPlaylists,
-    searchPlaylists
+    searchPlaylists,
+    filterPlaylists
   };
 })();
 
