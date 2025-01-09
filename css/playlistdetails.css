@@ -157,11 +157,19 @@
     grid-template-columns: 40px 1fr 1fr 1fr;
     color: rgba(240, 248, 255, 0.623);
     font-family: "Roboto";
-    font-size: 0.9rem;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
+    font-size: 0.9rem;  
+    cursor: pointer;
+    align-items: center;
+    padding: 10px 10px;
 }
 
 .playlist-details-container-bottom-inner-text b{
     color: rgb(240, 248, 255);
+}
+
+
+.playlist-details-container-bottom-inner-text:hover{
+    background-color: rgba(240, 248, 255, 0.1);
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
 }
