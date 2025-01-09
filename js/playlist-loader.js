@@ -1,4 +1,5 @@
 import auth from './auth.js';
+import player from './player.js';
 
 const playlistLoader = (() => {
   let allPlaylists = [];
@@ -178,7 +179,7 @@ const playlistLoader = (() => {
               <h3><i class="bi bi-clock"></i></h3> 
             </div>
             ${playlist.tracks.items.map((item, index) => `
-              <div class="playlist-details-container-bottom-inner-text">
+              <div class="playlist-details-container-bottom-inner-text" data-song-index="${index}">
                 <p>${index + 1}</p>
                 <p><b>${item.track.name}</b><br/> ${item.track.artists.map(artist => artist.name).join(', ')}</p>
                 <p>${item.track.popularity}</p>
@@ -215,10 +216,29 @@ const playlistLoader = (() => {
           filterPlaylists(storedSearchQuery);
         }
       });
+
+      addSongClickHandlers(playlist);
     } catch (error) {
       console.error('Error loading playlist details:', error);
       displayErrorState('Failed to load playlist details. Please try again later.');
     }
+  };
+
+  const addSongClickHandlers = (playlist) => {
+    document.querySelectorAll('.playlist-details-container-bottom-inner-text').forEach(songElement => {
+      songElement.addEventListener('click', () => {
+        const songIndex = parseInt(songElement.getAttribute('data-song-index'), 10);
+        const playlistTracks = playlist.tracks.items.map(item => ({
+          name: item.track.name,
+          artist: item.track.artists.map(artist => artist.name).join(', '),
+          duration_ms: item.track.duration_ms,
+          preview_url: item.track.preview_url,
+          image: (playlist.images && playlist.images[0]) ? playlist.images[0].url : './assets/images/default-playlist.png',
+          playlist: playlist.name
+        }));
+        player.playSpecificSong(playlistTracks, songIndex);
+      });
+    });
   };
 
   const initializeGlide = () => {
