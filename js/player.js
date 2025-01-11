@@ -30,101 +30,131 @@ const player = (() => {
       footerPlayer.style.display = 'none';
     }
 
-    playButton.addEventListener('click', togglePlay);
-    pauseButton.addEventListener('click', togglePlay);
+    playButton.addEventListener('click', playSong);
+    pauseButton.addEventListener('click', pauseSong);
     nextButton.addEventListener('click', playNextSong);
     prevButton.addEventListener('click', playPrevSong);
     progressBar.addEventListener('input', seekSong);
 
-    await initializeSpotifySDK();
+    await getActiveDevice();
   };
 
-  const initializeSpotifySDK = async () => {
+  const getActiveDevice = async () => {
     const token = auth.getStoredToken();
     if (!token) {
       console.error('No token found');
       return;
     }
 
-    window.onSpotifyWebPlaybackSDKReady = () => {
-      spotifyPlayer = new Spotify.Player({
-        name: 'MoodMix Player',
-        getOAuthToken: cb => { cb(token); },
-        volume: 0.5
-      });
-
-      // Ready
-      spotifyPlayer.addListener('ready', ({ device_id }) => {
-        console.log('Ready with Device ID', device_id);
-        deviceId = device_id;
-        transferPlayback(device_id);
-      });
-
-      // Not Ready
-      spotifyPlayer.addListener('not_ready', ({ device_id }) => {
-        console.log('Device ID has gone offline', device_id);
-      });
-
-      // Player state changed
-      spotifyPlayer.addListener('player_state_changed', state => {
-        if (!state) {
-          isPlaying = false;
-          updatePlayPauseButton();
-          return;
-        }
-
-        isPlaying = !state.paused;
-        updatePlayPauseButton();
-        
-        const current_track = state.track_window.current_track;
-        updateFooterPlayer({
-          name: current_track.name,
-          artist: current_track.artists[0].name,
-          image: current_track.album.images[0].url,
-          duration_ms: current_track.duration_ms,
-          playlist: currentPlaylist[currentSongIndex]?.playlist || 'Unknown Playlist'
-        });
-
-        // Update progress bar
-        progressBar.max = state.duration;
-        progressBar.value = state.position;
-        currentTimeDisplay.textContent = formatTime(state.position);
-      });
-
-      spotifyPlayer.connect().then(success => {
-        if (success) {
-          console.log('The Web Playback SDK successfully connected to Spotify!');
+    try {
+      const response = await fetch('https://api.spotify.com/v1/me/player/devices', {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
       });
-    };
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.devices && data.devices.length > 0) {
+        deviceId = data.devices[0].id;
+        console.log('Active device ID:', deviceId);
+      } else {
+        console.error('No active devices found');
+      }
+    } catch (error) {
+      console.error('Error fetching devices:', error);
+    }
   };
 
-  const transferPlayback = async (deviceId) => {
+  window.onSpotifyWebPlaybackSDKReady = () => {
     const token = auth.getStoredToken();
+    spotifyPlayer = new Spotify.Player({
+      name: 'MoodMix Player',
+      getOAuthToken: cb => { cb(token); },
+      volume: 0.5
+    });
+
+    // Ready
+    spotifyPlayer.addListener('ready', ({ device_id }) => {
+      console.log('Ready with Device ID', device_id);
+      deviceId = device_id;
+    });
+
+    // Not Ready
+    spotifyPlayer.addListener('not_ready', ({ device_id }) => {
+      console.log('Device ID has gone offline', device_id);
+    });
+
+    // Player state changed
+    spotifyPlayer.addListener('player_state_changed', state => {
+      if (!state) {
+        console.error('User is not playing music through the Web Playback SDK');
+        return;
+      }
+
+      const current_track = state.track_window.current_track;
+      console.log('Currently Playing', current_track);
+      updateFooterPlayer(current_track);
+    });
+
+    // Connect to the player!
+    spotifyPlayer.connect().then(success => {
+      if (success) {
+        console.log('The Web Playback SDK successfully connected to Spotify!');
+      }
+    });
+  };
+
+  const playSong = async () => {
+    if (!spotifyPlayer || currentPlaylist.length === 0) return;
+
+    const song = currentPlaylist[currentSongIndex];
+    const token = auth.getStoredToken();
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
     try {
-      await fetch('https://api.spotify.com/v1/me/player', {
+      const response = await fetch('https://api.spotify.com/v1/me/player/play', {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          device_ids: [deviceId],
-          play: false
+          uris: [song.preview_url],
+          device_id: deviceId
         })
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      isPlaying = true;
+      playButton.style.display = 'none';
+      pauseButton.style.display = 'block';
+      localStorage.setItem('current_song_index', JSON.stringify(currentSongIndex));
+      footerPlayer.style.display = 'block';
     } catch (error) {
-      console.error('Error transferring playback:', error);
+      console.error('Error playing song:', error);
     }
   };
 
-  const togglePlay = async () => {
+  const pauseSong = async () => {
     if (!spotifyPlayer) return;
 
     try {
-      await spotifyPlayer.togglePlay();
+      await spotifyPlayer.pause();
+      isPlaying = false;
+      playButton.style.display = 'block';
+      pauseButton.style.display = 'none';
     } catch (error) {
-      console.error('Error toggling playback:', error);
+      console.error('Error pausing song:', error);
     }
   };
 
@@ -133,8 +163,6 @@ const player = (() => {
 
     try {
       await spotifyPlayer.nextTrack();
-      currentSongIndex = (currentSongIndex + 1) % currentPlaylist.length;
-      localStorage.setItem('current_song_index', JSON.stringify(currentSongIndex));
     } catch (error) {
       console.error('Error playing next song:', error);
     }
@@ -145,8 +173,6 @@ const player = (() => {
 
     try {
       await spotifyPlayer.previousTrack();
-      currentSongIndex = (currentSongIndex - 1 + currentPlaylist.length) % currentPlaylist.length;
-      localStorage.setItem('current_song_index', JSON.stringify(currentSongIndex));
     } catch (error) {
       console.error('Error playing previous song:', error);
     }
@@ -155,17 +181,12 @@ const player = (() => {
   const seekSong = async (event) => {
     if (!spotifyPlayer) return;
 
-    const position = parseInt(event.target.value);
+    const position = event.target.value;
     try {
       await spotifyPlayer.seek(position);
     } catch (error) {
       console.error('Error seeking song:', error);
     }
-  };
-
-  const updatePlayPauseButton = () => {
-    playButton.style.display = isPlaying ? 'none' : 'block';
-    pauseButton.style.display = isPlaying ? 'block' : 'none';
   };
 
   const updateFooterPlayer = (song) => {
@@ -174,50 +195,29 @@ const player = (() => {
     footerPlayerDetails.querySelector('p').textContent = song.artist;
     footerPlayerDetails.querySelector('.player-title-album').textContent = `Playing from: ${song.playlist}`;
     durationDisplay.textContent = formatTime(song.duration_ms);
-    footerPlayer.style.display = 'block';
   };
 
   const formatTime = (ms) => {
     const minutes = Math.floor(ms / 60000);
-    const seconds = Math.floor((ms % 60000) / 1000);
+    const seconds = ((ms % 60000) / 1000).toFixed(0);
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  const playSpecificSong = async (playlist, songIndex) => {
-    if (!spotifyPlayer || !deviceId) {
-      console.error('Player not ready');
-      return;
-    }
-
+  const playSpecificSong = (playlist, songIndex) => {
     currentPlaylist = playlist;
     currentSongIndex = songIndex;
     const song = currentPlaylist[currentSongIndex];
-
-    const token = auth.getStoredToken();
-    try {
-      await fetch('https://api.spotify.com/v1/me/player/play', {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          uris: [song.uri],
-          device_id: deviceId
-        })
-      });
-
-      localStorage.setItem('current_playlist', JSON.stringify(currentPlaylist));
-      localStorage.setItem('current_song_index', JSON.stringify(currentSongIndex));
-    } catch (error) {
-      console.error('Error playing specific song:', error);
-    }
+    updateFooterPlayer(song);
+    playSong();
+    localStorage.setItem('current_playlist', JSON.stringify(currentPlaylist));
+    localStorage.setItem('current_song_index', JSON.stringify(currentSongIndex));
   };
 
   return {
     initializePlayer,
     playSpecificSong,
-    togglePlay
+    playSong,
+    pauseSong
   };
 })();
 
