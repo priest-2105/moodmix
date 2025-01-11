@@ -109,13 +109,37 @@ const player = (() => {
   };
 
   const playSong = async () => {
-    if (!spotifyPlayer) return;
+    if (!spotifyPlayer || currentPlaylist.length === 0) return;
+
+    const song = currentPlaylist[currentSongIndex];
+    const token = auth.getStoredToken();
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
 
     try {
-      await spotifyPlayer.resume();
+      const response = await fetch('https://api.spotify.com/v1/me/player/play', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          uris: [song.preview_url],
+          device_id: deviceId
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       isPlaying = true;
       playButton.style.display = 'none';
       pauseButton.style.display = 'block';
+      localStorage.setItem('current_song_index', JSON.stringify(currentSongIndex));
+      footerPlayer.style.display = 'block';
     } catch (error) {
       console.error('Error playing song:', error);
     }
