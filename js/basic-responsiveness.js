@@ -1,3 +1,5 @@
+import player from './player.js';
+
 // Variables Declarations
 
 const sidebarOpenBtn = document.querySelector('#sidebarOpenBtn');
@@ -60,6 +62,7 @@ playButtons.forEach((playButton, index) => {
   playButton.addEventListener('click', () => {
     playButton.style.display = 'none';  
     pauseButtons[index].style.display = 'block'; 
+    player.playSong();
   });
 });
 
@@ -67,6 +70,7 @@ pauseButtons.forEach((pauseButton, index) => {
   pauseButton.addEventListener('click', () => {
     pauseButton.style.display = 'none';  
     playButtons[index].style.display = 'block'; 
+    player.pauseSong();
   });
 });
 

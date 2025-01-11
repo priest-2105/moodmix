@@ -4,8 +4,8 @@ const player = (() => {
   let currentPlaylist = [];
   let currentSongIndex = 0;
   let isPlaying = false;
-  let audio = new Audio();
   let deviceId = null;
+  let spotifyPlayer = null;
 
   const footerPlayer = document.querySelector('.bottom-music-player');
   const footerPlayerDetails = footerPlayer.querySelector('.bottom-music-player-music-details');
@@ -70,6 +70,41 @@ const player = (() => {
     }
   };
 
+  window.onSpotifyWebPlaybackSDKReady = () => {
+    const token = auth.getStoredToken();
+    spotifyPlayer = new Spotify.Player({
+      name: 'MoodMix Player',
+      getOAuthToken: cb => { cb(token); },
+      volume: 0.5
+    });
+
+    // Ready
+    spotifyPlayer.addListener('ready', ({ device_id }) => {
+      console.log('Ready with Device ID', device_id);
+      deviceId = device_id;
+    });
+
+    // Not Ready
+    spotifyPlayer.addListener('not_ready', ({ device_id }) => {
+      console.log('Device ID has gone offline', device_id);
+    });
+
+    // Player state changed
+    spotifyPlayer.addListener('player_state_changed', state => {
+      if (!state) {
+        console.error('User is not playing music through the Web Playback SDK');
+        return;
+      }
+
+      const current_track = state.track_window.current_track;
+      console.log('Currently Playing', current_track);
+      updateFooterPlayer(current_track);
+    });
+
+    // Connect to the player!
+    spotifyPlayer.connect();
+  };
+
   const playSong = async () => {
     if (currentPlaylist.length === 0 || !deviceId) return;
     const song = currentPlaylist[currentSongIndex];
@@ -111,24 +146,10 @@ const player = (() => {
   };
 
   const pauseSong = async () => {
-    const token = auth.getStoredToken();
-    if (!token) {
-      console.error('No token found');
-      return;
-    }
+    if (!spotifyPlayer) return;
 
     try {
-      const response = await fetch('https://api.spotify.com/v1/me/player/pause', {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
+      await spotifyPlayer.pause();
       isPlaying = false;
       playButton.style.display = 'block';
       pauseButton.style.display = 'none';
@@ -184,7 +205,9 @@ const player = (() => {
 
   return {
     initializePlayer,
-    playSpecificSong
+    playSpecificSong,
+    playSong,
+    pauseSong
   };
 })();
 
