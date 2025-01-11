@@ -34,8 +34,7 @@ const player = (() => {
     pauseButton.addEventListener('click', pauseSong);
     nextButton.addEventListener('click', playNextSong);
     prevButton.addEventListener('click', playPrevSong);
-    audio.addEventListener('timeupdate', updateProgress);
-    audio.addEventListener('ended', playNextSong);
+    progressBar.addEventListener('input', seekSong);
 
     await getActiveDevice();
   };
@@ -102,44 +101,21 @@ const player = (() => {
     });
 
     // Connect to the player!
-    spotifyPlayer.connect();
+    spotifyPlayer.connect().then(success => {
+      if (success) {
+        console.log('The Web Playback SDK successfully connected to Spotify!');
+      }
+    });
   };
 
   const playSong = async () => {
-    if (currentPlaylist.length === 0 || !deviceId) return;
-    const song = currentPlaylist[currentSongIndex];
-    const token = auth.getStoredToken();
-    if (!token) {
-      console.error('No token found');
-      return;
-    }
-
-    console.log('Token:', token); // Log the token for debugging
+    if (!spotifyPlayer) return;
 
     try {
-      const response = await fetch('https://api.spotify.com/v1/me/player/play', {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          uris: [song.preview_url],
-          device_id: deviceId
-        })
-      });
-
-      console.log('Response status:', response.status); // Log the response status for debugging
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
+      await spotifyPlayer.resume();
       isPlaying = true;
       playButton.style.display = 'none';
       pauseButton.style.display = 'block';
-      localStorage.setItem('current_song_index', JSON.stringify(currentSongIndex));
-      footerPlayer.style.display = 'block';
     } catch (error) {
       console.error('Error playing song:', error);
     }
@@ -158,18 +134,35 @@ const player = (() => {
     }
   };
 
-  const playNextSong = () => {
-    currentSongIndex = (currentSongIndex + 1) % currentPlaylist.length;
-    const song = currentPlaylist[currentSongIndex];
-    updateFooterPlayer(song);
-    playSong();
+  const playNextSong = async () => {
+    if (!spotifyPlayer) return;
+
+    try {
+      await spotifyPlayer.nextTrack();
+    } catch (error) {
+      console.error('Error playing next song:', error);
+    }
   };
 
-  const playPrevSong = () => {
-    currentSongIndex = (currentSongIndex - 1 + currentPlaylist.length) % currentPlaylist.length;
-    const song = currentPlaylist[currentSongIndex];
-    updateFooterPlayer(song);
-    playSong();
+  const playPrevSong = async () => {
+    if (!spotifyPlayer) return;
+
+    try {
+      await spotifyPlayer.previousTrack();
+    } catch (error) {
+      console.error('Error playing previous song:', error);
+    }
+  };
+
+  const seekSong = async (event) => {
+    if (!spotifyPlayer) return;
+
+    const position = event.target.value;
+    try {
+      await spotifyPlayer.seek(position);
+    } catch (error) {
+      console.error('Error seeking song:', error);
+    }
   };
 
   const updateFooterPlayer = (song) => {
@@ -178,13 +171,6 @@ const player = (() => {
     footerPlayerDetails.querySelector('p').textContent = song.artist;
     footerPlayerDetails.querySelector('.player-title-album').textContent = `Playing from: ${song.playlist}`;
     durationDisplay.textContent = formatTime(song.duration_ms);
-  };
-
-  const updateProgress = () => {
-    const currentTime = audio.currentTime;
-    const duration = audio.duration;
-    progressBar.value = (currentTime / duration) * 100;
-    currentTimeDisplay.textContent = formatTime(currentTime * 1000);
   };
 
   const formatTime = (ms) => {
