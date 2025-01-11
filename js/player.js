@@ -1,8 +1,11 @@
+import auth from './auth.js';
+
 const player = (() => {
   let currentPlaylist = [];
   let currentSongIndex = 0;
   let isPlaying = false;
   let audio = new Audio();
+  let deviceId = null;
 
   const footerPlayer = document.querySelector('.bottom-music-player');
   const footerPlayerDetails = footerPlayer.querySelector('.bottom-music-player-music-details');
@@ -15,7 +18,7 @@ const player = (() => {
   const currentTimeDisplay = footerPlayerControls.querySelector('.bottom-music-player-music-player-controls-inner-bottom p:first-child');
   const durationDisplay = footerPlayerControls.querySelector('.bottom-music-player-music-player-controls-inner-bottom p:last-child');
 
-  const initializePlayer = () => {
+  const initializePlayer = async () => {
     const storedPlaylist = JSON.parse(localStorage.getItem('current_playlist'));
     const storedSongIndex = JSON.parse(localStorage.getItem('current_song_index'));
     if (storedPlaylist && storedSongIndex !== null) {
@@ -33,25 +36,105 @@ const player = (() => {
     prevButton.addEventListener('click', playPrevSong);
     audio.addEventListener('timeupdate', updateProgress);
     audio.addEventListener('ended', playNextSong);
+
+    await getActiveDevice();
   };
 
-  const playSong = () => {
-    if (currentPlaylist.length === 0) return;
+  const getActiveDevice = async () => {
+    const token = auth.getStoredToken();
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    try {
+      const response = await fetch('https://api.spotify.com/v1/me/player/devices', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.devices && data.devices.length > 0) {
+        deviceId = data.devices[0].id;
+        console.log('Active device ID:', deviceId);
+      } else {
+        console.error('No active devices found');
+      }
+    } catch (error) {
+      console.error('Error fetching devices:', error);
+    }
+  };
+
+  const playSong = async () => {
+    if (currentPlaylist.length === 0 || !deviceId) return;
     const song = currentPlaylist[currentSongIndex];
-    audio.src = song.preview_url;
-    audio.play();
-    isPlaying = true;
-    playButton.style.display = 'none';
-    pauseButton.style.display = 'block';
-    localStorage.setItem('current_song_index', JSON.stringify(currentSongIndex));
-    footerPlayer.style.display = 'block';
+    const token = auth.getStoredToken();
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    console.log('Token:', token); // Log the token for debugging
+
+    try {
+      const response = await fetch('https://api.spotify.com/v1/me/player/play', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          uris: [song.preview_url],
+          device_id: deviceId
+        })
+      });
+
+      console.log('Response status:', response.status); // Log the response status for debugging
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      isPlaying = true;
+      playButton.style.display = 'none';
+      pauseButton.style.display = 'block';
+      localStorage.setItem('current_song_index', JSON.stringify(currentSongIndex));
+      footerPlayer.style.display = 'block';
+    } catch (error) {
+      console.error('Error playing song:', error);
+    }
   };
 
-  const pauseSong = () => {
-    audio.pause();
-    isPlaying = false;
-    playButton.style.display = 'block';
-    pauseButton.style.display = 'none';
+  const pauseSong = async () => {
+    const token = auth.getStoredToken();
+    if (!token) {
+      console.error('No token found');
+      return;
+    }
+
+    try {
+      const response = await fetch('https://api.spotify.com/v1/me/player/pause', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      isPlaying = false;
+      playButton.style.display = 'block';
+      pauseButton.style.display = 'none';
+    } catch (error) {
+      console.error('Error pausing song:', error);
+    }
   };
 
   const playNextSong = () => {
