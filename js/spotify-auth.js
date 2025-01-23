@@ -3,7 +3,7 @@ let redirectUri;
 
 async function fetchSpotifyCredentials() {
   try {
-    const response = await fetch('http://localhost:5501/api/spotify-credentials'); // Update the URL to include the correct server port
+    const response = await fetch('http://localhost:3050/api/spotify-credentials'); // Update the URL to include the correct server port
     const data = await response.json();
     clientId = data.clientId;
     redirectUri = data.redirectUri;
