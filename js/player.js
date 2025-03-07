@@ -30,14 +30,13 @@ const player = (() => {
       footerPlayer.style.display = 'none';
     }
 
-    playButton.addEventListener('click', () => playSong(deviceId));
+    playButton.addEventListener('click', playSong);
     pauseButton.addEventListener('click', pauseSong);
     nextButton.addEventListener('click', playNextSong);
     prevButton.addEventListener('click', playPrevSong);
     progressBar.addEventListener('input', seekSong);
 
     await getActiveDevice();
-    initializeSpotifyPlayer();
   };
 
   const getActiveDevice = async () => {
@@ -70,51 +69,46 @@ const player = (() => {
     }
   };
 
-  const initializeSpotifyPlayer = () => {
-    window.onSpotifyWebPlaybackSDKReady = () => {
-      const token = auth.getStoredToken();
-      spotifyPlayer = new Spotify.Player({
-        name: 'MoodMix Player',
-        getOAuthToken: cb => { cb(token); },
-        volume: 0.5
-      });
+  window.onSpotifyWebPlaybackSDKReady = () => {
+    const token = auth.getStoredToken();
+    spotifyPlayer = new Spotify.Player({
+      name: 'MoodMix Player',
+      getOAuthToken: cb => { cb(token); },
+      volume: 0.5
+    });
 
-      // Ready
-      spotifyPlayer.addListener('ready', ({ device_id }) => {
-        console.log('Ready with Device ID', device_id);
-        deviceId = device_id;
-      });
+    // Ready
+    spotifyPlayer.addListener('ready', ({ device_id }) => {
+      console.log('Ready with Device ID', device_id);
+      deviceId = device_id;
+    });
 
-      // Not Ready
-      spotifyPlayer.addListener('not_ready', ({ device_id }) => {
-        console.log('Device ID has gone offline', device_id);
-      });
+    // Not Ready
+    spotifyPlayer.addListener('not_ready', ({ device_id }) => {
+      console.log('Device ID has gone offline', device_id);
+    });
 
-      // Player state changed
-      spotifyPlayer.addListener('player_state_changed', state => {
-        if (!state) {
-          console.error('User is not playing music through the Web Playback SDK');
-          return;
-        }
+    // Player state changed
+    spotifyPlayer.addListener('player_state_changed', state => {
+      if (!state) {
+        console.error('User is not playing music through the Web Playback SDK');
+        return;
+      }
 
-        const current_track = state.track_window.current_track;
-        console.log('Currently Playing', current_track);
-        updateFooterPlayer(current_track);
-        isPlaying = !state.paused;
-        playButton.style.display = state.paused ? 'block' : 'none';
-        pauseButton.style.display = state.paused ? 'none' : 'block';
-      });
+      const current_track = state.track_window.current_track;
+      console.log('Currently Playing', current_track);
+      updateFooterPlayer(current_track);
+    });
 
-      // Connect to the player!
-      spotifyPlayer.connect().then(success => {
-        if (success) {
-          console.log('The Web Playback SDK successfully connected to Spotify!');
-        }
-      });
-    };
+    // Connect to the player!
+    spotifyPlayer.connect().then(success => {
+      if (success) {
+        console.log('The Web Playback SDK successfully connected to Spotify!');
+      }
+    });
   };
 
-  const playSong = async (device_id) => {
+  const playSong = async () => {
     if (!spotifyPlayer || currentPlaylist.length === 0) return;
 
     const song = currentPlaylist[currentSongIndex];
@@ -124,15 +118,18 @@ const player = (() => {
       return;
     }
 
-    console.log('Token:', token); // Log the token for debugging
-    console.log('Playing song:', song); // Log the song for debugging
-
     try {
-      const response = await fetch(`http://localhost:3050/play?uri=${song.preview_url}`, {
-        method: 'GET'
+      const response = await fetch('https://api.spotify.com/v1/me/player/play', {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          uris: [song.preview_url],
+          device_id: deviceId
+        })
       });
-
-      console.log('Response status:', response.status); // Log the response status for debugging
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -211,7 +208,7 @@ const player = (() => {
     currentSongIndex = songIndex;
     const song = currentPlaylist[currentSongIndex];
     updateFooterPlayer(song);
-    playSong(deviceId);
+    playSong();
     localStorage.setItem('current_playlist', JSON.stringify(currentPlaylist));
     localStorage.setItem('current_song_index', JSON.stringify(currentSongIndex));
   };
