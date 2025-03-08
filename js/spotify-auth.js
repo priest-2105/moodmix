@@ -3,12 +3,11 @@ let redirectUri;
 
 async function fetchSpotifyCredentials() {
   try {
-    const response = await fetch('http://localhost:3050/api/spotify-credentials'); // Update the URL to include the correct server port
+    const response = await fetch('http://localhost:5500/api/spotify-credentials');
     const data = await response.json();
     clientId = data.clientId;
     redirectUri = data.redirectUri;
-    console.log('Fetched clientId:', clientId); 
-    console.log('Fetched redirectUri:', redirectUri); 
+    console.log('Fetched credentials:', clientId, redirectUri);
   } catch (error) {
     console.error('Error fetching Spotify credentials:', error);
   }
